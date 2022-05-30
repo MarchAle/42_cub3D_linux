@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/24 14:29:31 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:12:31 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
+
+# include <stdlib.h>
 
 typedef struct s_mdata
 {
