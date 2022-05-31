@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/30 11:12:31 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:42:47 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define CUB_H
 
 # include <stdlib.h>
+
+# define BORDER_ERR 0
+# define CHAR_ERR 3
+# define PLAYER_ERR 4
 
 typedef struct s_mdata
 {
@@ -26,10 +30,17 @@ typedef struct s_mdata
     int     C[3];
 }   t_mdata;
 
+typedef struct s_player
+{
+    char    direction;
+    int     x;
+    int     y;
+}   t_player;
 
 typedef struct s_cub
 {
     struct s_mdata  *mdata;
+    struct s_player *player;
     char            **map;
 }   t_cub;
 
