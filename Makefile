@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/05/30 16:11:03 by dvallien         ###   ########.fr        #
+#    Updated: 2022/05/31 16:51:46 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME := cub3D
 LIB := ./libft/libft.a
 
 DIR_SRCS := ./SRCS
-LST_SRCS := main.c
+LST_SRCS := main.c			\
+			parse_map.c 	\
+			error.c 		\
 			
 			
 DIR_OBJS := ./.OBJS

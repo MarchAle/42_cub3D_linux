@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:45:53 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/31 13:50:23 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/31 16:54:02 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    ft_check_char(char c, int x, int y, t_cub *cub)
 {
-    static  nb_player = 0;
+    static  int  nb_player = 0;
 
     if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
         ft_parse_error(CHAR_ERR);
@@ -63,12 +63,12 @@ void    ft_parse_map(t_cub *cub)
     int y;
 
     y = 0;
-    cub->player->direction = NULL;
+    cub->player->direction = '\0';
     while (map[y])
     {
         ft_check_line(map[y], y, map, cub);
         y++;
     }
-    if (cub->player->direction == NULL)
+    if (cub->player->direction == '\0')
         ft_parse_error(PLAYER_ERR); // if there is no player, return error
 }

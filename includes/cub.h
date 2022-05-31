@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/31 16:48:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:01:40 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define BORDER_ERR 0
 # define FILE_ERR 1
 # define INPUT_ERR 2
+# define INPUT_ERR_TEST 5
 # define CHAR_ERR 3
 # define PLAYER_ERR 4
 
@@ -58,5 +59,11 @@ void	ft_get_path_texture(char *texture, char **tmp_line);
 void	ft_open_texture(char *dir);
 void	ft_check_colors(t_cub *cub, char **tmp_line);
 void	ft_get_colors(char **colors);
+
+void    ft_parse_error(int type);
+void    ft_check_char(char c, int x, int y, t_cub *cub);
+void    ft_check_border(char **map, int x, int y);
+void    ft_check_line(char *line, int y, char **map, t_cub *cub);
+void    ft_parse_map(t_cub *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/31 16:48:27 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:35:59 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,29 @@ int main(int ac, char **av)
 	if (!cub)
 		exit(EXIT_FAILURE);
 	ft_init_struct(cub);
-	ft_parse_file(av, cub);
+	ft_parse_file(av[1], cub);
 	ft_parse_map(cub);
 }
+
+void	ft_init_struct(t_cub *cub)
+{
+	t_mdata     *mdata;
+    t_player    *player;
+
+    mdata = malloc(sizeof(t_mdata));
+    player = malloc(sizeof(t_player));
+    if (!mdata)
+     exit(EXIT_FAILURE);
+    cub->mdata = mdata;
+    cub->player = player;
+	cub->mdata->NO = NULL;
+	cub->mdata->SO = NULL;
+	cub->mdata->EA = NULL;
+	cub->mdata->WE = NULL;
+	cub->mdata->F = NULL;
+	cub->mdata->C = NULL;
+}
+
 void	ft_parse_file(char *file, t_cub *cub)
 {
 	int	fd_file;
@@ -57,10 +77,18 @@ void	ft_init_map(t_cub *cub, int fd)
 	line = get_next_line(fd);
 	while(line)
 	{
-		tmp_line = ft_split(line, ' ');
-		if (tmp_line && ft_strlen2d(tmp_line) != 2)
-			ft_parse_error(INPUT_ERR);
-		ft_get_param(cub, tmp_line);
+		if (ft_params(cub)) // je vérifie si j'ai recupere tous les param dans la struct cud->mdata
+		{
+			tmp_line = ft_split(line, ' ');
+			if (tmp_line && ft_strlen2d(tmp_line) != 2 && ft_strlen(line))
+				ft_parse_error(INPUT_ERR);
+			ft_get_param(cub, tmp_line);
+			// free tmp_line;
+		}
+		else
+		{
+			// ft_je_cree_la_map_2d(line)
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -102,8 +130,9 @@ void	ft_get_param(t_cub *cub, char **tmp_line)
 
 void	ft_open_texture(char *dir)
 {
-	if (open(dir, O_RDONLY) == -1)
-		ft_parse_error(INPUT_ERR);
+	(void)dir;
+	// if (open(dir, O_RDONLY) == -1)
+	// 	ft_parse_error(INPUT_ERR_TEST);
 }
 
 void	ft_check_colors(t_cub *cub, char **tmp_line)
