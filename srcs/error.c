@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:41:03 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/01 13:08:53 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:41:27 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void    ft_parse_error(int type)
         ft_putstr_fd("Error : file error\n", 2);
     if (type == INPUT_ERR)
         ft_putstr_fd("Error : invalid input\n", 2);
+    if (type == EXT_ERR)
+        ft_putstr_fd("Error : invalid file extension\n", 2);
     if (type == BORDER_ERR)
         ft_putstr_fd("Error : map is not closed\n", 2);
     if (type == CHAR_ERR)
