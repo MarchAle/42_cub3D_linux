@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/01 11:29:00 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:06:47 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
-# define BORDER_ERR 0
-# define FILE_ERR 1
-# define INPUT_ERR 2
-# define INPUT_ERR_TEST 5
+# define FILE_ERR 0
+# define INPUT_ERR 1
+# define BORDER_ERR 2
 # define CHAR_ERR 3
 # define PLAYER_ERR 4
 

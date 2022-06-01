@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:45:53 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/31 16:54:02 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:05:21 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void    ft_check_char(char c, int x, int y, t_cub *cub)
 
 void    ft_check_border(char **map, int x, int y)
 {
-    if (!map[y][x - 1] || map[y][x - 1] == ' ')
+    if (!map[y][x - 1] || map[y][x - 1] == ' ' || map[y][x - 1] == '\n')
         ft_parse_error(BORDER_ERR);
-    if (!map[y][x + 1] || map[y][x + 1] == ' ')
+    if (!map[y][x + 1] || map[y][x + 1] == ' ' || map[y][x + 1] == '\n')
         ft_parse_error(BORDER_ERR);
-    if (!map[y - 1][x] || map[y - 1][x] == ' ')
+    if (!map[y - 1] || !map[y - 1][x] || map[y - 1][x] == ' ' || map[y - 1][x] == '\n')
         ft_parse_error(BORDER_ERR);
-    if (!map[y + 1][x] || map[y + 1][x] == ' ')
+    if (!map[y + 1] || !map[y + 1][x] || map[y + 1][x] == ' ' || map[y + 1][x] == '\n')
         ft_parse_error(BORDER_ERR);
 }
 
@@ -47,7 +47,7 @@ void    ft_check_line(char *line, int y, char **map, t_cub *cub)
     int x;
 
     x = 0;
-    while (line[x])
+    while (line[x] && line[x] != '\n') // 
     {
         if (line[x] != '1' && line[x] != ' ')
             ft_check_border(map, x, y);
