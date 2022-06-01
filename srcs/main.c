@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/31 17:35:59 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:28:49 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->WE = NULL;
 	cub->mdata->F = NULL;
 	cub->mdata->C = NULL;
+	cub->map = NULL;
 }
 
 void	ft_parse_file(char *file, t_cub *cub)
@@ -58,7 +59,7 @@ void	ft_parse_file(char *file, t_cub *cub)
 		ft_parse_error(FILE_ERR);
 		exit(EXIT_FAILURE);
 	}
-	ft_init_map(cub, fd_file);
+	ft_get_lines(cub, fd_file);
 	if (close(fd_file) == -1)
 	{
 		ft_parse_error(FILE_ERR);
@@ -66,18 +67,15 @@ void	ft_parse_file(char *file, t_cub *cub)
 	}	
 }
 
-void	ft_init_map(t_cub *cub, int fd)
+void	ft_get_lines(t_cub *cub, int fd)
 {
-	int		i;
 	char	*line;
 	char	**tmp_line;
-	(void)cub;
 
-	i = 0;
 	line = get_next_line(fd);
 	while(line)
 	{
-		if (ft_params(cub)) // je vérifie si j'ai recupere tous les param dans la struct cud->mdata
+		if (ft_all_params(cub) == 1)
 		{
 			tmp_line = ft_split(line, ' ');
 			if (tmp_line && ft_strlen2d(tmp_line) != 2 && ft_strlen(line))
@@ -87,11 +85,38 @@ void	ft_init_map(t_cub *cub, int fd)
 		}
 		else
 		{
-			// ft_je_cree_la_map_2d(line)
+			ft_build_map(cub, line);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
+}
+
+void	ft_build_map(t_cub *cub, char *line)
+{
+	int		i;
+	char	**tmp_map;
+
+	i = 0;
+	tmp_map = malloc(sizeof(char *) * (ft_strlen2d(cub->map) + 2));
+	while(cub->map && cub->map[i])
+	{
+		tmp_map[i] = cub->map[i];
+		i++;
+	}
+	tmp_map[i] = ft_strdup(line);
+	tmp_map[i + 1] = 0;
+	cub->map = tmp_map;
+}
+
+int	ft_all_params(t_cub *cub)
+{
+	if (cub->mdata->NO == NULL || cub->mdata->SO == NULL || cub->mdata->EA == NULL \
+		|| cub->mdata->WE == NULL || cub->mdata->F == NULL || cub->mdata->C == NULL)
+	{
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_get_param(t_cub *cub, char **tmp_line)
