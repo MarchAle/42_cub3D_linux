@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/01 11:29:00 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:07:59 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 # define BORDER_ERR 0
 # define FILE_ERR 1
 # define INPUT_ERR 2
-# define INPUT_ERR_TEST 5
 # define CHAR_ERR 3
 # define PLAYER_ERR 4
+# define INPUT_ERR_TEST 5
+# define EXT_ERR 6
 
 typedef struct s_mdata
 {
@@ -61,6 +62,9 @@ void	ft_check_colors(t_cub *cub, char **tmp_line);
 void	ft_get_colors(char **colors);
 int     ft_all_params(t_cub *cub);
 void	ft_build_map(t_cub *cub, char *line);
+void	ft_empty_file(char *line);
+void	ft_go_end_map(char *map_cub);
+void	ft_check_ext(char *map_cub, int i);
 
 void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);

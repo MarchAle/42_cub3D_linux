@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:34:16 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/01 11:36:24 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:45:41 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_get_lines(t_cub *cub, int fd)
 	char	**tmp_line;
 
 	line = get_next_line(fd);
+	ft_empty_file(line);
 	while(line)
 	{
 		if (ft_all_params(cub) == 1)
@@ -47,9 +48,7 @@ void	ft_get_lines(t_cub *cub, int fd)
 			// free tmp_line;
 		}
 		else
-		{
 			ft_build_map(cub, line);
-		}
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -81,3 +80,5 @@ int	ft_all_params(t_cub *cub)
 	}
 	return (0);
 }
+
+

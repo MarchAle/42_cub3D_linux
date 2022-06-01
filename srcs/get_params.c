@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:35:57 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/01 11:36:17 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:37:41 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ft_get_param(t_cub *cub, char **tmp_line)
 
 void	ft_open_texture(char *dir)
 {
-	(void)dir;
-	// if (open(dir, O_RDONLY) == -1)
-	// 	ft_parse_error(INPUT_ERR_TEST);
+	// (void)dir;
+	if (open(dir, O_RDONLY) == -1)
+		ft_parse_error(INPUT_ERR_TEST);
 }
 
 void	ft_check_colors(t_cub *cub, char **tmp_line)
