@@ -6,14 +6,14 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/02 15:41:00 by amarchal         ###   ########.fr        #
+#    Updated: 2022/06/02 16:29:15 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := cub3D
 LIB := ./libft/libft.a
 
-LIBMLX = ./mlx/libmlx.a ./libmlx.dylib
+LIBMLX = ./mlx/libmlx.a ./mlx_2/libmlx.dylib
 
 DIR_SRCS := ./SRCS
 LST_SRCS := main.c			\
@@ -50,6 +50,7 @@ minilibx:
 		@make -C ./mlx_2
 
 $(NAME) : $(OBJS) $(LIBMLX) $(LIB)
+		@cp mlx_2/libmlx.dylib .
 		$(CC) $(OBJS) $(LIB) $(LIBMLX) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
