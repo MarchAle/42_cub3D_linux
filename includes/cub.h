@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/02 14:27:24 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:15:20 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 # define CHAR_ERR 4
 # define PLAYER_ERR 5
 # define INPUT_ERR_TEST 6
+
+typedef struct	s_img 
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
 
 typedef struct s_mdata
 {
