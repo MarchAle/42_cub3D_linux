@@ -1,0 +1,23 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/dvallien/Documents/cube3d_git_Al'
+make -C ./libft
+make -C ./mlx
+make -C ./mlx_2
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/main.c -o .OBJS/main.o
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/parse_map.c -o .OBJS/parse_map.o
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/parse_file.c -o .OBJS/parse_file.o
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/get_params.c -o .OBJS/get_params.o
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/game.c -o .OBJS/game.o
+mkdir -p ./.OBJS
+gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/error.c -o .OBJS/error.o
+cp ./mlx_2/libmlx.dylib .
+gcc ./.OBJS/main.o ./.OBJS/parse_map.o ./.OBJS/parse_file.o ./.OBJS/get_params.o ./.OBJS/game.o ./.OBJS/error.o ./libft/libft.a ./mlx/libmlx.a ./mlx_2/libmlx.dylib -Lmlx -lmlx -framework OpenGL -framework AppKit -o cub3D
+printf "\033[0;32mCompilation has succeeded !\033[0m\n"
+printf "\033[0;32mProject is ready to run !\033[0m\n"
+make: Leaving directory `/Users/dvallien/Documents/cube3d_git_Al'
+ 
