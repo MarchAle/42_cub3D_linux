@@ -11,12 +11,13 @@ C_SRC= mlx_xpm.c mlx_png.c mlx_string_put.c
 C_OBJ=$(C_SRC:.c=.o)
 CFLAGS=-O3
 
-NAME=libmlx.dylib
+NAME=../libmlx.dylib
 
 INC=-I.
 #OPTI=-Ounchecked
 
 all: $(NAME)
+		@printf "\033[0;32mMlx2 is set !\033[0m\n"
 
 $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
 	swiftc $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz

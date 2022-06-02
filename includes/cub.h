@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/01 14:04:30 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:27:24 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include "../mlx/mlx.h"
+# include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
 
 # define FILE_ERR 0
@@ -29,7 +31,7 @@
 
 typedef struct s_mdata
 {
-    // int     screen[2];
+    int     screen[2];
     char    *NO;
     char    *SO;
     char    *EA;
@@ -45,10 +47,19 @@ typedef struct s_player
     int     y;
 }   t_player;
 
+typedef struct s_mlx
+{
+    void	*mlx;
+	void	*win;
+	int		width[1];
+	int		height[1];
+}   t_mlx;
+
 typedef struct s_cub
 {
     struct s_mdata  *mdata;
     struct s_player *player;
+    struct s_mlx    *mlx;
     char            **map;
 }   t_cub;
 
@@ -72,5 +83,7 @@ void    ft_check_char(char c, int x, int y, t_cub *cub);
 void    ft_check_border(char **map, int x, int y);
 void    ft_check_line(char *line, int y, char **map, t_cub *cub);
 void    ft_parse_map(t_cub *cub);
+
+void    ft_start_game(t_cub *cub);
 
 #endif

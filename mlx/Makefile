@@ -9,16 +9,18 @@ OBJ=$(OBJ1:.m=.o)
 CFLAGS+=-O2
 
 # add to match string put with X11 in size and position
-CFLAGS+= -DSTRINGPUTX11
+CFLAGS+= -DSTRINGPUTX11 -w
 
 all: $(NOM)
+		@printf "\033[0;32mMlx is set !\033[0m\n"
 
 $(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+		ar -r $(NOM) $(OBJ)
+		ranlib $(NOM)
 
 clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+		@rm -f $(NOM) $(OBJ) *~
+		@rm -f mlx_app
+		@printf "\033[0;33mMlx's objects deleted\033[0m\n"
 
 re: clean all

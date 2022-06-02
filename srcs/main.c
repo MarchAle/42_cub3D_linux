@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/01 12:08:40 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:24:08 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,23 @@ int main(int ac, char **av)
 	ft_init_struct(cub);
 	ft_parse_file(av[1], cub);
 	ft_parse_map(cub);
+	ft_start_game(cub);
 }
 
 void	ft_init_struct(t_cub *cub)
 {
-	t_mdata     *mdata;
-    t_player    *player;
+	t_mdata		*mdata;
+    t_player	*player;
+    t_mlx		*mlx;
 
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
-    if (!mdata)
-     exit(EXIT_FAILURE);
+    mlx = malloc(sizeof(t_mlx));
+    if (!mdata || !player || !mlx)
+		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
+	cub->mlx = mlx;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;
