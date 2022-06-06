@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/02 16:29:15 by amarchal         ###   ########.fr        #
+#    Updated: 2022/06/04 16:54:18 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LST_SRCS := main.c			\
 			parse_file.c	\
 			get_params.c 	\
 			game.c			\
+			key_hook.c		\
 			error.c 		\
 			
 			

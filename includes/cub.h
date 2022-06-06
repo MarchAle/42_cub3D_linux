@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/02 18:15:20 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/06 10:22:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <math.h>
 # include "../mlx/mlx.h"
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
@@ -40,20 +41,22 @@ typedef struct	s_img
 
 typedef struct s_mdata
 {
-    int     screen[2];
-    char    *NO;
-    char    *SO;
-    char    *EA;
-    char    *WE;
-    char    **F;
-    char    **C;
+    int		screen[2];
+    char	*NO;
+    char	*SO;
+    char	*EA;
+    char	*WE;
+    char	**F;
+    char	**C;
 }   t_mdata;
 
 typedef struct s_player
 {
-    char    direction;
-    int     x;
-    int     y;
+    char	direction;
+    float	x;
+    float	y;
+    float	offset_x;
+    float	offset_y;
 }   t_player;
 
 typedef struct s_mlx
@@ -94,5 +97,9 @@ void    ft_check_line(char *line, int y, char **map, t_cub *cub);
 void    ft_parse_map(t_cub *cub);
 
 void    ft_start_game(t_cub *cub);
+void    ft_print_map(t_cub *cub);
+int		key_hook(int keycode, t_cub *cub);
+
+int		ft_exit(t_cub *cub);
 
 #endif
