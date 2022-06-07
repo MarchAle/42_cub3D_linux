@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/06 10:34:46 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:44:04 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,16 @@ float   ft_raycast(int i, t_cub *cub)
     float   dist;
     float   angle;
     
-    angle = (60 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i;
-    
+    angle = cub->player->orientation + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i);
+    // cub->player->dist_to_y = sqrtf(pow(-cub->player->offset_y, 2) + pow(-cub->player->offset_y / tan(angle), 2));
+    // cub->player->dist_to_x = sqrtf(pow(-cub->player->offset_x, 2) + pow(-cub->player->offset_x * tan(angle), 2));
+    dist = ft_dist_to_wall(cub, angle);
+    printf("angle : %f ", angle);
+    if (cub->player->dist_to_y < cub->player->dist_to_x)
+        printf("y ");
+    else
+        printf("x ");
+    printf("%f\n", dist);
     return (dist);
 }
 
@@ -110,12 +118,20 @@ void    ft_print_view(t_cub *cub)
     while (i < cub->mdata->screen[0])
     {
         dist = ft_raycast(i, cub);
-        i++;
+        // i++;
+        i += 10;
     }
 }
 
 void    ft_start_game(t_cub *cub)
 {
+    ///
+    // cub->player->orientation = M_PI;        // Look south
+    // cub->player->orientation = M_PI / 4;        // Look North-East
+    // cub->player->orientation = M_PI / 2;     // Look West
+    // cub->player->orientation = - M_PI / 2;     // Look West
+    cub->player->orientation = 0.0;          // Look north
+    ///
     ft_mlx_init(cub);
     // ft_print_map(cub);
     ft_print_view(cub);

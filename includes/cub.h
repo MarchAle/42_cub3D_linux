@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/06 10:22:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:11:13 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ typedef struct s_mdata
 typedef struct s_player
 {
     char	direction;
+    float   orientation;
     float	x;
     float	y;
     float	offset_x;
     float	offset_y;
+    float	dist_to_x;
+    float	dist_to_y;
 }   t_player;
 
 typedef struct s_mlx
@@ -99,6 +102,15 @@ void    ft_parse_map(t_cub *cub);
 void    ft_start_game(t_cub *cub);
 void    ft_print_map(t_cub *cub);
 int		key_hook(int keycode, t_cub *cub);
+
+float   ft_dist_to_wall(t_cub *cub, float angle);
+void    ft_nearest_wall_x(t_cub *cub, float angle, float *shortest_dist);
+void    ft_nearest_wall_y(t_cub *cub, float angle, float *shortest_dist);
+void    ft_nearest_north_wall_x(t_cub *cub, float angle, float *shortest_dist);
+void    ft_nearest_south_wall_x(t_cub *cub, float angle, float *shortest_dist);
+void    ft_nearest_north_wall_y(t_cub *cub, float angle, float *shortest_dist);
+void    ft_nearest_south_wall_y(t_cub *cub, float angle, float *shortest_dist);
+
 
 int		ft_exit(t_cub *cub);
 

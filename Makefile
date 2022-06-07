@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/04 16:54:18 by amarchal         ###   ########.fr        #
+#    Updated: 2022/06/06 16:13:46 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,15 @@ LIB := ./libft/libft.a
 LIBMLX = ./mlx/libmlx.a ./mlx_2/libmlx.dylib
 
 DIR_SRCS := ./SRCS
-LST_SRCS := main.c			\
-			parse_map.c 	\
-			parse_file.c	\
-			get_params.c 	\
-			game.c			\
-			key_hook.c		\
-			error.c 		\
+LST_SRCS := main.c					\
+			parse_map.c 			\
+			parse_file.c			\
+			get_params.c 			\
+			game.c					\
+			key_hook.c				\
+			dist_to_wall.c			\
+			dist_to_wall_utils.c	\
+			error.c 				\
 			
 			
 DIR_OBJS := ./.OBJS
