@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/06 17:44:04 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:41:37 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,40 @@ void    ft_print_map(t_cub *cub)
 float   ft_raycast(int i, t_cub *cub)
 {
     float   dist;
-    float   angle;
+    t_ray	*ray;
     
-    angle = cub->player->orientation + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i);
-    // cub->player->dist_to_y = sqrtf(pow(-cub->player->offset_y, 2) + pow(-cub->player->offset_y / tan(angle), 2));
-    // cub->player->dist_to_x = sqrtf(pow(-cub->player->offset_x, 2) + pow(-cub->player->offset_x * tan(angle), 2));
-    dist = ft_dist_to_wall(cub, angle);
-    printf("angle : %f ", angle);
-    if (cub->player->dist_to_y < cub->player->dist_to_x)
+    ///////////// reinitialiser les offset
+    cub->player->offset_x = 0.5;
+    cub->player->offset_y = 0.5;
+    /////////////
+    
+	ray = malloc(sizeof(t_ray));
+	if (!ray)
+		exit(EXIT_FAILURE);
+    cub->ray = ray;
+    cub->ray->angle = (cub->player->orientation + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
+	if (cub->ray->angle >= M_PI)
+		cub->ray->direction = SW;
+	else if (cub->ray->angle >= M_PI / 2 && cub->ray->angle <= M_PI)
+		cub->ray->direction = NW;
+	else if (cub->ray->angle >= 0 && cub->ray->angle <= M_PI / 2)
+		cub->ray->direction = NE;
+	else if (cub->ray->angle > - M_PI / 2 && cub->ray->angle <= 0)
+		cub->ray->direction = SE;
+	else if (cub->ray->angle > - M_PI && cub->ray->angle <= - M_PI / 2)
+		cub->ray->direction = SW;
+
+	///////////////////////////// Ramène angle à une valeur positive et comprise entre 0 (0deg) et PI / 2 (90deg)
+	if (cub->ray->angle < 0)
+		cub->ray->angle *= -1;
+	while (cub->ray->angle > M_PI / 2)
+        cub->ray->angle -= M_PI;
+    if (cub->ray->angle < 0)
+		cub->ray->angle *= -1;
+	//////////////////////////////
+    
+    dist = ft_dist_to_wall(cub);
+    if (cub->ray->dist_to_y < cub->ray->dist_to_x)
         printf("y ");
     else
         printf("x ");
@@ -119,18 +145,19 @@ void    ft_print_view(t_cub *cub)
     {
         dist = ft_raycast(i, cub);
         // i++;
-        i += 10;
+        i += 20;
     }
 }
 
 void    ft_start_game(t_cub *cub)
 {
     ///
-    // cub->player->orientation = M_PI;        // Look south
-    // cub->player->orientation = M_PI / 4;        // Look North-East
-    // cub->player->orientation = M_PI / 2;     // Look West
-    // cub->player->orientation = - M_PI / 2;     // Look West
-    cub->player->orientation = 0.0;          // Look north
+    // cub->player->orientation = M_PI / 2;     	// Look north
+    cub->player->orientation = 0.0;          	// Look east
+    // cub->player->orientation = - M_PI / 2;     	// Look south
+    // cub->player->orientation = M_PI;        		// Look west
+	
+    // cub->player->orientation = M_PI / 4;       	// Look North-East
     ///
     ft_mlx_init(cub);
     // ft_print_map(cub);
