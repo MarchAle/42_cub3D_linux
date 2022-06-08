@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/06 16:11:13 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:31:52 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # define PLAYER_ERR 5
 # define INPUT_ERR_TEST 6
 
+# define NW 1
+# define NE 2
+# define SW 3
+# define SE 4
+
 typedef struct	s_img 
 {
 	void	*img;
@@ -50,6 +55,15 @@ typedef struct s_mdata
     char	**C;
 }   t_mdata;
 
+typedef struct s_ray
+{
+    int     direction;
+    float   angle;
+    float	dist_to_x;
+    float	dist_to_y;
+    int     hit_wall;
+}   t_ray;
+
 typedef struct s_player
 {
     char	direction;
@@ -58,8 +72,6 @@ typedef struct s_player
     float	y;
     float	offset_x;
     float	offset_y;
-    float	dist_to_x;
-    float	dist_to_y;
 }   t_player;
 
 typedef struct s_mlx
@@ -74,6 +86,7 @@ typedef struct s_cub
 {
     struct s_mdata  *mdata;
     struct s_player *player;
+    struct s_ray    *ray;
     struct s_mlx    *mlx;
     char            **map;
 }   t_cub;
@@ -103,13 +116,13 @@ void    ft_start_game(t_cub *cub);
 void    ft_print_map(t_cub *cub);
 int		key_hook(int keycode, t_cub *cub);
 
-float   ft_dist_to_wall(t_cub *cub, float angle);
-void    ft_nearest_wall_x(t_cub *cub, float angle, float *shortest_dist);
-void    ft_nearest_wall_y(t_cub *cub, float angle, float *shortest_dist);
-void    ft_nearest_north_wall_x(t_cub *cub, float angle, float *shortest_dist);
-void    ft_nearest_south_wall_x(t_cub *cub, float angle, float *shortest_dist);
-void    ft_nearest_north_wall_y(t_cub *cub, float angle, float *shortest_dist);
-void    ft_nearest_south_wall_y(t_cub *cub, float angle, float *shortest_dist);
+float   ft_dist_to_wall(t_cub *cub);
+void    ft_nearest_wall_x(t_cub *cub, float *shortest_dist);
+void    ft_nearest_wall_y(t_cub *cub, float *shortest_dist);
+void    ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist);
+void    ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist);
+void    ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist);
+void    ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
 
 
 int		ft_exit(t_cub *cub);
