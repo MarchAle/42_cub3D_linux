@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/02 14:24:08 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:57:17 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int ac, char **av)
 	
     if (ac != 2)
 		ft_parse_error(INPUT_ERR);
-	ft_go_end_map(av[1]);
+	ft_check_extension(av[1]);
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
 		exit(EXIT_FAILURE);
@@ -33,11 +33,13 @@ void	ft_init_struct(t_cub *cub)
 	t_mdata		*mdata;
     t_player	*player;
     t_mlx		*mlx;
+	t_ray		*ray;
 
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
+	ray = malloc(sizeof(t_ray));
     mlx = malloc(sizeof(t_mlx));
-    if (!mdata || !player || !mlx)
+    if (!mdata || !player || !mlx || !ray)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
@@ -57,18 +59,13 @@ void	ft_empty_file(char *line)
 		ft_parse_error(INPUT_ERR);
 }
 
-void	ft_go_end_map(char *map_cub)
+void	ft_check_extension(char *map_cub)
 {
 	int	i;
 
 	i = 0;
 	while (map_cub[i])
 		i++;
-	ft_check_ext(map_cub, i);
-}
-
-void	ft_check_ext(char *map_cub, int i)
-{
 	i--;
 	if (map_cub[i--] != 'b')
 		ft_parse_error(EXT_ERR);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/08 11:31:52 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:28:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ typedef struct s_mdata
 
 typedef struct s_ray
 {
-    int     direction;
+    int     direction; //mercredi
+    float   wall_height; //mercredi
+    
     float   angle;
     float	dist_to_x;
     float	dist_to_y;
@@ -66,6 +68,7 @@ typedef struct s_ray
 
 typedef struct s_player
 {
+    float   dist;
     char	direction;
     float   orientation;
     float	x;
@@ -103,8 +106,12 @@ void	ft_get_colors(char **colors);
 int     ft_all_params(t_cub *cub);
 void	ft_build_map(t_cub *cub, char *line);
 void	ft_empty_file(char *line);
-void	ft_go_end_map(char *map_cub);
-void	ft_check_ext(char *map_cub, int i);
+void	ft_check_extension(char *map_cub);
+
+void    ft_mlx_init(t_cub *cub);
+void    ft_print_img(t_cub *cub);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void    ft_draw_wall(t_cub *cub); // mercredi
 
 void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);
@@ -113,6 +120,10 @@ void    ft_check_line(char *line, int y, char **map, t_cub *cub);
 void    ft_parse_map(t_cub *cub);
 
 void    ft_start_game(t_cub *cub);
+void    ft_print_view(t_cub *cub);
+float   ft_raycast(int i, t_cub *cub);
+void    ft_get_direction(t_cub *cub);
+void    ft_positive_angle(t_cub *cub);
 void    ft_print_map(t_cub *cub);
 int		key_hook(int keycode, t_cub *cub);
 

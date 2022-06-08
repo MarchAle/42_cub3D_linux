@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/06 16:13:46 by amarchal         ###   ########.fr        #
+#    Updated: 2022/06/08 14:13:55 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LST_SRCS := main.c					\
 			parse_file.c			\
 			get_params.c 			\
 			game.c					\
+			raycasting.c 			\
 			key_hook.c				\
 			dist_to_wall.c			\
 			dist_to_wall_utils.c	\
