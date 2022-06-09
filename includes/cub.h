@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/08 17:28:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:06:44 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_mdata
 
 typedef struct s_ray
 {
+    float   x;
+    float   y;
     int     direction; //mercredi
     float   wall_height; //mercredi
     
@@ -87,6 +89,9 @@ typedef struct s_mlx
 
 typedef struct s_cub
 {
+    /////
+    struct s_img    *img;
+    /////
     struct s_mdata  *mdata;
     struct s_player *player;
     struct s_ray    *ray;
@@ -111,7 +116,7 @@ void	ft_check_extension(char *map_cub);
 void    ft_mlx_init(t_cub *cub);
 void    ft_print_img(t_cub *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    ft_draw_wall(t_cub *cub); // mercredi
+void    ft_draw_wall(t_cub *cub, float dist);
 
 void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);

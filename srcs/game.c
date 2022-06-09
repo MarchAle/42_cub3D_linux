@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/08 17:16:18 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:18:12 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,39 +33,16 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void    ft_print_img(t_cub *cub)
-{
-    int x = 0;
-    int y = 0;
-    t_img   img;
-
-    img.img = mlx_new_image(cub->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    while (x < cub->mdata->screen[0])
-    {
-        y = 0;
-        while (y < cub->mdata->screen[1])
-        {
-            // mlx_pixel_put(cub->mlx->mlx, cub->mlx->win, x, y, 9653533 - (x * y / 5));
-            if (y == (cub->mdata->screen[1] / 2) + x*2)
-                my_mlx_pixel_put(&img, x, y, 0x0000FF);
-            if (y == (cub->mdata->screen[1] / 2) - x*2)
-                my_mlx_pixel_put(&img, x, y, 9653533);
-            y++;
-        }
-        x++;
-    }
-    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, img.img, 0, 0);
-}
-
 void    ft_print_map(t_cub *cub) // MINI MAP 2D
 {
     int x = 0;
     int y = 0;
-    t_img   img;
+    t_img   *img;
 
-    img.img = mlx_new_image(cub->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    img = malloc(sizeof(t_img));
+    cub->img = img;
+    cub->img->img = mlx_new_image(cub->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
+    cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
     while (x < (int)ft_strlen(cub->map[1]) * 100)
     {
         y = 0;
@@ -73,19 +50,20 @@ void    ft_print_map(t_cub *cub) // MINI MAP 2D
         {
             if (cub->map[y / 100][x / 100] == '1')
             {
-                my_mlx_pixel_put(&img, x, y, 9653533);
+                my_mlx_pixel_put(cub->img, x, y, 9653533);
             }
             if (cub->map[y / 100][x / 100] == '0' || cub->map[y / 100][x / 100] == 'N')
             {
-                my_mlx_pixel_put(&img, x, y, 8653533);
+                my_mlx_pixel_put(cub->img, x, y, 8653533);
             }
             if (x >= cub->player->x * 100 - 10 && x <= cub->player->x * 100 + 10 && y >= cub->player->y * 100 - 10 && y <= cub->player->y * 100 + 10)
             {
-                my_mlx_pixel_put(&img, x, y, 7653533);   
+                my_mlx_pixel_put(cub->img, x, y, 7653533);   
             }
             y++;
         }
         x++;
     }
-    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, img.img, 0, 0);
+    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, img.img, 0, 0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/08 16:57:17 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:14:28 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ void	ft_init_struct(t_cub *cub)
 	t_mdata		*mdata;
     t_player	*player;
     t_mlx		*mlx;
-	t_ray		*ray;
 
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
-	ray = malloc(sizeof(t_ray));
     mlx = malloc(sizeof(t_mlx));
-    if (!mdata || !player || !mlx || !ray)
+    if (!mdata || !player || !mlx)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
