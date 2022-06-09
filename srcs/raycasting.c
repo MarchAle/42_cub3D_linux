@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/09 15:44:11 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:36:02 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
 
 void    ft_print_view(t_cub *cub)
 {
@@ -36,7 +35,6 @@ void    ft_print_view(t_cub *cub)
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 }
 
-    ///////////////// CALCUL HAUTEURS MURS /////////////////////////////
 void    ft_draw_wall(t_cub *cub, float dist, int i)
 {
     int j;
@@ -63,7 +61,6 @@ void    ft_draw_wall(t_cub *cub, float dist, int i)
         // j += 5;
     }
 }
-////////////////////////////////////////////////////////////////////
 
 float   ft_raycast(int i, t_cub *cub)
 {
