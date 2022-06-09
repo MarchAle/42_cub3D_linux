@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 11:14:28 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:37:05 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,20 @@ void	ft_check_extension(char *map_cub)
 		ft_parse_error(EXT_ERR);
 	if (map_cub[i--] != '.')
 		ft_parse_error(EXT_ERR);
+}
+
+void    ft_start_game(t_cub *cub)
+{
+    cub->player->orientation = M_PI * 0.5;     	// Look north
+    // cub->player->orientation = 0.0;         		// Look east
+    // cub->player->orientation = - M_PI * 0.5;     	// Look south
+    // cub->player->orientation = M_PI;        		// Look west
+    // cub->player->orientation = M_PI * 0.25;       	// Look North-East
+    ft_mlx_init(cub);
+    // ft_print_map(cub); // MINI-MAP
+    ft_print_view(cub);
+    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
+	mlx_hook(cub->mlx->win, 2, 0, key_hook, cub);
+    mlx_loop(cub->mlx->mlx);
 }

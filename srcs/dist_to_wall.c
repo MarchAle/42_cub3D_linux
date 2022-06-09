@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dist_to_wall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/08 17:08:27 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:37:18 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ float   ft_dist_to_wall(t_cub *cub)
         cub->ray->dist_to_x = 999999;
         if (cub->ray->angle != 0)
             cub->ray->dist_to_y = sqrtf(pow(cub->player->offset_y, 2) + pow(cub->player->offset_y / tan(cub->ray->angle), 2));
-        if (cub->ray->angle != M_PI / 2)
+        if (cub->ray->angle != M_PI * 0.5)
             cub->ray->dist_to_x = sqrtf(pow(cub->player->offset_x, 2) + pow(cub->player->offset_x * tan(cub->ray->angle), 2));
         if (cub->ray->dist_to_y < cub->ray->dist_to_x)
             ft_nearest_wall_y(cub, &shortest_dist);

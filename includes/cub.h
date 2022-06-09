@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 11:06:44 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:51:28 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ typedef struct s_mdata
 
 typedef struct s_ray
 {
+    /////
     float   x;
     float   y;
+    float   mem_angle;
+    /////
     int     direction; //mercredi
     float   wall_height; //mercredi
     
@@ -116,7 +119,7 @@ void	ft_check_extension(char *map_cub);
 void    ft_mlx_init(t_cub *cub);
 void    ft_print_img(t_cub *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    ft_draw_wall(t_cub *cub, float dist);
+void    ft_draw_wall(t_cub *cub, float dist, int i);
 
 void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);

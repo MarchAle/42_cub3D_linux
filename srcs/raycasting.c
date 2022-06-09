@@ -3,65 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/09 11:18:20 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:44:11 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void    ft_start_game(t_cub *cub)
-{
-    cub->player->orientation = M_PI / 2;     	// Look north
-    // cub->player->orientation = 0.0;         		// Look east
-    // cub->player->orientation = - M_PI / 2;     	// Look south
-    // cub->player->orientation = M_PI;        		// Look west
-    // cub->player->orientation = M_PI / 4;       	// Look North-East
-    ft_mlx_init(cub);
-    ft_print_map(cub); // MINI-MAP
-    ft_print_view(cub);
-    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
-	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
-	mlx_hook(cub->mlx->win, 2, 0, key_hook, cub);
-    mlx_loop(cub->mlx->mlx);
-}
 
 void    ft_print_view(t_cub *cub)
 {
     int     i;
     float   dist;
+    t_img   *img;
 
+	// if (cub->img)
+    // 	mlx_destroy_image(cub->mlx, cub->img);
+    img = malloc(sizeof(t_img));
+    cub->img = img;
+    cub->img->img = mlx_new_image(cub->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
+    cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
     i = 0;
     while (i < cub->mdata->screen[0])
     {
-        dist = ft_raycast(i, cub);
-        // ft_draw_wall(cub, dist);
-        i += 20;
+        dist = ft_raycast(i, cub) * sin(cub->ray->angle);
+        ft_draw_wall(cub, dist, i);
+        // i += 5;
+        i++;
     }
+    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 }
 
     ///////////////// CALCUL HAUTEURS MURS /////////////////////////////
-void    ft_draw_wall(t_cub *cub, float dist)
+void    ft_draw_wall(t_cub *cub, float dist, int i)
 {
+    int j;
 
-    if (dist == 0) // si mur juste a cote hauteur calculee par rapport a x
+    cub->ray->wall_height = (1 / dist) * cub->mdata->screen[1];
+    j = 0;
+    while (j < cub->mdata->screen[1])
     {
-        // sidedistx = distance jusque premiere intersection x
-        // delta dist x = distance entre deux intersection de x
-        // sidedist y = dist jusque premiere inter y
-        // deltadist y = dist entre deux intersections y
-        // hauteur mur = sidedistx - deltadistx // pareil avec y
-        cub->ray->wall_height = cub->ray->dist_to_x - cub->player->offset_x;
-        printf("wall_height x = %f\n", cub->ray->wall_height);
+        if (j < cub->mdata->screen[1] * 0.5)
+        {
+            if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
+                my_mlx_pixel_put(cub->img, i, j, 9653533);
+            else
+                my_mlx_pixel_put(cub->img, i, j, 8653533);
+        }
+        else
+        {
+            if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
+                my_mlx_pixel_put(cub->img, i, j, 9653533);
+            else
+                my_mlx_pixel_put(cub->img, i, j, 7653533);    
+        }
+        j++;
+        // j += 5;
     }
-    else // si mur est loin hauteur calculee p/r a y
-    {
-        cub->ray->wall_height = cub->ray->dist_to_y - cub->player->offset_y;
-        printf("wall_height y = %f\n", cub->ray->wall_height);
-    }
-    // y = ((cub->mdata->screen[1] / 2) - cub->ray->wall_height / 2);
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -70,28 +70,44 @@ float   ft_raycast(int i, t_cub *cub)
     float   dist;
     t_ray	*ray;
     
-    ///////////// reinitialiser les offset
-    cub->player->offset_x = 0.5;
-    cub->player->offset_y = 0.5;
-    /////////////
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		exit(EXIT_FAILURE);
     cub->ray = ray;
     cub->ray->angle = (cub->player->orientation + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
+    cub->ray->mem_angle = cub->ray->angle;
 	ft_get_direction(cub);
     ft_positive_angle(cub);
+    
+    ///////////// reinitialiser les offset
+    cub->player->offset_x = cub->player->x - floor(cub->player->x);
+    if (cub->ray->direction == NE || cub->ray->direction == SE)
+        cub->player->offset_x = 1 - cub->player->offset_x;
+    cub->player->offset_y = cub->player->y - floor(cub->player->y);
+    if (cub->ray->direction == SW || cub->ray->direction == SE)
+        cub->player->offset_y = 1 - cub->player->offset_y;
+    /////////////
+    
     dist = ft_dist_to_wall(cub);
-    if (cub->ray->dist_to_y < cub->ray->dist_to_x)
-        printf("y ");
-    else
-        printf("x ");
-    printf("%f\n", dist);
-    //////////////
-    cub->ray->x = cub->player->x + dist * cos(cub->ray->angle);
-    cub->ray->y = cub->player->y + dist * sin(cub->ray->angle);
-    printf(" x : %f | y : %f\n", cub->ray->x, cub->ray->y);
-    my_mlx_pixel_put(cub->img, cub->ray->x * 100, cub->ray->y * 100, 7653533);
+    // if (cub->ray->dist_to_y < cub->ray->dist_to_x)
+    //     printf("y ");
+    // else
+    //     printf("x ");
+    // printf("%f\n", dist);
+    ////////////// affiche rayons
+    // float tmp_dist = 0;
+    // while (tmp_dist < dist)
+    // {
+    //     cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->mem_angle);
+    //     cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->mem_angle);
+    //     my_mlx_pixel_put(cub->img, cub->ray->x * 100, cub->ray->y * 100, 0x00FF0000);
+    //     tmp_dist += 0.01;
+    // }
+    
+    // cub->ray->x = cub->player->x + dist * cos(cub->ray->mem_angle);
+    // cub->ray->y = cub->player->y - dist * sin(cub->ray->mem_angle);
+    // my_mlx_pixel_put(cub->img, cub->ray->x * 100, cub->ray->y * 100, 0x00FF0000);
+    // printf(" x : %f | y : %f\n", cub->ray->x, cub->ray->y);
     /////////////
     return (dist);
 }
@@ -100,21 +116,21 @@ void    ft_get_direction(t_cub *cub)
 {
     if (cub->ray->angle >= M_PI)
 		cub->ray->direction = SW;
-	else if (cub->ray->angle >= M_PI / 2 && cub->ray->angle <= M_PI)
+	else if (cub->ray->angle >= M_PI * 0.5 && cub->ray->angle <= M_PI)
 		cub->ray->direction = NW;
-	else if (cub->ray->angle >= 0 && cub->ray->angle <= M_PI / 2)
+	else if (cub->ray->angle >= 0 && cub->ray->angle <= M_PI * 0.5)
 		cub->ray->direction = NE;
-	else if (cub->ray->angle > - M_PI / 2 && cub->ray->angle <= 0)
+	else if (cub->ray->angle > - M_PI * 0.5 && cub->ray->angle <= 0)
 		cub->ray->direction = SE;
-	else if (cub->ray->angle > - M_PI && cub->ray->angle <= - M_PI / 2)
+	else if (cub->ray->angle > - M_PI && cub->ray->angle <= - M_PI * 0.5)
 		cub->ray->direction = SW;
 }
 
-void    ft_positive_angle(t_cub *cub) // Ramène angle à une valeur positive et comprise entre 0 (0deg) et PI / 2 (90deg)
+void    ft_positive_angle(t_cub *cub) // Ramène angle à une valeur positive et comprise entre 0 (0deg) et PI * 0.5 (90deg)
 {
 	if (cub->ray->angle < 0)
 		cub->ray->angle *= -1;
-	while (cub->ray->angle > M_PI / 2)
+	while (cub->ray->angle > M_PI * 0.5)
         cub->ray->angle -= M_PI;
     if (cub->ray->angle < 0)
 		cub->ray->angle *= -1;
