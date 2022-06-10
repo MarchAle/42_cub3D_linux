@@ -12,7 +12,6 @@ mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/parse_file.c -o .OBJS/parse_file.o
 mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/get_params.c -o .OBJS/get_params.o
- 
 mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/game.c -o .OBJS/game.o
 mkdir -p ./.OBJS
@@ -21,6 +20,7 @@ mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/key_hook.c -o .OBJS/key_hook.o
 mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/dist_to_wall.c -o .OBJS/dist_to_wall.o
+ 
 mkdir -p ./.OBJS
 gcc -Wall -Wextra -Werror -Imlx -I ./INCLUDES/cub.h -c SRCS/dist_to_wall_utils.c -o .OBJS/dist_to_wall_utils.o
 mkdir -p ./.OBJS
