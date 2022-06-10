@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 11:18:12 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:45:21 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,30 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void    ft_print_map(t_cub *cub) // MINI MAP 2D
+void    ft_mini_map(t_cub *cub) // MINI MAP 2D
 {
-    int x = 0;
-    int y = 0;
-    t_img   *img;
-
-    img = malloc(sizeof(t_img));
-    cub->img = img;
-    cub->img->img = mlx_new_image(cub->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
-    cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
-    while (x < (int)ft_strlen(cub->map[1]) * 100)
+    int x;
+    int y;
+    int i;
+    
+    x = 0;
+    while (x < (int)ft_strlen(cub->map[1]) * 25)
     {
         y = 0;
-        while (y < (int)ft_strlen2d(cub->map) * 100)
+        while (y < (int)ft_strlen2d(cub->map) * 25)
         {
-            if (cub->map[y / 100][x / 100] == '1')
-            {
-                my_mlx_pixel_put(cub->img, x, y, 9653533);
-            }
-            if (cub->map[y / 100][x / 100] == '0' || cub->map[y / 100][x / 100] == 'N')
-            {
-                my_mlx_pixel_put(cub->img, x, y, 8653533);
-            }
-            if (x >= cub->player->x * 100 - 10 && x <= cub->player->x * 100 + 10 && y >= cub->player->y * 100 - 10 && y <= cub->player->y * 100 + 10)
-            {
-                my_mlx_pixel_put(cub->img, x, y, 7653533);   
-            }
+            if (cub->map[y / 25][x / 25] == '1')
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 10653533);
+            if (cub->map[y / 25][x / 25] == '0' || cub->map[y / 25][x / 25] == 'N'
+                || cub->map[y / 25][x / 25] == 'S' || cub->map[y / 25][x / 25] == 'E'
+                || cub->map[y / 25][x / 25] == 'W')
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 8653533);
             y++;
         }
         x++;
     }
-    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, img.img, 0, 0);
+    i = cub->mdata->screen[0];
+    while (i-- > 0)
+        ft_raycast(i, cub, TRUE);
 }
 

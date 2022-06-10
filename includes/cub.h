@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 17:23:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:46:48 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include "../mlx/mlx.h"
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
+
+# define FALSE 0
+# define TRUE 1
 
 # define FILE_ERR 0
 # define INPUT_ERR 1
@@ -65,11 +68,9 @@ typedef struct s_ray
     /////
     float   x;
     float   y;
-    float   mem_angle;
     /////
-    int     direction; //mercredi
-    float   wall_height; //mercredi
-    
+    int     direction;
+    float   wall_height;
     float   angle;
     float	dist_to_x;
     float	dist_to_y;
@@ -106,6 +107,7 @@ typedef struct s_cub
     struct s_ray    *ray;
     struct s_mlx    *mlx;
     char            **map;
+    int             minimap;
 }   t_cub;
 
 int     main(int ac, char **av);
@@ -135,10 +137,9 @@ void    ft_parse_map(t_cub *cub);
 
 void    ft_start_game(t_cub *cub);
 void    ft_print_view(t_cub *cub);
-float   ft_raycast(int i, t_cub *cub);
+float   ft_raycast(int i, t_cub *cub, int print_ray);
 void    ft_get_direction(t_cub *cub);
-void    ft_positive_angle(t_cub *cub);
-void    ft_print_map(t_cub *cub);
+void    ft_mini_map(t_cub *cub);
 int		key_hook(int keycode, t_cub *cub);
 
 float   ft_dist_to_wall(t_cub *cub);

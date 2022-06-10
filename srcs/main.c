@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 13:53:51 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:50:05 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,18 @@ void	ft_init_struct(t_cub *cub)
 	t_mdata		*mdata;
     t_player	*player;
     t_mlx		*mlx;
-
+	t_ray	*ray;
+    
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
     mlx = malloc(sizeof(t_mlx));
-    if (!mdata || !player || !mlx)
+	ray = malloc(sizeof(t_ray));
+    if (!mdata || !player || !mlx || !ray)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
 	cub->mlx = mlx;
+    cub->ray = ray;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;
@@ -75,15 +78,23 @@ void	ft_check_extension(char *map_cub)
 		ft_parse_error(EXT_ERR);
 }
 
+void	ft_init_orientation(t_cub *cub)
+{
+	if (cub->player->direction == 'N')
+		cub->player->orientation = M_PI * 0.5;
+	if (cub->player->direction == 'E')
+		cub->player->orientation = 0;
+	if (cub->player->direction == 'S')
+		cub->player->orientation = - M_PI * 0.5;
+	if (cub->player->direction == 'W')
+		cub->player->orientation = M_PI;
+}
+
 void    ft_start_game(t_cub *cub)
 {
-    // cub->player->orientation = M_PI * 0.5;     	// Look north
-    // cub->player->orientation = 0.0;         		// Look east
-    // cub->player->orientation = - M_PI * 0.5;     	// Look south
-    // cub->player->orientation = M_PI;        		// Look west
-    cub->player->orientation = M_PI * 0.25;       	// Look North-East
+	ft_init_orientation(cub);
     ft_mlx_init(cub);
-    // ft_print_map(cub); // MINI-MAP
+	cub->minimap = -1;
     ft_print_view(cub);
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:45:53 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/06 13:27:50 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:25:24 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void    ft_check_char(char c, int x, int y, t_cub *cub)
         cub->player->direction = c;
         cub->player->x = x + 0.5;
         cub->player->y = y + 0.5;
-        cub->player->offset_x = 0.5;
-        cub->player->offset_y = 0.5;
         if (nb_player == 0)
             nb_player++;
         else

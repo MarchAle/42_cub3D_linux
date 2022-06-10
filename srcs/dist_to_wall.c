@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 11:52:58 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:21:21 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void    ft_nearest_wall_y(t_cub *cub, float *shortest_dist)
 {
     if (cub->ray->direction == NW || cub->ray->direction == NE)   // si angle vers le NORD
         ft_nearest_north_wall_y(cub, shortest_dist);
-    else                                                        // si angle vers le SUD
+    else                                              // si angle vers le SUD     
         ft_nearest_south_wall_y(cub, shortest_dist);
 }
 
