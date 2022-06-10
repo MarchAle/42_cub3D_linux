@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 14:51:28 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:23:05 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 # define NE 2
 # define SW 3
 # define SE 4
+
+# define N 1
+# define E 2
+# define S 3
+# define W 4
 
 typedef struct	s_img 
 {
@@ -69,6 +74,7 @@ typedef struct s_ray
     float	dist_to_x;
     float	dist_to_y;
     int     hit_wall;
+    int     wall_orientation;
 }   t_ray;
 
 typedef struct s_player
