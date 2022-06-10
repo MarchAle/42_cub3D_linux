@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 15:37:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:02:20 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	ft_check_extension(char *map_cub)
 
 void    ft_start_game(t_cub *cub)
 {
-    cub->player->orientation = M_PI * 0.5;     	// Look north
+    // cub->player->orientation = M_PI * 0.5;     	// Look north
     // cub->player->orientation = 0.0;         		// Look east
     // cub->player->orientation = - M_PI * 0.5;     	// Look south
     // cub->player->orientation = M_PI;        		// Look west
-    // cub->player->orientation = M_PI * 0.25;       	// Look North-East
+    cub->player->orientation = M_PI * 0.25;       	// Look North-East
     ft_mlx_init(cub);
     // ft_print_map(cub); // MINI-MAP
     ft_print_view(cub);

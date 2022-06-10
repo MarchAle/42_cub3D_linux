@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/09 15:44:11 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:01:33 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,26 @@ void    ft_print_view(t_cub *cub)
     i = 0;
     while (i < cub->mdata->screen[0])
     {
-        dist = ft_raycast(i, cub) * sin(cub->ray->angle);
+        dist = ft_raycast(i, cub) * (sin(cub->ray->angle) + cos(cub->ray->angle)); //  
+        // if (cub->ray->wall_orientation == N || cub->ray->wall_orientation == S)
+        //     dist *= sin(cub->ray->angle);
         ft_draw_wall(cub, dist, i);
         // i += 5;
         i++;
     }
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+}
+
+void    ft_print_texture(t_cub *cub, int i, int j)
+{
+    if (cub->ray->wall_orientation == N)
+        my_mlx_pixel_put(cub->img, i, j, 9653533);
+    else if (cub->ray->wall_orientation == E)
+        my_mlx_pixel_put(cub->img, i, j, 9553533);
+    else if (cub->ray->wall_orientation == S)
+        my_mlx_pixel_put(cub->img, i, j, 9453533);
+    else if (cub->ray->wall_orientation == W)
+        my_mlx_pixel_put(cub->img, i, j, 9353533);
 }
 
     ///////////////// CALCUL HAUTEURS MURS /////////////////////////////
@@ -48,14 +62,14 @@ void    ft_draw_wall(t_cub *cub, float dist, int i)
         if (j < cub->mdata->screen[1] * 0.5)
         {
             if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
-                my_mlx_pixel_put(cub->img, i, j, 9653533);
+                ft_print_texture(cub, i ,j);
             else
                 my_mlx_pixel_put(cub->img, i, j, 8653533);
         }
         else
         {
             if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
-                my_mlx_pixel_put(cub->img, i, j, 9653533);
+                ft_print_texture(cub, i ,j);
             else
                 my_mlx_pixel_put(cub->img, i, j, 7653533);    
         }

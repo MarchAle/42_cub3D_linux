@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:06:14 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 13:40:33 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:36:51 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void    ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_y;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = N;
         }
         else
             cub->player->offset_y++;
@@ -30,6 +31,7 @@ void    ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_y;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = N;
         }
         else
             cub->player->offset_y++;
@@ -44,6 +46,7 @@ void    ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_y;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = S;
         }
         else
             cub->player->offset_y++;
@@ -54,6 +57,7 @@ void    ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_y;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = S;
         }
         else
             cub->player->offset_y++;
@@ -68,6 +72,7 @@ void    ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_x;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = E;
         }
         else
             cub->player->offset_x++;
@@ -78,6 +83,7 @@ void    ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_x;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = W;
         }
         else
             cub->player->offset_x++;
@@ -92,6 +98,7 @@ void    ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_x;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = E;
         }
         else
             cub->player->offset_x++;
@@ -102,6 +109,7 @@ void    ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist)
         {
             *shortest_dist = cub->ray->dist_to_x;
             cub->ray->hit_wall = 1;
+            cub->ray->wall_orientation = W;
         }
         else
             cub->player->offset_x++;

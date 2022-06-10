@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/09 15:44:59 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/10 13:47:10 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	key_hook(int keycode, t_cub *cub)
 {
+	printf("keycode : %d\n", keycode);
     	// mlx_destroy_image(cub->mlx, cub->img);
 	if (keycode == 13)
 	{
