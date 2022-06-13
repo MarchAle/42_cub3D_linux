@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 17:45:21 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:37:03 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void    ft_mini_map(t_cub *cub) // MINI MAP 2D
     int x;
     int y;
     int i;
+    char **wall_color;
+    char **tile_color;
+
+    wall_color = ft_split("79,72,71", ',');
+    tile_color = ft_split("245,228,225", ',');
     
     x = 0;
     while (x < (int)ft_strlen(cub->map[1]) * 25)
@@ -46,11 +51,11 @@ void    ft_mini_map(t_cub *cub) // MINI MAP 2D
         while (y < (int)ft_strlen2d(cub->map) * 25)
         {
             if (cub->map[y / 25][x / 25] == '1')
-                my_mlx_pixel_put(cub->img, x + 50, y + 30, 10653533);
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x4f484773);
             if (cub->map[y / 25][x / 25] == '0' || cub->map[y / 25][x / 25] == 'N'
                 || cub->map[y / 25][x / 25] == 'S' || cub->map[y / 25][x / 25] == 'E'
                 || cub->map[y / 25][x / 25] == 'W')
-                my_mlx_pixel_put(cub->img, x + 50, y + 30, 8653533);
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0xf5e4e173);
             y++;
         }
         x++;

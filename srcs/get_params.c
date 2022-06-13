@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:35:57 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/01 14:25:00 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:42:27 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,15 @@ void	ft_get_colors(char **colors)
 			ft_parse_error(INPUT_ERR);
 		i++;
 	}
+}
+
+int		ft_rgb_to_hex(char **rgb)
+{
+	return ((ft_atoi(rgb[0]) & 0xff) << 16) + ((ft_atoi(rgb[1]) & 0xff) << 8) + (ft_atoi(rgb[2]) & 0xff);
+}
+
+void	ft_convert_colors(t_cub *cub)
+{
+	cub->mdata->c_color = ft_rgb_to_hex(cub->mdata->C);
+	cub->mdata->f_color = ft_rgb_to_hex(cub->mdata->F);
 }

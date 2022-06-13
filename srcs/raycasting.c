@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/10 17:47:01 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/13 15:06:58 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void    ft_print_view(t_cub *cub)
     if (cub->minimap == TRUE)
         ft_mini_map(cub);
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+    mlx_destroy_image(cub->mlx->mlx, cub->img->img);
 }
 
 void    ft_print_texture(t_cub *cub, int i, int j)
@@ -59,14 +60,14 @@ void    ft_draw_wall(t_cub *cub, float dist, int i)
             if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
                 ft_print_texture(cub, i ,j);
             else
-                my_mlx_pixel_put(cub->img, i, j, 8653533);
+                my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
         }
         else
         {
             if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
                 ft_print_texture(cub, i ,j);
             else
-                my_mlx_pixel_put(cub->img, i, j, 7653533);    
+                my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);    
         }
         j++;
     }
@@ -98,12 +99,12 @@ float   ft_raycast(int i, t_cub *cub, int print_ray)
         {
             cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->angle);
             cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->angle);
-            my_mlx_pixel_put(cub->img, cub->ray->x * 25 + 50, cub->ray->y * 25 + 30, 0x00FF0000);
+            my_mlx_pixel_put(cub->img, cub->ray->x * 25 + 50, cub->ray->y * 25 + 30, 0x86f6ff73);
             tmp_dist += 0.01;
         }
         cub->ray->x = cub->player->x + dist * cos(cub->ray->angle);
         cub->ray->y = cub->player->y - dist * sin(cub->ray->angle);
-        my_mlx_pixel_put(cub->img, cub->ray->x * 25 + 50, cub->ray->y * 25 + 30, 0x00FF0000);
+        my_mlx_pixel_put(cub->img, cub->ray->x * 25 + 50, cub->ray->y * 25 + 30, 0x86f6ff73);
     }
     return (dist);
 }

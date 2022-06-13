@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 17:46:48 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:43:15 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ typedef struct s_mdata
     char	*SO;
     char	*EA;
     char	*WE;
-    char	**F;
     char	**C;
+    char	**F;
+    int     c_color;
+    int     f_color;
 }   t_mdata;
 
 typedef struct s_ray
@@ -133,6 +135,8 @@ void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);
 void    ft_check_border(char **map, int x, int y);
 void    ft_check_line(char *line, int y, char **map, t_cub *cub);
+int		ft_rgb_to_hex(char **rgb);
+void	ft_convert_colors(t_cub *cub);
 void    ft_parse_map(t_cub *cub);
 
 void    ft_start_game(t_cub *cub);

@@ -6,35 +6,90 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 17:52:03 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:36:38 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
+void	ft_move_allowed(t_cub *cub, float x, float y)
+{
+	if (cub->map[(int)floor(cub->player->y)][(int)floor(x)] != '1')
+	{
+		if (x - (int)floor(x) >= 0.97 && cub->map[(int)floor(cub->player->y)][(int)floor(x) + 1] == '1')
+			cub->player->x = (int)floor(cub->player->x) + 0.97;
+		else if (x - (int)floor(x) <= 0.03 && cub->map[(int)floor(cub->player->y)][(int)floor(x) - 1] == '1')
+			cub->player->x = (int)floor(cub->player->x) + 0.03;	
+		else
+			cub->player->x = x;
+	}
+	else
+	{
+		if ((int)floor(x) > (int)floor(cub->player->x))
+		{
+			if ((int)floor(cub->player->x) + 0.97 < cub->player->x)
+				cub->player->x = (int)floor(cub->player->x) + 0.97;
+		}
+		else if ((int)floor(x) < (int)floor(cub->player->x))
+		{
+			if ((int)floor(cub->player->x) + 0.03 > cub->player->x)
+				cub->player->x = (int)floor(cub->player->x) + 0.03;	
+		}
+		else
+			cub->player->x = x;
+	}
+	if (cub->map[(int)floor(y)][(int)floor(cub->player->x)] != '1')
+	{
+		if (y - (int)floor(y) >= 0.97 && cub->map[(int)floor(y) + 1][(int)floor(cub->player->x)] == '1') 
+			cub->player->y = (int)floor(cub->player->y) + 0.97;
+		else if (y - (int)floor(y) <= 0.03 && cub->map[(int)floor(y) - 1][(int)floor(cub->player->x)] == '1')
+			cub->player->y = (int)floor(cub->player->y) + 0.03;
+		else	
+			cub->player->y = y;
+	}
+	else
+	{
+		if ((int)floor(y) > (int)floor(cub->player->y))
+		{
+			if ((int)floor(cub->player->y) + 0.97 < cub->player->y)
+				cub->player->y = (int)floor(cub->player->y) + 0.97;
+		}
+		else if ((int)floor(y) < (int)floor(cub->player->y))
+		{
+			if ((int)floor(cub->player->y) + 0.03 > cub->player->y)
+				cub->player->y = (int)floor(cub->player->y) + 0.03;	
+		}
+		else
+			cub->player->y = y;
+	}
+}
 
 void	ft_move_player_south(t_cub *cub)
 {
-	cub->player->x = cub->player->x + 0.05 * cos(cub->player->orientation - M_PI);
-	cub->player->y = cub->player->y - 0.05 * sin(cub->player->orientation - M_PI);
+	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation - M_PI), cub->player->y - 0.03 * sin(cub->player->orientation - M_PI));
+	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation - M_PI);
+	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation - M_PI);
 }
 
 void	ft_move_player_north(t_cub *cub)
 {
-	cub->player->x = cub->player->x + 0.05 * cos(cub->player->orientation);
-	cub->player->y = cub->player->y - 0.05 * sin(cub->player->orientation);
+	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation), cub->player->y - 0.03 * sin(cub->player->orientation));
+	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation);
+	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation);
 }
 
 void	ft_move_player_east(t_cub *cub)
 {
-	cub->player->x = cub->player->x + 0.05 * cos(cub->player->orientation - M_PI * 0.5);
-	cub->player->y = cub->player->y - 0.05 * sin(cub->player->orientation - M_PI * 0.5);
+	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation - M_PI * 0.5), cub->player->y - 0.03 * sin(cub->player->orientation - M_PI * 0.5));
+	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation - M_PI * 0.5);
+	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation - M_PI * 0.5);
 }
 
 void	ft_move_player_west(t_cub *cub)
 {
-	cub->player->x = cub->player->x + 0.05 * cos(cub->player->orientation + M_PI * 0.5);
-	cub->player->y = cub->player->y - 0.05 * sin(cub->player->orientation + M_PI * 0.5);
+	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation + M_PI * 0.5), cub->player->y - 0.03 * sin(cub->player->orientation + M_PI * 0.5));
+	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation + M_PI * 0.5);
+	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation + M_PI * 0.5);
 }
 
 void	ft_move_player(t_cub *cub, int keycode)
@@ -46,20 +101,20 @@ void	ft_move_player(t_cub *cub, int keycode)
 	if (keycode == 0)
 		ft_move_player_west(cub);
 	if (keycode == 2)
-		ft_move_player_east(cub);	
+		ft_move_player_east(cub);
 }
 
 void	ft_move_camera(t_cub *cub, int keycode)
 {
 	if (keycode == 123)
 	{
-		cub->player->orientation += 0.05;
+		cub->player->orientation += 0.03;
 		if (cub->player->orientation > M_PI)
 			cub->player->orientation -= 2 * M_PI;
 	}
 	if (keycode == 124)
 	{
-		cub->player->orientation -= 0.05;
+		cub->player->orientation -= 0.03;
 		if (cub->player->orientation < - M_PI)
 			cub->player->orientation += 2 * M_PI;
 	}
