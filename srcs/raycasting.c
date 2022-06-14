@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/14 13:25:09 by amarchal         ###   ########.fr       */
+=======
+/*   Updated: 2022/06/14 11:02:19 by dvallien         ###   ########.fr       */
+>>>>>>> e17d0e30c5c826a33f724219d8eb6b0415b6018b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +37,6 @@ void    ft_print_view(t_cub *cub)
         ft_mini_map(cub);
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
     mlx_destroy_image(cub->mlx->mlx, cub->img->img);
-}
-
-void    ft_print_texture(t_cub *cub, int i, int j)
-{
-    int j_offset;
-
-    j_offset = j * cub->ray->wall_height / cub->mdata->screen[1];
-    cub->ray->texture_offset_y = j_offset * TEX_HEIGHT;
-    if (cub->ray->wall_orientation == N)
-    {
-        
-        my_mlx_pixel_put(cub->img, i, j, 8553533);
-    }
-    else if (cub->ray->wall_orientation == S)
-        my_mlx_pixel_put(cub->img, i, j, 8453533);
-    else if (cub->ray->wall_orientation == E)
-        my_mlx_pixel_put(cub->img, i, j, 8353533);
-    else if (cub->ray->wall_orientation == W)
-        my_mlx_pixel_put(cub->img, i, j, 8253533);
-}
-
-void    ft_draw_wall(t_cub *cub, float dist, int i)
-{
-    int j;
-
-    cub->ray->wall_height = (1 / dist) * cub->mdata->screen[1];
-    j = 0;
-    while (j < cub->mdata->screen[1])
-    {
-        if (j < cub->mdata->screen[1] * 0.5)
-        {
-            if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
-                ft_print_texture(cub, i ,j);
-            else
-                my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
-        }
-        else
-        {
-            if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
-                ft_print_texture(cub, i ,j);
-            else
-                my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);    
-        }
-        j++;
-    }
 }
 
 void    ft_offset_init(t_cub *cub)

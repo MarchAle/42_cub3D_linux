@@ -8,11 +8,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Fri Jun 10 13:02:58 2022
+# Make data base, printed on Tue Jun 14 11:02:50 2022
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -21,6 +20,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+ 
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
@@ -33,27 +33,27 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 39)
-CFLAGS := -Wall -Wextra -Werror
+# makefile (from `Makefile', line 40)
+CFLAGS := -Wall -Wextra -Werror -O3
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from `Makefile', line 34)
-SRCS := ./SRCS/main.c ./SRCS/parse_map.c ./SRCS/parse_file.c ./SRCS/get_params.c ./SRCS/game.c ./SRCS/raycasting.c ./SRCS/key_hook.c ./SRCS/dist_to_wall.c ./SRCS/dist_to_wall_utils.c ./SRCS/error.c
+# makefile (from `Makefile', line 35)
+SRCS := ./SRCS/main.c ./SRCS/parse_map.c ./SRCS/parse_file.c ./SRCS/get_params.c ./SRCS/game.c ./SRCS/raycasting.c ./SRCS/key_hook.c ./SRCS/dist_to_wall.c ./SRCS/dist_to_wall_utils.c ./SRCS/texture.c ./SRCS/error.c
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 35)
-OBJS := ./.OBJS/main.o ./.OBJS/parse_map.o ./.OBJS/parse_file.o ./.OBJS/get_params.o ./.OBJS/game.o ./.OBJS/raycasting.o ./.OBJS/key_hook.o ./.OBJS/dist_to_wall.o ./.OBJS/dist_to_wall_utils.o ./.OBJS/error.o
+# makefile (from `Makefile', line 36)
+OBJS := ./.OBJS/main.o ./.OBJS/parse_map.o ./.OBJS/parse_file.o ./.OBJS/get_params.o ./.OBJS/game.o ./.OBJS/raycasting.o ./.OBJS/key_hook.o ./.OBJS/dist_to_wall.o ./.OBJS/dist_to_wall_utils.o ./.OBJS/texture.o ./.OBJS/error.o
 # makefile (from `Makefile', line 19)
-LST_SRCS := main.c parse_map.c parse_file.c get_params.c game.c raycasting.c key_hook.c dist_to_wall.c dist_to_wall_utils.c error.c 
+LST_SRCS := main.c parse_map.c parse_file.c get_params.c game.c raycasting.c key_hook.c dist_to_wall.c dist_to_wall_utils.c texture.c error.c 
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000bsyh002ygm/T/vscode-ipc-4d994a6e-ad8f-4596-a880-558538efd297.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000bsyh002ygm/T/vscode-ipc-6bcd2d10-5769-40ea-93c2-17f76fa0ccf4.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.NqbK6BeYvD/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.HpoFf5bHXD/Render
 # environment
 PATH = /Users/dvallien/.brew/bin:/Users/dvallien/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
-# makefile (from `Makefile', line 31)
+# makefile (from `Makefile', line 32)
 DIR_OBJS := ./.OBJS
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
@@ -68,13 +68,13 @@ LIB := ./libft/libft.a
 # makefile (from `Makefile', line 16)
 LIBMLX = ./mlx/libmlx.a ./mlx_2/libmlx.dylib
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3C3Lzyu65G/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.yANAs1UeGA/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 HOMEBREW_TEMP = /tmp/dvallien/Homebrew/Temp
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.jviyPYya0m/org.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.uiNRx3yGcC/org.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -109,7 +109,7 @@ MAKECMDGOALS := all
 HOMEBREW_CACHE = /tmp/dvallien/Homebrew/Caches
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 38)
+# makefile (from `Makefile', line 39)
 CC := gcc
 # makefile (from `Makefile', line 18)
 DIR_SRCS := ./SRCS
@@ -119,7 +119,7 @@ MAKE_VERSION := 3.81
 USER = dvallien
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from `Makefile', line 36)
+# makefile (from `Makefile', line 37)
 INCLUDE := ./INCLUDES/cub.h
 # makefile (from `Makefile', line 13)
 NAME := cub3D
@@ -144,7 +144,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -161,8 +161,8 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
-# makefile (from `Makefile', line 32)
-LST_OBJS := main.o parse_map.o parse_file.o get_params.o game.o raycasting.o key_hook.o dist_to_wall.o dist_to_wall_utils.o error.o
+# makefile (from `Makefile', line 33)
+LST_OBJS := main.o parse_map.o parse_file.o get_params.o game.o raycasting.o key_hook.o dist_to_wall.o dist_to_wall_utils.o texture.o error.o
 # environment
 SECURITYSESSIONID = 186a8
 # automatic
@@ -176,7 +176,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2178
+VSCODE_PID = 69736
 # variable set hash-table stats:
 # Load=82/1024=8%, Rehash=0, Collisions=6/121=5%
 
@@ -186,14 +186,14 @@ VSCODE_PID = 2178
 
 # Directories
 
-# . (device 16777229, inode 2386496): 12 files, no impossibilities.
+# . (device 16777229, inode 2386496): 14 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 .OBJS/%.o: ./SRCS/%.c ./INCLUDES/cub.h
-#  commands to execute (from `Makefile', line 43):
+#  commands to execute (from `Makefile', line 44):
 	@mkdir -p $(DIR_OBJS)
 	$(CC) $(CFLAGS) -Imlx -I $(INCLUDE) -c $< -o $@
 	
@@ -223,20 +223,26 @@ all: libft minilibx cub3D
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/2=0%
-#  commands to execute (from `Makefile', line 47):
+#  commands to execute (from `Makefile', line 48):
 	@printf "\033[0;32mProject is ready to run !\033[0m\n"
 	
+
+# Not a target:
+.OBJS/texture.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 .PHONY: all clean fclean re minilibx libft
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-cub3D: .OBJS/main.o .OBJS/parse_map.o .OBJS/parse_file.o .OBJS/get_params.o .OBJS/game.o .OBJS/raycasting.o .OBJS/key_hook.o .OBJS/dist_to_wall.o .OBJS/dist_to_wall_utils.o .OBJS/error.o mlx/libmlx.a mlx_2/libmlx.dylib libft/libft.a
+cub3D: .OBJS/main.o .OBJS/parse_map.o .OBJS/parse_file.o .OBJS/get_params.o .OBJS/game.o .OBJS/raycasting.o .OBJS/key_hook.o .OBJS/dist_to_wall.o .OBJS/dist_to_wall_utils.o .OBJS/texture.o .OBJS/error.o mlx/libmlx.a mlx_2/libmlx.dylib libft/libft.a
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 57):
+#  commands to execute (from `Makefile', line 58):
 	@cp mlx_2/libmlx.dylib .
 	$(CC) $(OBJS) $(LIB) $(LIBMLX) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
@@ -267,7 +273,7 @@ libft:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
-#  commands to execute (from `Makefile', line 50):
+#  commands to execute (from `Makefile', line 51):
 	@make -C ./libft
 	
 
@@ -275,7 +281,7 @@ DIR_OBJS:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 62):
+#  commands to execute (from `Makefile', line 63):
 	mkdir -p $(DIR_OBJS)
 	
 
@@ -288,7 +294,7 @@ DIR_OBJS:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-09 11:30:07
+#  Last modified 2022-06-14 11:02:46
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -303,11 +309,11 @@ Makefile:
 # Not a target:
 .OBJS/parse_map.o:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
- 
 .OBJS/get_params.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -330,7 +336,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 72):
+#  commands to execute (from `Makefile', line 73):
 	@rm -rf $(NAME)
 	@rm -rf $(LIB)
 	@rm -rf $(LIBMLX)
@@ -352,7 +358,7 @@ minilibx:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 53):
+#  commands to execute (from `Makefile', line 54):
 	@make -C ./mlx
 	@make -C ./mlx_2
 	
@@ -392,7 +398,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 65):
+#  commands to execute (from `Makefile', line 66):
 	@rm -rf $(DIR_OBJS)
 	@make clean -C ./libft
 	@make clean -C ./mlx
@@ -416,13 +422,13 @@ norme:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 84):
+#  commands to execute (from `Makefile', line 85):
 	@printf "\033[36mNorminette :\033[0m\n"
 	norminette $(SRCS) $(INCLUDE) ./libft
 	
 
 # files hash-table stats:
-# Load=26/1024=3%, Rehash=0, Collisions=2/65=3%
+# Load=27/1024=3%, Rehash=0, Collisions=2/67=3%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -434,6 +440,6 @@ norme:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jun 10 13:02:58 2022
+# Finished Make data base on Tue Jun 14 11:02:50 2022
 
  
