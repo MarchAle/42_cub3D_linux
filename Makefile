@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/13 12:04:41 by amarchal         ###   ########.fr        #
+#    Updated: 2022/06/14 11:02:46 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LST_SRCS := main.c					\
 			key_hook.c				\
 			dist_to_wall.c			\
 			dist_to_wall_utils.c	\
+			texture.c 				\
 			error.c 				\
 			
 			

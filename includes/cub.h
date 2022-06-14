@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/13 14:43:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:02:33 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@
 # define N 1
 # define E 2
 # define S 3
-# define W 4
+# define W 4 
+
 
 typedef struct	s_img 
 {
@@ -50,6 +51,9 @@ typedef struct	s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+    void    *texture[4];
+    int     x[1];
+    int     y[1];
 }				t_img;
 
 typedef struct s_mdata
@@ -114,6 +118,7 @@ typedef struct s_cub
 
 int     main(int ac, char **av);
 void	ft_init_struct(t_cub *cub);
+void	ft_init_texture(t_cub *cub);
 void	ft_parse_file(char *file, t_cub *cub);
 void	ft_get_lines(t_cub *cub, int fd);
 void	ft_get_param(t_cub *cub, char **tmp_line);
