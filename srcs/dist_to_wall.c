@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 15:21:21 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:24:32 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ float   ft_dist_to_wall(t_cub *cub)
         else
             ft_nearest_wall_x(cub, &shortest_dist);
     }
+    if (cub->ray->wall_orientation == N || cub->ray->wall_orientation == S)
+        cub->ray->texture_offset_x = sin(cub->ray->angle) * shortest_dist - floor(sin(cub->ray->angle) * shortest_dist - cub->player->offset_x) * TEX_WIDTH;
+    else
+        cub->ray->texture_offset_x = sin(cub->ray->angle) * shortest_dist - floor(sin(cub->ray->angle) * shortest_dist - cub->player->offset_y) * TEX_WIDTH;
     return (shortest_dist);
 }

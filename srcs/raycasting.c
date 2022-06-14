@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/13 15:06:58 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:25:09 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,15 @@ void    ft_print_view(t_cub *cub)
 
 void    ft_print_texture(t_cub *cub, int i, int j)
 {
+    int j_offset;
+
+    j_offset = j * cub->ray->wall_height / cub->mdata->screen[1];
+    cub->ray->texture_offset_y = j_offset * TEX_HEIGHT;
     if (cub->ray->wall_orientation == N)
+    {
+        
         my_mlx_pixel_put(cub->img, i, j, 8553533);
+    }
     else if (cub->ray->wall_orientation == S)
         my_mlx_pixel_put(cub->img, i, j, 8453533);
     else if (cub->ray->wall_orientation == E)

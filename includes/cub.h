@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/13 14:43:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:24:48 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@
 # define S 3
 # define W 4
 
+# define TEX_WIDTH 248
+# define TEX_HEIGHT 248
+
 typedef struct	s_img 
 {
 	void	*img;
@@ -78,6 +81,8 @@ typedef struct s_ray
     float	dist_to_y;
     int     hit_wall;
     int     wall_orientation;
+    float   texture_offset_x;
+    float   texture_offset_y;
 }   t_ray;
 
 typedef struct s_player
