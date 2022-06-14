@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 17:50:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:55:52 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int ac, char **av)
 	if (!cub)
 		exit(EXIT_FAILURE);
 	ft_init_struct(cub);
+	// ft_init_texture(cub);
 	ft_parse_file(av[1], cub);
 	ft_parse_map(cub);
 	ft_start_game(cub);

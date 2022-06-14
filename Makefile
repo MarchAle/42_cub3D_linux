@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/08 14:13:55 by dvallien         ###   ########.fr        #
+#    Updated: 2022/06/13 15:04:30 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LST_SRCS := main.c					\
 			key_hook.c				\
 			dist_to_wall.c			\
 			dist_to_wall_utils.c	\
+			texture.c 				\
 			error.c 				\
 			
 			
@@ -36,7 +37,7 @@ OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
 INCLUDE := ./INCLUDES/cub.h
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -O3
 
 
 $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
