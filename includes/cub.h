@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/14 13:34:20 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:14:53 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,20 @@ typedef struct	s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-    void    *texture[4];
     int     x[1];
     int     y[1];
 }				t_img;
+
+typedef struct  s_texture
+{
+    void    *img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+    int     x[1];
+    int     y[1];
+}	t_texture;
 
 typedef struct s_mdata
 {
@@ -109,15 +119,17 @@ typedef struct s_mlx
 
 typedef struct s_cub
 {
-    /////
-    struct s_img    *img;
-    /////
-    struct s_mdata  *mdata;
-    struct s_player *player;
-    struct s_ray    *ray;
-    struct s_mlx    *mlx;
-    char            **map;
-    int             minimap;
+    struct s_img    	*img;
+    struct s_texture    *north;
+    struct s_texture    *east;
+    struct s_texture    *south;
+    struct s_texture    *west;
+    struct s_mdata  	*mdata;
+    struct s_player 	*player;
+    struct s_ray    	*ray;
+    struct s_mlx    	*mlx;
+    char            	**map;
+    int             	minimap;
 }   t_cub;
 
 int     main(int ac, char **av);

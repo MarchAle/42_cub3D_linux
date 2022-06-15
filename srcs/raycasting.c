@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/14 13:25:09 by amarchal         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/14 11:02:19 by dvallien         ###   ########.fr       */
->>>>>>> e17d0e30c5c826a33f724219d8eb6b0415b6018b
+/*   Updated: 2022/06/15 18:45:40 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +32,7 @@ void    ft_print_view(t_cub *cub)
     if (cub->minimap == TRUE)
         ft_mini_map(cub);
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, &cub->text->texture[0], 248, 248);
     mlx_destroy_image(cub->mlx->mlx, cub->img->img);
 }
 

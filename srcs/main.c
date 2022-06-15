@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/14 11:02:25 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:45:46 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int ac, char **av)
 	if (!cub)
 		exit(EXIT_FAILURE);
 	ft_init_struct(cub);
-	// ft_init_texture(cub);
+	ft_init_texture(cub);
 	ft_parse_file(av[1], cub);
 	ft_convert_colors(cub);
 	ft_parse_map(cub);
@@ -35,18 +35,21 @@ void	ft_init_struct(t_cub *cub)
 	t_mdata		*mdata;
     t_player	*player;
     t_mlx		*mlx;
-	t_ray	*ray;
+	t_ray		*ray;
+	t_texture	*north;
     
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
     mlx = malloc(sizeof(t_mlx));
 	ray = malloc(sizeof(t_ray));
-    if (!mdata || !player || !mlx || !ray)
+	north = malloc(sizeof(t_texture));
+    if (!mdata || !player || !mlx || !ray || !north)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
 	cub->mlx = mlx;
     cub->ray = ray;
+    cub->north = north;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;
