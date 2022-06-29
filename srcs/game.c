@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/15 13:50:29 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 10:48:57 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void    ft_mini_map(t_cub *cub) // MINI MAP 2D
     while (i-- > 0)
         ft_raycast(i, cub, TRUE);
 }
-

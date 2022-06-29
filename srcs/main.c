@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/15 18:45:46 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 11:20:04 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int ac, char **av)
 	if (!cub)
 		exit(EXIT_FAILURE);
 	ft_init_struct(cub);
-	ft_init_texture(cub);
 	ft_parse_file(av[1], cub);
 	ft_convert_colors(cub);
 	ft_parse_map(cub);
@@ -99,9 +98,10 @@ void    ft_start_game(t_cub *cub)
 {
 	ft_init_orientation(cub);
     ft_mlx_init(cub);
+	ft_init_texture(cub);
 	cub->minimap = -1;
     ft_print_view(cub);
-    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
 	mlx_hook(cub->mlx->win, 2, 0, key_hook, cub);
     mlx_loop(cub->mlx->mlx);

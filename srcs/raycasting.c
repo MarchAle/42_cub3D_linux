@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:09:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/15 18:45:40 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 11:20:39 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@ void    ft_print_view(t_cub *cub)
     }
     if (cub->minimap == TRUE)
         ft_mini_map(cub);
+
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
-    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, &cub->text->texture[0], 248, 248);
+	// void	*test;
+	// test = mlx_xpm_file_to_image(cub->mlx->mlx, "./texture/wall_brick.xpm", cub->mlx->width, cub->mlx->height);
+	// cub->north = mlx_xpm_file_to_image(cub->mlx->mlx, "./texture/wall_brick.xpm", cub->mlx->width, cub->mlx->height);
+    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, test, 248, 248);
+    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->north, 248, 248);
+    
     mlx_destroy_image(cub->mlx->mlx, cub->img->img);
 }
 
