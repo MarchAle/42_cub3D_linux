@@ -1,13 +1,13 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./texture/wall_brick.xpm
+SO ./texture/wall_stone1.xpm
+WE ./texture/wall_stone2.xpm
+EA ./texture/wall_stone3.xpm
 C 170,237,240
-F 47,117,52
+F 92,72,40
 
 111111111111111
-100000S00100001111111111
-1111100001000110000000001
+100000000100001111111111
+111110W001000110000000001
     100001000000000000001
 111101000000011111111111
 101000101000011
@@ -17,5 +17,9 @@ F 47,117,52
  10000001001111
 100100001000001
 111111111111111
+
+
+
+
 
 

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 11:20:04 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:15:04 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,18 @@ void	ft_init_struct(t_cub *cub)
     t_mlx		*mlx;
 	t_ray		*ray;
 	t_texture	*north;
+	t_texture	*east;
+	t_texture	*south;
+	t_texture	*west;
     
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
     mlx = malloc(sizeof(t_mlx));
 	ray = malloc(sizeof(t_ray));
 	north = malloc(sizeof(t_texture));
+	east = malloc(sizeof(t_texture));
+	south = malloc(sizeof(t_texture));
+	west = malloc(sizeof(t_texture));
     if (!mdata || !player || !mlx || !ray || !north)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
@@ -49,6 +55,9 @@ void	ft_init_struct(t_cub *cub)
 	cub->mlx = mlx;
     cub->ray = ray;
     cub->north = north;
+    cub->east = east;
+    cub->south = south;
+    cub->west = west;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;

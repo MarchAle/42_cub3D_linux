@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/13 14:36:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:36:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_move_allowed(t_cub *cub, float x, float y)
 {
 	if (cub->map[(int)floor(cub->player->y)][(int)floor(x)] != '1')
 	{
-		if (x - (int)floor(x) >= 0.97 && cub->map[(int)floor(cub->player->y)][(int)floor(x) + 1] == '1')
-			cub->player->x = (int)floor(cub->player->x) + 0.97;
-		else if (x - (int)floor(x) <= 0.03 && cub->map[(int)floor(cub->player->y)][(int)floor(x) - 1] == '1')
-			cub->player->x = (int)floor(cub->player->x) + 0.03;	
+		if (x - (int)floor(x) >= (1 - STEP) && cub->map[(int)floor(cub->player->y)][(int)floor(x) + 1] == '1')
+			cub->player->x = (int)floor(cub->player->x) + (1 - STEP);
+		else if (x - (int)floor(x) <= STEP && cub->map[(int)floor(cub->player->y)][(int)floor(x) - 1] == '1')
+			cub->player->x = (int)floor(cub->player->x) + STEP;	
 		else
 			cub->player->x = x;
 	}
@@ -27,23 +27,23 @@ void	ft_move_allowed(t_cub *cub, float x, float y)
 	{
 		if ((int)floor(x) > (int)floor(cub->player->x))
 		{
-			if ((int)floor(cub->player->x) + 0.97 < cub->player->x)
-				cub->player->x = (int)floor(cub->player->x) + 0.97;
+			if ((int)floor(cub->player->x) + (1 - STEP) < cub->player->x)
+				cub->player->x = (int)floor(cub->player->x) + (1 - STEP);
 		}
 		else if ((int)floor(x) < (int)floor(cub->player->x))
 		{
-			if ((int)floor(cub->player->x) + 0.03 > cub->player->x)
-				cub->player->x = (int)floor(cub->player->x) + 0.03;	
+			if ((int)floor(cub->player->x) + STEP > cub->player->x)
+				cub->player->x = (int)floor(cub->player->x) + STEP;	
 		}
 		else
 			cub->player->x = x;
 	}
 	if (cub->map[(int)floor(y)][(int)floor(cub->player->x)] != '1')
 	{
-		if (y - (int)floor(y) >= 0.97 && cub->map[(int)floor(y) + 1][(int)floor(cub->player->x)] == '1') 
-			cub->player->y = (int)floor(cub->player->y) + 0.97;
-		else if (y - (int)floor(y) <= 0.03 && cub->map[(int)floor(y) - 1][(int)floor(cub->player->x)] == '1')
-			cub->player->y = (int)floor(cub->player->y) + 0.03;
+		if (y - (int)floor(y) >= (1 - STEP) && cub->map[(int)floor(y) + 1][(int)floor(cub->player->x)] == '1') 
+			cub->player->y = (int)floor(cub->player->y) + (1 - STEP);
+		else if (y - (int)floor(y) <= STEP && cub->map[(int)floor(y) - 1][(int)floor(cub->player->x)] == '1')
+			cub->player->y = (int)floor(cub->player->y) + STEP;
 		else	
 			cub->player->y = y;
 	}
@@ -51,13 +51,13 @@ void	ft_move_allowed(t_cub *cub, float x, float y)
 	{
 		if ((int)floor(y) > (int)floor(cub->player->y))
 		{
-			if ((int)floor(cub->player->y) + 0.97 < cub->player->y)
-				cub->player->y = (int)floor(cub->player->y) + 0.97;
+			if ((int)floor(cub->player->y) + (1 - STEP) < cub->player->y)
+				cub->player->y = (int)floor(cub->player->y) + (1 - STEP);
 		}
 		else if ((int)floor(y) < (int)floor(cub->player->y))
 		{
-			if ((int)floor(cub->player->y) + 0.03 > cub->player->y)
-				cub->player->y = (int)floor(cub->player->y) + 0.03;	
+			if ((int)floor(cub->player->y) + STEP > cub->player->y)
+				cub->player->y = (int)floor(cub->player->y) + STEP;	
 		}
 		else
 			cub->player->y = y;
@@ -66,30 +66,30 @@ void	ft_move_allowed(t_cub *cub, float x, float y)
 
 void	ft_move_player_south(t_cub *cub)
 {
-	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation - M_PI), cub->player->y - 0.03 * sin(cub->player->orientation - M_PI));
-	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation - M_PI);
-	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation - M_PI);
+	ft_move_allowed(cub, cub->player->x + STEP * cos(cub->player->orientation - M_PI), cub->player->y - STEP * sin(cub->player->orientation - M_PI));
+	// cub->player->x = cub->player->x + STEP * cos(cub->player->orientation - M_PI);
+	// cub->player->y = cub->player->y - STEP * sin(cub->player->orientation - M_PI);
 }
 
 void	ft_move_player_north(t_cub *cub)
 {
-	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation), cub->player->y - 0.03 * sin(cub->player->orientation));
-	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation);
-	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation);
+	ft_move_allowed(cub, cub->player->x + STEP * cos(cub->player->orientation), cub->player->y - STEP * sin(cub->player->orientation));
+	// cub->player->x = cub->player->x + STEP * cos(cub->player->orientation);
+	// cub->player->y = cub->player->y - STEP * sin(cub->player->orientation);
 }
 
 void	ft_move_player_east(t_cub *cub)
 {
-	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation - M_PI * 0.5), cub->player->y - 0.03 * sin(cub->player->orientation - M_PI * 0.5));
-	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation - M_PI * 0.5);
-	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation - M_PI * 0.5);
+	ft_move_allowed(cub, cub->player->x + STEP * cos(cub->player->orientation - M_PI * 0.5), cub->player->y - STEP * sin(cub->player->orientation - M_PI * 0.5));
+	// cub->player->x = cub->player->x + STEP * cos(cub->player->orientation - M_PI * 0.5);
+	// cub->player->y = cub->player->y - STEP * sin(cub->player->orientation - M_PI * 0.5);
 }
 
 void	ft_move_player_west(t_cub *cub)
 {
-	ft_move_allowed(cub, cub->player->x + 0.03 * cos(cub->player->orientation + M_PI * 0.5), cub->player->y - 0.03 * sin(cub->player->orientation + M_PI * 0.5));
-	// cub->player->x = cub->player->x + 0.03 * cos(cub->player->orientation + M_PI * 0.5);
-	// cub->player->y = cub->player->y - 0.03 * sin(cub->player->orientation + M_PI * 0.5);
+	ft_move_allowed(cub, cub->player->x + STEP * cos(cub->player->orientation + M_PI * 0.5), cub->player->y - STEP * sin(cub->player->orientation + M_PI * 0.5));
+	// cub->player->x = cub->player->x + STEP * cos(cub->player->orientation + M_PI * 0.5);
+	// cub->player->y = cub->player->y - STEP * sin(cub->player->orientation + M_PI * 0.5);
 }
 
 void	ft_move_player(t_cub *cub, int keycode)
@@ -108,13 +108,13 @@ void	ft_move_camera(t_cub *cub, int keycode)
 {
 	if (keycode == 123)
 	{
-		cub->player->orientation += 0.03;
+		cub->player->orientation += STEP;
 		if (cub->player->orientation > M_PI)
 			cub->player->orientation -= 2 * M_PI;
 	}
 	if (keycode == 124)
 	{
-		cub->player->orientation -= 0.03;
+		cub->player->orientation -= STEP;
 		if (cub->player->orientation < - M_PI)
 			cub->player->orientation += 2 * M_PI;
 	}
@@ -122,7 +122,6 @@ void	ft_move_camera(t_cub *cub, int keycode)
 
 int	key_hook(int keycode, t_cub *cub)
 {
-    // mlx_destroy_image(cub->mlx, cub->img);
 	if (keycode == 53)
 		ft_exit(cub);
 	if (keycode == 46)

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 12:05:19 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:36:06 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "../mlx/mlx.h"
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
+
+# define STEP 0.03
 
 # define FALSE 0
 # define TRUE 1
@@ -61,7 +63,7 @@ typedef struct  s_texture
 {
     void    *img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
     int     x[1];

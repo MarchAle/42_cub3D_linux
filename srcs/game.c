@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 10:48:57 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:49:59 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void    ft_mlx_init(t_cub *cub)
     cub->mlx->mlx = mlx_init();
     mlx_get_screen_size(cub->mlx->mlx, &cub->mdata->screen[0], &cub->mdata->screen[1]);
     ////
-    cub->mdata->screen[1] = 720;
-    cub->mdata->screen[0] = cub->mdata->screen[1] * 16 / 9;
+    cub->mdata->screen[1] = 920;
+    cub->mdata->screen[0] = cub->mdata->screen[1] * 5 / 4;
     ////
     cub->mlx->win = mlx_new_window(cub->mlx->mlx, cub->mdata->screen[0], cub->mdata->screen[1], "Coubtroider");
 }
@@ -55,11 +55,11 @@ void    ft_mini_map(t_cub *cub) // MINI MAP 2D
         while (y < (int)ft_strlen2d(cub->map) * 25)
         {
             if (cub->map[y / 25][x / 25] == '1')
-                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x4f484773);
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x4f4847);
             if (cub->map[y / 25][x / 25] == '0' || cub->map[y / 25][x / 25] == 'N'
                 || cub->map[y / 25][x / 25] == 'S' || cub->map[y / 25][x / 25] == 'E'
                 || cub->map[y / 25][x / 25] == 'W')
-                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0xf5e4e173);
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0xf5e4e1);
             y++;
         }
         x++;
