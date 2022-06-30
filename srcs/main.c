@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 15:15:04 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:31:46 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_init_struct(t_cub *cub)
 	t_texture	*east;
 	t_texture	*south;
 	t_texture	*west;
+	t_move		*move;
     
     mdata = malloc(sizeof(t_mdata));
     player = malloc(sizeof(t_player));
@@ -48,7 +49,8 @@ void	ft_init_struct(t_cub *cub)
 	east = malloc(sizeof(t_texture));
 	south = malloc(sizeof(t_texture));
 	west = malloc(sizeof(t_texture));
-    if (!mdata || !player || !mlx || !ray || !north)
+	move = malloc(sizeof(t_move));
+    if (!mdata || !player || !mlx || !ray || !north || !move)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
@@ -58,6 +60,7 @@ void	ft_init_struct(t_cub *cub)
     cub->east = east;
     cub->south = south;
     cub->west = west;
+    cub->move = move;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;
@@ -65,6 +68,13 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->F = NULL;
 	cub->mdata->C = NULL;
 	cub->map = NULL;
+	cub->move->front = 0;
+	cub->move->back = 0;
+	cub->move->right = 0;
+	cub->move->left = 0;
+	cub->move->angle_l = 0;
+	cub->move->angle_r = 0;
+	cub->fps = NULL;
 }
 
 void	ft_empty_file(char *line)
@@ -94,13 +104,24 @@ void	ft_check_extension(char *map_cub)
 void	ft_init_orientation(t_cub *cub)
 {
 	if (cub->player->direction == 'N')
-		cub->player->orientation = M_PI * 0.5;
+		cub->player->orient = M_PI * 0.5;
 	if (cub->player->direction == 'E')
-		cub->player->orientation = 0;
+		cub->player->orient = 0;
 	if (cub->player->direction == 'S')
-		cub->player->orientation = - M_PI * 0.5;
+		cub->player->orient = - M_PI * 0.5;
 	if (cub->player->direction == 'W')
-		cub->player->orientation = M_PI;
+		cub->player->orient = M_PI;
+}
+
+long	ft_get_time(void)
+{
+	struct timeval	time;
+	long			ms;
+
+	gettimeofday(&time, NULL);
+	ms = time.tv_sec * 1000;
+	ms += time.tv_usec / 1000;
+	return (ms);
 }
 
 void    ft_start_game(t_cub *cub)
@@ -109,9 +130,12 @@ void    ft_start_game(t_cub *cub)
     ft_mlx_init(cub);
 	ft_init_texture(cub);
 	cub->minimap = -1;
+	cub->frames = 0;
+	cub->start_time = ft_get_time();
     ft_print_view(cub);
-    // mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
-	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
-	mlx_hook(cub->mlx->win, 2, 0, key_hook, cub);
+    mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
+	mlx_hook(cub->mlx->win, 2, 0, key_hook_down, cub);
+	mlx_hook(cub->mlx->win, 3, 0, key_hook_up, cub);
+	mlx_loop_hook(cub->mlx->mlx, ft_move, cub);
     mlx_loop(cub->mlx->mlx);
 }

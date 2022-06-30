@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 17:36:06 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:31:21 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <math.h>
+# include <sys/time.h>
 # include "../mlx/mlx.h"
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
 
 # define STEP 0.03
+# define MINIMAP_SIZE 300
 
 # define FALSE 0
 # define TRUE 1
@@ -44,6 +46,9 @@
 # define E 2
 # define S 3
 # define W 4 
+
+# define RIGHT 0
+# define LEFT 1
 
 # define TEX_WIDTH 248
 # define TEX_HEIGHT 248
@@ -81,6 +86,7 @@ typedef struct s_mdata
     char	**F;
     int     c_color;
     int     f_color;
+	int		max_size;
 }   t_mdata;
 
 typedef struct s_ray
@@ -104,9 +110,11 @@ typedef struct s_player
 {
     float   dist;
     char	direction;
-    float   orientation;
+    float   orient;
     float	x;
     float	y;
+    float	map_x;
+    float	map_y;
     float	offset_x;
     float	offset_y;
 }   t_player;
@@ -119,6 +127,16 @@ typedef struct s_mlx
 	int		height[1];
 }   t_mlx;
 
+typedef struct s_move
+{
+    int     front;
+    int     back;
+    int     right;
+    int     left;
+    int     angle_r;
+    int     angle_l;
+}   t_move;
+
 typedef struct s_cub
 {
     struct s_img    	*img;
@@ -130,8 +148,12 @@ typedef struct s_cub
     struct s_player 	*player;
     struct s_ray    	*ray;
     struct s_mlx    	*mlx;
+    struct s_move       *move;
     char            	**map;
     int             	minimap;
+    int                	frames;
+    char                *fps;
+    long                start_time;
 }   t_cub;
 
 int     main(int ac, char **av);
@@ -164,10 +186,21 @@ void    ft_parse_map(t_cub *cub);
 
 void    ft_start_game(t_cub *cub);
 void    ft_print_view(t_cub *cub);
-float   ft_raycast(int i, t_cub *cub, int print_ray);
+float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size);
 void    ft_get_direction(t_cub *cub);
 void    ft_mini_map(t_cub *cub);
-int		key_hook(int keycode, t_cub *cub);
+
+int	    key_hook_down(int keycode, t_cub *cub);
+int	    key_hook_up(int keycode, t_cub *cub);
+
+int	    ft_move(t_cub *cub);
+void	ft_move_front(t_cub *cub);
+void	ft_move_back(t_cub *cub);
+void	ft_move_right(t_cub *cub);
+void	ft_move_left(t_cub *cub);
+void	ft_move_camera(t_cub *cub, int dir);
+
+void	ft_check_collision(t_cub *cub, float x, float y);
 
 float   ft_dist_to_wall(t_cub *cub);
 void    ft_nearest_wall_x(t_cub *cub, float *shortest_dist);
@@ -177,7 +210,7 @@ void    ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist);
 void    ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist);
 void    ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
 
-
+long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
 
 #endif

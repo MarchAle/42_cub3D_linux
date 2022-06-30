@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:50:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 16:54:53 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:08:57 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ int	ft_get_color_from_texture(char *addr, t_cub *cub)
 			* (cub->north->bpp / 8))));
 }
 
-void	ft_print_texture(t_cub *cub, int i, int j)
+void	ft_shade_color(int *pix_color, float dist)
+{
+	*pix_color -= (int)(dist * 50);
+}
+
+void	ft_print_texture(t_cub *cub, int i, int j, float dist)
 {
 	int	pix_color;
 
@@ -52,10 +57,12 @@ void	ft_print_texture(t_cub *cub, int i, int j)
 	else if (cub->ray->wall_orientation == S)
 		pix_color = ft_get_color_from_texture(cub->south->addr, cub);
 	else if (cub->ray->wall_orientation == E)
-		pix_color = ft_get_color_from_texture(cub->east-> addr, cub);
+		pix_color = ft_get_color_from_texture(cub->east->addr, cub);
 	else if (cub->ray->wall_orientation == W)
 		pix_color = ft_get_color_from_texture(cub->west->addr, cub);
+	// ft_shade_color(&pix_color, dist);
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
+	(void)dist;
 }
 
 void	ft_draw_wall(t_cub *cub, float dist, int i)
@@ -69,14 +76,14 @@ void	ft_draw_wall(t_cub *cub, float dist, int i)
 		if (j < cub->mdata->screen[1] * 0.5)
 		{
 			if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
-				ft_print_texture(cub, i, j);
+				ft_print_texture(cub, i, j, dist);
 			else
 				my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
 		}
 		else
 		{
 			if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
-				ft_print_texture(cub, i, j);
+				ft_print_texture(cub, i, j, dist);
 			else
 				my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);
 		}

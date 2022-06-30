@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:02:29 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 18:51:49 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:44:13 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_view(t_cub *cub)
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
-		dist = ft_raycast(i, cub, FALSE) * cos(cub->ray->angle - cub->player->orientation);
+		dist = ft_raycast(i, cub, FALSE, 0) * cos(cub->ray->angle - cub->player->orient);
 		ft_draw_wall(cub, dist, cub->mdata->screen[0] - i);
 		i--;
 	}
@@ -33,6 +33,7 @@ void	ft_print_view(t_cub *cub)
 		ft_mini_map(cub);
 	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 	mlx_destroy_image(cub->mlx->mlx, cub->img->img);
+	cub->frames++;
 }
 
 void	ft_offset_init(t_cub *cub)
@@ -45,13 +46,15 @@ void	ft_offset_init(t_cub *cub)
 		cub->player->offset_y = 1 - cub->player->offset_y;
 }
 
-float   ft_raycast(int i, t_cub *cub, int print_ray)
+float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 {
 	float   dist;
 	float tmp_dist;
+	float	incr;
 		
 	tmp_dist = 0;
-	cub->ray->angle = (cub->player->orientation + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
+	incr = 0.01;
+	cub->ray->angle = (cub->player->orient + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
 	ft_get_direction(cub);
 	ft_offset_init(cub);
 	dist = ft_dist_to_wall(cub);
@@ -61,8 +64,9 @@ float   ft_raycast(int i, t_cub *cub, int print_ray)
 		{
 			cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->angle);
 			cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->angle);
-			my_mlx_pixel_put(cub->img, cub->ray->x * 25 + 50, cub->ray->y * 25 + 30, 0x86f6cf);
-			tmp_dist += 0.01;
+			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50, cub->ray->y * minimap_size + 30, 0x9c214a);
+			tmp_dist += incr;
+			incr += 0.005;
 		}
 	}
 	return (dist);

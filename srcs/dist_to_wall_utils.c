@@ -6,112 +6,119 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:06:14 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/14 11:16:53 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:13:52 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void    ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist)
+void	ft_hit_wall(t_cub *cub, float *shortest_dist, int wall_orientation)
 {
-    if (cub->ray->direction == NE)  // si angle NORD-EST
-    {
-        if (cub->map[(int)floor(cub->player->y) - ((int)floor(cub->player->offset_y) + 1)][(int)floor(cub->player->x) + ((int)floor(cub->player->offset_x))] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_y;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = N;
-        }
-        else
-            cub->player->offset_y++;
-    }
-    else
-    {
-        if (cub->map[(int)floor(cub->player->y) - ((int)floor(cub->player->offset_y) + 1)][(int)floor(cub->player->x) - ((int)floor(cub->player->offset_x))] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_y;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = N;
-        }
-        else
-            cub->player->offset_y++;
-    }
+	cub->ray->hit_wall = 1;
+	cub->ray->wall_orientation = wall_orientation;
+	if (wall_orientation == N || wall_orientation == S)
+		*shortest_dist = cub->ray->dist_to_y;
+	else
+		*shortest_dist = cub->ray->dist_to_x;
 }
 
-void    ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist)
+void	ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist)
 {
-    if (cub->ray->direction == SE)  // si angle SUD-EST
-    {
-        if (cub->map[(int)floor(cub->player->y) + ((int)floor(cub->player->offset_y) + 1)][(int)floor(cub->player->x) + ((int)floor(cub->player->offset_x))] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_y;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = S;
-        }
-        else
-            cub->player->offset_y++;
-    }
-    else
-    {
-        if (cub->map[(int)floor(cub->player->y) + ((int)floor(cub->player->offset_y) + 1)][(int)floor(cub->player->x) - ((int)floor(cub->player->offset_x))] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_y;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = S;
-        }
-        else
-            cub->player->offset_y++;
-    }
+	int	x;
+	int	y;
+
+	y = (int)floor(cub->player->y) - ((int)floor(cub->player->offset_y) + 1);
+	if (cub->ray->direction == NE)
+	{
+		x = (int)floor(cub->player->x) + ((int)floor(cub->player->offset_x));
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, N);
+		else
+			cub->player->offset_y++;
+	}
+	else
+	{
+		x = (int)floor(cub->player->x) - ((int)floor(cub->player->offset_x));
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, N);
+		else
+			cub->player->offset_y++;
+	}
 }
 
-void    ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist)
+void	ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist)
 {
-    if (cub->ray->direction == NE)  // si angle NORD-EST
-    {
-        if (cub->map[(int)floor(cub->player->y) - ((int)floor(cub->player->offset_y))][(int)floor(cub->player->x) + ((int)floor(cub->player->offset_x) + 1)] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_x;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = E;
-        }
-        else
-            cub->player->offset_x++;
-    }
-    else
-    {
-        if (cub->map[(int)floor(cub->player->y) - ((int)floor(cub->player->offset_y))][(int)floor(cub->player->x) - ((int)floor(cub->player->offset_x) + 1)] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_x;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = W;
-        }
-        else
-            cub->player->offset_x++;
-    }
+	int	x;
+	int	y;
+
+	y = (int)floor(cub->player->y) + ((int)floor(cub->player->offset_y) + 1);
+	if (cub->ray->direction == SE)
+	{
+		x = (int)floor(cub->player->x) + ((int)floor(cub->player->offset_x));
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, S);
+		else
+			cub->player->offset_y++;
+	}
+	else
+	{
+		x = (int)floor(cub->player->x) - ((int)floor(cub->player->offset_x));
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, S);
+		else
+			cub->player->offset_y++;
+	}
 }
 
-void    ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist)
+void	ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist)
 {
-    if (cub->ray->direction == SE)  // si angle SUD-EST
-    {
-        if (cub->map[(int)floor(cub->player->y) + ((int)floor(cub->player->offset_y))][(int)floor(cub->player->x) + ((int)floor(cub->player->offset_x) + 1)] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_x;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = E;
-        }
-        else
-            cub->player->offset_x++;
-    }
-    else
-    {
-        if (cub->map[(int)floor(cub->player->y) + ((int)floor(cub->player->offset_y))][(int)floor(cub->player->x) - ((int)floor(cub->player->offset_x) + 1)] == '1')
-        {
-            *shortest_dist = cub->ray->dist_to_x;
-            cub->ray->hit_wall = 1;
-            cub->ray->wall_orientation = W;
-        }
-        else
-            cub->player->offset_x++;
-    }
+	int	x;
+	int	y;
+
+	y = (int)floor(cub->player->y) - ((int)floor(cub->player->offset_y));
+	if (cub->ray->direction == NE)
+	{
+		x = (int)floor(cub->player->x)
+			+ ((int)floor(cub->player->offset_x) + 1);
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, E);
+		else
+			cub->player->offset_x++;
+	}
+	else
+	{
+		x = (int)floor(cub->player->x)
+			- ((int)floor(cub->player->offset_x) + 1);
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, W);
+		else
+			cub->player->offset_x++;
+	}
+}
+
+void	ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist)
+{
+	int	x;
+	int	y;
+
+	y = (int)floor(cub->player->y)
+		+ ((int)floor(cub->player->offset_y));
+	if (cub->ray->direction == SE)
+	{
+		x = (int)floor(cub->player->x)
+			+ ((int)floor(cub->player->offset_x) + 1);
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, E);
+		else
+			cub->player->offset_x++;
+	}
+	else
+	{
+		x = (int)floor(cub->player->x)
+			- ((int)floor(cub->player->offset_x) + 1);
+		if (cub->map[y][x] == '1')
+			ft_hit_wall(cub, shortest_dist, W);
+		else
+			cub->player->offset_x++;
+	}
 }

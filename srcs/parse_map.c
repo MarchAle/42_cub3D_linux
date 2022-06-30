@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:45:53 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/10 15:25:24 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:02:56 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,26 @@ void    ft_check_line(char *line, int y, char **map, t_cub *cub)
             ft_check_char(line[x], x, y, cub);
         x++;
     }
+	if (x - 1 > cub->mdata->max_size)
+		cub->mdata->max_size = x - 1;
 }
 
 void    ft_parse_map(t_cub *cub)
 {
-    char **map = cub->map;
+    char **map;
     int y;
 
+	map = cub->map;
     y = 0;
+	cub->mdata->max_size = 0;
     cub->player->direction = '\0';
     while (map[y])
     {
         ft_check_line(map[y], y, map, cub);
         y++;
     }
+	if (y - 1 > cub->mdata->max_size)
+		cub->mdata->max_size = y - 1;
     if (cub->player->direction == '\0')
         ft_parse_error(PLAYER_ERR); // if there is no player, return error
 }

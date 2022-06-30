@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:35:57 by dvallien          #+#    #+#             */
-/*   Updated: 2022/06/29 17:32:48 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:12:54 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,13 @@ void	ft_get_colors(char **colors)
 int		ft_rgb_to_hex(char **rgb)
 {
 	return ((ft_atoi(rgb[0]) & 0xff) << 16) + ((ft_atoi(rgb[1]) & 0xff) << 8) + (ft_atoi(rgb[2]) & 0xff);
+}
+
+char	**ft_hex_to_rgb(int hex)
+{
+	char	**rgb;
+	
+	return (rgb);
 }
 
 void	ft_convert_colors(t_cub *cub)
