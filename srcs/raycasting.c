@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:02:29 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/30 18:44:13 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:26:33 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_view(t_cub *cub)
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
-		dist = ft_raycast(i, cub, FALSE, 0) * cos(cub->ray->angle - cub->player->orient);
+		dist = ft_raycast(i, cub, FALSE, 0); // fisheye : * cos(cub->ray->angle - cub->player->orient)
 		ft_draw_wall(cub, dist, cub->mdata->screen[0] - i);
 		i--;
 	}
@@ -64,9 +64,9 @@ float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 		{
 			cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->angle);
 			cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->angle);
-			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50, cub->ray->y * minimap_size + 30, 0x9c214a);
+			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50, cub->ray->y * minimap_size + 30, 0x0d062b);
 			tmp_dist += incr;
-			incr += 0.005;
+			incr += 0.008;
 		}
 	}
 	return (dist);

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/30 18:31:21 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:38:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
 
-# define STEP 0.03
+# define STEP 0.05
+# define ACCEL 25
+# define O_ACC 20
 # define MINIMAP_SIZE 300
 
 # define FALSE 0
 # define TRUE 1
+
+# define MOVE 0
+# define CAMERA 1
 
 # define FILE_ERR 0
 # define INPUT_ERR 1
@@ -82,6 +87,8 @@ typedef struct s_mdata
     char	*SO;
     char	*EA;
     char	*WE;
+    char	*sky;
+    char	*floor;
     char	**C;
     char	**F;
     int     c_color;
@@ -133,8 +140,14 @@ typedef struct s_move
     int     back;
     int     right;
     int     left;
+    int     front_a;
+    int     back_a;
+    int     right_a;
+    int     left_a;
     int     angle_r;
     int     angle_l;
+    int		angle_r_a;
+    int		angle_l_a;
 }   t_move;
 
 typedef struct s_cub
@@ -144,6 +157,8 @@ typedef struct s_cub
     struct s_texture    *east;
     struct s_texture    *south;
     struct s_texture    *west;
+    struct s_texture    *sky;
+    struct s_texture    *floor;
     struct s_mdata  	*mdata;
     struct s_player 	*player;
     struct s_ray    	*ray;
@@ -202,6 +217,7 @@ void	ft_move_camera(t_cub *cub, int dir);
 
 void	ft_check_collision(t_cub *cub, float x, float y);
 
+void	ft_offset_init(t_cub *cub);
 float   ft_dist_to_wall(t_cub *cub);
 void    ft_nearest_wall_x(t_cub *cub, float *shortest_dist);
 void    ft_nearest_wall_y(t_cub *cub, float *shortest_dist);

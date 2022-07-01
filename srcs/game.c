@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/30 18:43:39 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:26:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    ft_mlx_init(t_cub *cub)
     cub->mlx->mlx = mlx_init();
     mlx_get_screen_size(cub->mlx->mlx, &cub->mdata->screen[0], &cub->mdata->screen[1]);
     ////
-    cub->mdata->screen[1] = 1080;
+    cub->mdata->screen[1] = 901;
     cub->mdata->screen[0] = cub->mdata->screen[1] * 5 / 4;
     ////
     cub->mlx->win = mlx_new_window(cub->mlx->mlx, cub->mdata->screen[0], cub->mdata->screen[1], "Coubtroider");
@@ -56,7 +56,7 @@ void    ft_mini_map(t_cub *cub)
             if (cub->map[y / size][x / size] == '0' || cub->map[y / size][x / size] == 'N'
                 || cub->map[y / size][x / size] == 'S' || cub->map[y / size][x / size] == 'E'
                 || cub->map[y / size][x / size] == 'W')
-                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0xf5e4ea);
+                my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x8c8789);
             x++;
         }
         y++;

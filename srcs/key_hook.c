@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/30 18:39:30 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:33:00 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,8 @@ void	ft_position_update(t_cub *cub)
 		cub->player->y -= 0.000001;
 }
 
-int	ft_move(t_cub *cub)
+void	ft_fps(t_cub *cub)
 {
-	if (cub->move->front == 1 && cub->move->back == 0)
-		ft_move_front(cub);
-	if (cub->move->front == 0 && cub->move->back == 1)
-		ft_move_back(cub);
-	if (cub->move->right == 1 && cub->move->left == 0)
-		ft_move_right(cub);
-	if (cub->move->right == 0 && cub->move->left == 1)
-		ft_move_left(cub);
-	if (cub->move->angle_l == 1 && cub->move->angle_r == 0)
-		ft_move_camera(cub, RIGHT);
-	if (cub->move->angle_l == 0 && cub->move->angle_r == 1)
-		ft_move_camera(cub, LEFT);
-	ft_position_update(cub);
-	ft_print_view(cub);
 	if (ft_get_time() - cub->start_time > 1000)
 	{
 		if (cub->fps)
@@ -84,5 +70,24 @@ int	ft_move(t_cub *cub)
 	}
 	if (cub->fps)
 		mlx_string_put(cub->mlx->mlx, cub->mlx->win, 50, 30, 0x934d1d, cub->fps);
+}
+
+int	ft_move(t_cub *cub)
+{
+	if ((cub->move->front == 1 && cub->move->back == 0) || cub->move->front_a)
+		ft_move_front(cub);
+	if ((cub->move->front == 0 && cub->move->back == 1) || cub->move->back_a)
+		ft_move_back(cub);
+	if ((cub->move->right == 1 && cub->move->left == 0) || cub->move->right_a)
+		ft_move_right(cub);
+	if ((cub->move->right == 0 && cub->move->left == 1) || cub->move->left_a)
+		ft_move_left(cub);
+	if ((cub->move->angle_l == 1 && cub->move->angle_r == 0) || cub->move->angle_l_a)
+		ft_move_camera(cub, LEFT);
+	if ((cub->move->angle_l == 0 && cub->move->angle_r == 1) || cub->move->angle_r_a)
+		ft_move_camera(cub, RIGHT);
+	ft_position_update(cub);
+	ft_print_view(cub);
+	ft_fps(cub);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/30 18:31:46 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:39:17 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_init_struct(t_cub *cub)
 	t_texture	*east;
 	t_texture	*south;
 	t_texture	*west;
+	t_texture	*sky;
+	t_texture	*floor;
 	t_move		*move;
     
     mdata = malloc(sizeof(t_mdata));
@@ -49,8 +51,10 @@ void	ft_init_struct(t_cub *cub)
 	east = malloc(sizeof(t_texture));
 	south = malloc(sizeof(t_texture));
 	west = malloc(sizeof(t_texture));
+	sky = malloc(sizeof(t_texture));
+	floor = malloc(sizeof(t_texture));
 	move = malloc(sizeof(t_move));
-    if (!mdata || !player || !mlx || !ray || !north || !move)
+    if (!mdata || !player || !mlx || !ray || !north || !move || !sky || !floor)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
@@ -60,11 +64,15 @@ void	ft_init_struct(t_cub *cub)
     cub->east = east;
     cub->south = south;
     cub->west = west;
+    cub->sky = sky;
+    cub->floor = floor;
     cub->move = move;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
 	cub->mdata->EA = NULL;
 	cub->mdata->WE = NULL;
+	cub->mdata->sky = NULL;
+	cub->mdata->floor = NULL;
 	cub->mdata->F = NULL;
 	cub->mdata->C = NULL;
 	cub->map = NULL;
@@ -72,6 +80,10 @@ void	ft_init_struct(t_cub *cub)
 	cub->move->back = 0;
 	cub->move->right = 0;
 	cub->move->left = 0;
+	cub->move->front_a = 0;
+	cub->move->back_a = 0;
+	cub->move->right_a = 0;
+	cub->move->left_a = 0;
 	cub->move->angle_l = 0;
 	cub->move->angle_r = 0;
 	cub->fps = NULL;
