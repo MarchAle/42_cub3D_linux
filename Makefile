@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/06/30 13:17:47 by amarchal         ###   ########.fr        #
+#    Updated: 2022/07/02 19:40:14 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ LST_SRCS := main.c					\
 			key_hook.c				\
 			dist_to_wall.c			\
 			dist_to_wall_utils.c	\
-			texture.c 				\
+			render_texture.c		\
+			render_wall.c 			\
+			render_sky.c 			\
+			render_floor.c 			\
 			error.c 				\
 			
 			
@@ -42,7 +45,7 @@ CC := gcc
 CFLAGS := -Wall -Wextra -Werror -O3
 
 
-$(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
+$(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE) Makefile
 		@mkdir -p $(DIR_OBJS)
 		$(CC) $(CFLAGS) -Imlx -I $(INCLUDE) -c $< -o $@
 
@@ -56,7 +59,7 @@ minilibx:
 		@make -C ./mlx
 		@make -C ./mlx_2
 
-$(NAME) : $(OBJS) $(LIBMLX) $(LIB)
+$(NAME) : $(OBJS) $(LIBMLX) $(LIB) Makefile
 		@cp mlx_2/libmlx.dylib .
 		$(CC) $(OBJS) $(LIB) $(LIBMLX) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"

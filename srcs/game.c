@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/01 20:26:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/02 14:14:19 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    ft_mlx_init(t_cub *cub)
     cub->mlx->mlx = mlx_init();
     mlx_get_screen_size(cub->mlx->mlx, &cub->mdata->screen[0], &cub->mdata->screen[1]);
     ////
-    cub->mdata->screen[1] = 901;
+    cub->mdata->screen[1] = 1080;
     cub->mdata->screen[0] = cub->mdata->screen[1] * 5 / 4;
     ////
     cub->mlx->win = mlx_new_window(cub->mlx->mlx, cub->mdata->screen[0], cub->mdata->screen[1], "Coubtroider");

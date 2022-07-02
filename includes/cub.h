@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/01 20:38:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:39:41 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
 
-# define STEP 0.05
-# define ACCEL 25
-# define O_ACC 20
+// # define STEP 0.05
+# define ACCEL 10
+# define O_ACC 7
 # define MINIMAP_SIZE 300
 
 # define FALSE 0
@@ -55,8 +55,8 @@
 # define RIGHT 0
 # define LEFT 1
 
-# define TEX_WIDTH 248
-# define TEX_HEIGHT 248
+// # define TEX_WIDTH 248
+// # define TEX_HEIGHT 248
 
 typedef struct	s_img 
 {
@@ -76,8 +76,8 @@ typedef struct  s_texture
 	int		bpp;
 	int		line_length;
 	int		endian;
-    int     x[1];
-    int     y[1];
+    int     width[1];
+    int     height[1];
 }	t_texture;
 
 typedef struct s_mdata
@@ -150,6 +150,26 @@ typedef struct s_move
     int		angle_l_a;
 }   t_move;
 
+typedef struct s_tex_color
+{
+	int		**north;
+	int		**east;
+	int		**south;
+	int		**west;
+	int		**sky;
+	int		**floor;
+}	t_tex_color;
+
+typedef struct s_render_param
+{
+	int		y_offset_px;
+	float	y_offset;
+	float	floor_angle;
+	float	floor_dist;
+	float	pixel_x;
+	float	pixel_y;
+}	t_render_param;
+
 typedef struct s_cub
 {
     struct s_img    	*img;
@@ -159,6 +179,9 @@ typedef struct s_cub
     struct s_texture    *west;
     struct s_texture    *sky;
     struct s_texture    *floor;
+    struct s_render_param    *sky_p;
+    struct s_render_param    *floor_p;
+    struct s_tex_color  *tex_color;
     struct s_mdata  	*mdata;
     struct s_player 	*player;
     struct s_ray    	*ray;
@@ -166,9 +189,11 @@ typedef struct s_cub
     struct s_move       *move;
     char            	**map;
     int             	minimap;
+	float				step;
     int                	frames;
     char                *fps;
-    long                start_time;
+    long                fps_time;
+    long                frame_time;
 }   t_cub;
 
 int     main(int ac, char **av);
@@ -204,6 +229,13 @@ void    ft_print_view(t_cub *cub);
 float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size);
 void    ft_get_direction(t_cub *cub);
 void    ft_mini_map(t_cub *cub);
+
+int		ft_get_color_from_texture(t_texture *tex, int x, int y);
+int		ft_shade_color(int pix_color, float dist);
+
+void	ft_render_wall(t_cub *cub, int i, int j, float dist);
+int		ft_render_sky(t_cub *cub, int i, int j, float dist);
+int		ft_render_floor(t_cub *cub, int i, int j, float dist);
 
 int	    key_hook_down(int keycode, t_cub *cub);
 int	    key_hook_up(int keycode, t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/06/29 15:05:53 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/02 15:59:49 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,27 @@ float   ft_dist_to_wall(t_cub *cub)
         if (cub->ray->dist_to_y < cub->ray->dist_to_x)
         {
             ft_nearest_wall_y(cub, &shortest_dist);
-            if (cub->ray->direction == NE || cub->ray->direction == SE)
-                cub->ray->texture_offset_x = ((cos(cub->ray->angle) * shortest_dist) - (cub->player->offset_x - 1)) * TEX_WIDTH; // 
-            if (cub->ray->direction == NW || cub->ray->direction == SW)
-                cub->ray->texture_offset_x = -(-cos(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))) * TEX_WIDTH;
+            if (cub->ray->direction == NE)
+                cub->ray->texture_offset_x = ((cos(cub->ray->angle) * shortest_dist) - (cub->player->offset_x - 1)) * cub->north->width[0]; // 
+            if (cub->ray->direction == SE)
+                cub->ray->texture_offset_x = ((cos(cub->ray->angle) * shortest_dist) - (cub->player->offset_x - 1)) * cub->south->width[0]; // 
+            if (cub->ray->direction == NW)
+                cub->ray->texture_offset_x = -(-cos(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))) * cub->north->width[0];
+            if (cub->ray->direction == SW)
+                cub->ray->texture_offset_x = -(-cos(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))) * cub->south->width[0];
         }
         else
         {
             ft_nearest_wall_x(cub, &shortest_dist);
-            if (cub->ray->direction == NE || cub->ray->direction == NW)
-                cub->ray->texture_offset_x = ((sin(cub->ray->angle) * shortest_dist) - (cub->player->offset_y - 1)) * TEX_WIDTH; // 
-            if (cub->ray->direction == SE || cub->ray->direction == SW)
-                cub->ray->texture_offset_x = -(-sin(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))) * TEX_WIDTH;
+            if (cub->ray->direction == NE)
+                cub->ray->texture_offset_x = ((sin(cub->ray->angle) * shortest_dist) - (cub->player->offset_y - 1)) * cub->east->width[0]; // 
+            if (cub->ray->direction == NW)
+                cub->ray->texture_offset_x = ((sin(cub->ray->angle) * shortest_dist) - (cub->player->offset_y - 1)) * cub->west->width[0]; // 
+            if (cub->ray->direction == SE)
+                cub->ray->texture_offset_x = -(-sin(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))) * cub->east->width[0];
+            if (cub->ray->direction == SW)
+                cub->ray->texture_offset_x = -(-sin(cub->ray->angle) * shortest_dist - (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))) * cub->west->width[0];
         }
     }
-    // printf("%d offset_x %f\n", cub->ray->wall_orientation, cub->ray->texture_offset_x);
     return (shortest_dist);
 }

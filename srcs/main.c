@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/01 20:39:17 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:15:16 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	ft_init_struct(t_cub *cub)
 	t_texture	*west;
 	t_texture	*sky;
 	t_texture	*floor;
+	t_render_param	*sky_p;
+	t_render_param	*floor_p;
+	t_tex_color	*tex_color;
 	t_move		*move;
     
     mdata = malloc(sizeof(t_mdata));
@@ -53,8 +56,11 @@ void	ft_init_struct(t_cub *cub)
 	west = malloc(sizeof(t_texture));
 	sky = malloc(sizeof(t_texture));
 	floor = malloc(sizeof(t_texture));
+	sky_p = malloc(sizeof(t_render_param));
+	floor_p = malloc(sizeof(t_render_param));
+	tex_color = malloc(sizeof(t_tex_color));
 	move = malloc(sizeof(t_move));
-    if (!mdata || !player || !mlx || !ray || !north || !move || !sky || !floor)
+    if (!mdata || !player || !mlx || !ray || !north || !move || !sky || !floor || !tex_color)
 		exit(EXIT_FAILURE);
     cub->mdata = mdata;
     cub->player = player;
@@ -66,6 +72,9 @@ void	ft_init_struct(t_cub *cub)
     cub->west = west;
     cub->sky = sky;
     cub->floor = floor;
+    cub->sky_p = sky_p;
+    cub->floor_p = floor_p;
+    cub->tex_color = tex_color;
     cub->move = move;
 	cub->mdata->NO = NULL;
 	cub->mdata->SO = NULL;
@@ -141,9 +150,11 @@ void    ft_start_game(t_cub *cub)
 	ft_init_orientation(cub);
     ft_mlx_init(cub);
 	ft_init_texture(cub);
+	cub->step = 0.05;
 	cub->minimap = -1;
 	cub->frames = 0;
-	cub->start_time = ft_get_time();
+	cub->fps_time = ft_get_time();
+	cub->frame_time = ft_get_time();
     ft_print_view(cub);
     mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
 	mlx_hook(cub->mlx->win, 2, 0, key_hook_down, cub);
