@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:34:16 by dvallien          #+#    #+#             */
-/*   Updated: 2022/07/03 17:26:29 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:31:03 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,10 @@ void	ft_parse_file(char *file, t_cub *cub)
 
 	fd_file = open(file, O_RDONLY);
 	if (fd_file == -1)
-	{
 		ft_error(FILE_ERR);
-		exit(EXIT_FAILURE);
-	}
 	ft_get_lines(cub, fd_file);
 	if (close(fd_file) == -1)
-	{
 		ft_error(FILE_ERR);
-		exit(EXIT_FAILURE);
-	}	
 }
 
 void	ft_get_param_from_line(t_cub *cub, char *line)
@@ -72,31 +66,33 @@ void	ft_get_lines(t_cub *cub, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
+	if (ft_all_params(cub) == 1 || !cub->map)
+		ft_error(INPUT_ERR);
 }
 
 void	ft_build_map(t_cub *cub, char *line)
 {
 	int			i;
 	char		**tmp_map;
-	static int	start_build = 0;
-	static int	empty_line = 0;
 
-	if (empty_line != 0 && line[0] != '\n')
-		ft_error(EMPTY_LINE);
-	if (line[0] != '\n' && start_build == 0)
-		start_build = 1;
-	if (start_build == 1 && line[0] == '\n')
-		empty_line = 1;
+	ft_empty_line_checker(line);
 	i = 0;
-	tmp_map = malloc(sizeof(char *) * (ft_strlen2d(cub->map) + 2));
-	while (cub->map && cub->map[i])
+	if (line[0] != '\n')
 	{
-		tmp_map[i] = cub->map[i];
-		i++;
+		tmp_map = malloc(sizeof(char *) * (ft_strlen2d(cub->map) + 2));
+		if (!tmp_map)
+			ft_error(MALLOC);
+		while (cub->map && cub->map[i])
+		{
+			tmp_map[i] = cub->map[i];
+			i++;
+		}
+		tmp_map[i] = ft_strdup(line);
+		tmp_map[i + 1] = 0;
+		free(cub->map);
+		cub->map = tmp_map;
 	}
-	tmp_map[i] = ft_strdup(line);
-	tmp_map[i + 1] = 0;
-	cub->map = tmp_map;
 }
 
 int	ft_all_params(t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:18:22 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:29:31 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:54:20 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ void	ft_check_colors(t_cub *cub, char **tmp_line);
 void	ft_get_colors(char **colors);
 int		ft_all_params(t_cub *cub);
 void	ft_build_map(t_cub *cub, char *line);
+void	ft_empty_line_checker(char *line);
 void	ft_empty_file(char *line);
 void	ft_check_extension(char *map_cub);
 

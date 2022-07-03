@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:41:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:30:25 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:41:19 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_convert_colors(t_cub *cub)
 {
 	cub->mdata->c_color = ft_rgb_to_hex(cub->mdata->c);
 	cub->mdata->f_color = ft_rgb_to_hex(cub->mdata->f);
+	ft_split_clear(cub->mdata->c);
+	ft_split_clear(cub->mdata->f);
 }
 
 int	ft_get_color_from_texture(t_texture *tex, int x, int y)

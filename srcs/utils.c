@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:02:09 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:16:50 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:31:26 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,36 @@ void	ft_open_texture(char *dir)
 
 void	ft_fps(t_cub *cub)
 {
+	char	*frames;
+
 	if (ft_get_time() - cub->fps_time > 1000)
 	{
 		if (cub->fps)
 			free(cub->fps);
-		cub->fps = ft_strjoin("FPS : ", ft_itoa(cub->frames));
+		frames = ft_itoa(cub->frames);
+		if (!frames)
+			ft_error(MALLOC);
+		cub->fps = ft_strjoin("FPS : ", frames);
+		free(frames);
 		cub->frames = 0;
 		cub->fps_time = ft_get_time();
 	}
 	if (cub->fps)
 		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
 			50, 30, 0x934d1d, cub->fps);
+}
+
+void	ft_empty_line_checker(char *line)
+{
+	static int	start_build = 0;
+	static int	empty_line = 0;
+
+	if (empty_line != 0 && line[0] != '\n')
+		ft_error(EMPTY_LINE);
+	if (line[0] != '\n' && start_build == 0)
+		start_build = 1;
+	if (start_build == 1 && line[0] == '\n')
+		empty_line = 1;
 }
 
 long	ft_get_time(void)

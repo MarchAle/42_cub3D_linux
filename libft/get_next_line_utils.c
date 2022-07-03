@@ -3,31 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 13:41:20 by dvallien          #+#    #+#             */
-/*   Updated: 2022/01/25 11:36:21 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:23:29 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strcpy(char *dest, char *src)
+char	*ft_fill_str(char *str, char *s1, char*s2)
 {
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
-
-static void	ft_fill_tab_gnl(char *str, char *s1, char *s2, int len)
-{
-	int	i;
+	int		i;
 
 	i = 0;
 	while (*s1)
@@ -42,21 +29,35 @@ static void	ft_fill_tab_gnl(char *str, char *s1, char *s2, int len)
 		str[i++] = *s2++;
 	}
 	str[i] = '\0';
-	free(s1 - len);
+	return (str);
 }
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*str;
-	int		len_s1;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	len_s1 = ft_strlen(s1);
 	str = malloc(sizeof(char) * (ft_strlen((char *)s1)
 				+ ft_strlen((char *)s2) + 1));
 	if (!str)
+	{
+		free(s1);
 		return (NULL);
-	ft_fill_tab_gnl(str, s1, s2, len_s1);
+	}
+	str = ft_fill_str(str, s1, s2);
+	free(s1);
 	return (str);
+}
+
+int	ft_end_of_line(char *buff)
+{
+	int	i;
+
+	i = 0;
+	while (buff[i])
+	{
+		if (buff[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
 }

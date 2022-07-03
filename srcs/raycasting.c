@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:02:29 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:12:32 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:29:42 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_print_view(t_cub *cub)
 		ft_mini_map(cub);
 	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 	mlx_destroy_image(cub->mlx->mlx, cub->img->img);
+	free(img);
 	cub->frames++;
 }
 
