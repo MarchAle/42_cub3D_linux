@@ -6,102 +6,53 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:50:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 12:29:10 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:50:54 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	ft_init_texture(t_cub *cub)
+int	ft_upper_screen(t_cub *cub, int i, int j, float dist)
 {
-	cub->north->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-			cub->mdata->NO, cub->north->width, cub->north->height);
-	cub->east->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-			cub->mdata->EA, cub->east->width, cub->east->height);
-	cub->south->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-			cub->mdata->SO, cub->south->width, cub->south->height);
-	cub->west->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-			cub->mdata->WE, cub->west->width, cub->west->height);
-	cub->north->addr = mlx_get_data_addr(cub->north->img, &cub->north->bpp,
-			&cub->north->line_length, &cub->north->endian);
-	cub->east->addr = mlx_get_data_addr(cub->east->img, &cub->east->bpp,
-			&cub->east->line_length, &cub->east->endian);
-	cub->south->addr = mlx_get_data_addr(cub->south->img, &cub->south->bpp,
-			&cub->south->line_length, &cub->south->endian);
-	cub->west->addr = mlx_get_data_addr(cub->west->img, &cub->west->bpp,
-			&cub->west->line_length, &cub->west->endian);
-	if (cub->mdata->sky)
+	if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
+		ft_render_wall(cub, i, j, dist);
+	else
 	{
-		cub->sky->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-				cub->mdata->sky, cub->sky->width, cub->sky->height);
-		cub->sky->addr = mlx_get_data_addr(cub->sky->img, &cub->sky->bpp,
-				&cub->sky->line_length, &cub->sky->endian);
+		if (cub->mdata->sky == NULL)
+			my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
+		else if (i % 2 == 0)
+			j = ft_render_sky(cub, i, j, dist);
 	}
-	if (cub->mdata->floor)
-	{
-		cub->floor->img = mlx_xpm_file_to_image(cub->mlx->mlx,
-				cub->mdata->floor, cub->floor->width, cub->floor->height);
-		cub->floor->addr = mlx_get_data_addr(cub->floor->img, &cub->floor->bpp,
-				&cub->floor->line_length, &cub->floor->endian);
-	}
+	return (j);
 }
 
-int	ft_get_color_from_texture(t_texture *tex, int x, int y)
+int	ft_lower_screen(t_cub *cub, int i, int j, float dist)
 {
-	return (*(int*)(tex->addr + (y * tex->line_length + x * (tex->bpp / 8))));
-}
-
-int	ft_shade_color(int pix_color, float dist)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	if (dist > 2)
+	if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
+		ft_render_wall(cub, i, j, dist);
+	else
 	{
-		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist - 2)));
-		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist - 2)));
-		b = (pix_color & 0x000000ff) * (1 / (1 + (dist - 2)));
-		return((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);	
+		if (cub->mdata->floor == NULL)
+			my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);
+		else if (i % 2 == 0)
+			j = ft_render_floor(cub, i, j, dist);
 	}
-	return (pix_color);
+	return (j);
 }
 
 void	ft_render_img(t_cub *cub, float dist, int i)
 {
 	int	j;
-	
+
 	cub->ray->wall_height = (1 / (dist * cos(cub->ray->angle
-		- cub->player->orient))) * cub->mdata->screen[1];
+					- cub->player->orient))) * cub->mdata->screen[1];
 	j = 0;
 	while (j < cub->mdata->screen[1] - 1)
 	{
 		if (j < cub->mdata->screen[1] * 0.5)
-		{
-			if (j > cub->mdata->screen[1] * 0.5 - cub->ray->wall_height * 0.5)
-				ft_render_wall(cub, i, j, dist);
-			else//  
-			{
-				if (cub->mdata->sky == NULL)
-					my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
-				else if (i % 2 == 0)
-					j = ft_render_sky(cub, i, j, dist);
-			}
-		}
+			j = ft_upper_screen(cub, i, j, dist);
 		else
-		{
-			if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
-				ft_render_wall(cub, i, j, dist);
-			else if (i % 2 == 0)//  
-			{
-				if (cub->mdata->floor == NULL)
-					my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);
-				else if (i % 2 == 0)
-					j = ft_render_floor(cub, i, j, dist);
-				
-			}
-				// my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);
-		}
+			j = ft_lower_screen(cub, i, j, dist);
 		j++;
 	}
 }

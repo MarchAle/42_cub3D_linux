@@ -6,41 +6,45 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:35:57 by dvallien          #+#    #+#             */
-/*   Updated: 2022/07/03 10:52:32 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:27:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	ft_get_param(t_cub *cub, char **tmp_line)
+void static	ft_get_param_split_1(t_cub *cub, char **tmp_line)
 {
 	if (ft_strcmp(tmp_line[0], "NO") == 0)
 	{
-		if (cub->mdata->NO)
+		if (cub->mdata->no)
 			ft_error(INPUT_ERR);
-		cub->mdata->NO = ft_strtrim(tmp_line[1], "\n");
-		ft_open_texture(cub->mdata->NO);
+		cub->mdata->no = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->no);
 	}
 	if (ft_strcmp(tmp_line[0], "SO") == 0)
 	{
-		if (cub->mdata->SO)
+		if (cub->mdata->so)
 			ft_error(INPUT_ERR);
-		cub->mdata->SO = ft_strtrim(tmp_line[1], "\n");
-		ft_open_texture(cub->mdata->SO);
+		cub->mdata->so = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->so);
 	}
 	if (ft_strcmp(tmp_line[0], "WE") == 0)
 	{
-		if (cub->mdata->WE)
+		if (cub->mdata->we)
 			ft_error(INPUT_ERR);
-		cub->mdata->WE = ft_strtrim(tmp_line[1], "\n");
-		ft_open_texture(cub->mdata->WE);
+		cub->mdata->we = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->we);
 	}
+}
+
+void static	ft_get_param_split_2(t_cub *cub, char **tmp_line)
+{
 	if (ft_strcmp(tmp_line[0], "EA") == 0)
 	{
-		if (cub->mdata->EA)
+		if (cub->mdata->ea)
 			ft_error(INPUT_ERR);
-		cub->mdata->EA = ft_strtrim(tmp_line[1], "\n");
-		ft_open_texture(cub->mdata->EA);
+		cub->mdata->ea = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->ea);
 	}
 	if (ft_strcmp(tmp_line[0], "sky") == 0)
 	{
@@ -56,37 +60,33 @@ void	ft_get_param(t_cub *cub, char **tmp_line)
 		cub->mdata->floor = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->floor);
 	}
-	ft_check_colors(cub, tmp_line);
 }
 
-
-void	ft_open_texture(char *dir)
+void	ft_get_param(t_cub *cub, char **tmp_line)
 {
-	if (open(dir, O_RDONLY) == -1)
-	{
-		printf("hello %s\n", dir);
-		ft_error(INPUT_ERR);
-	}
+	ft_get_param_split_1(cub, tmp_line);
+	ft_get_param_split_2(cub, tmp_line);
+	ft_check_colors(cub, tmp_line);
 }
 
 void	ft_check_colors(t_cub *cub, char **tmp_line)
 {
 	if (ft_strcmp(tmp_line[0], "F") == 0)
 	{
-		cub->mdata->F = ft_split(tmp_line[1], ',');
-		ft_get_colors(cub->mdata->F);
+		cub->mdata->f = ft_split(tmp_line[1], ',');
+		ft_get_colors(cub->mdata->f);
 	}
 	if (ft_strcmp(tmp_line[0], "C") == 0)
 	{
-		cub->mdata->C = ft_split(tmp_line[1], ',');
-		ft_get_colors(cub->mdata->C);
+		cub->mdata->c = ft_split(tmp_line[1], ',');
+		ft_get_colors(cub->mdata->c);
 	}
 }
 
 void	ft_get_colors(char **colors)
 {
 	int		i;
-	
+
 	i = 0;
 	if (ft_strlen2d(colors) != 3)
 		ft_error(INPUT_ERR);
@@ -96,28 +96,4 @@ void	ft_get_colors(char **colors)
 			ft_error(INPUT_ERR);
 		i++;
 	}
-}
-
-int		ft_rgb_to_hex(char **rgb)
-{
-	// printf("%ld %ld %ld\n", ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
-	// printf("%ld\n", ((ft_atoi(rgb[0]) & 0xff) << 16) + ((ft_atoi(rgb[1]) & 0xff) << 8) + (ft_atoi(rgb[2]) & 0xff));
-	// int nb = ((ft_atoi(rgb[0]) & 0xff) << 16) + ((ft_atoi(rgb[1]) & 0xff) << 8) + (ft_atoi(rgb[2]) & 0xff);
-	// printf("r %d\n", (((nb & 0x00ff0000) >> 16)));
-	// printf("g %d\n", (((nb & 0x0000ff00) >> 8)));
-	// printf("b %d\n", ((nb & 0xff)));
-	return ((ft_atoi(rgb[0]) & 0xff) << 16) + ((ft_atoi(rgb[1]) & 0xff) << 8) + (ft_atoi(rgb[2]) & 0xff);
-}
-
-// char	**ft_hex_to_rgb(int hex)
-// {
-// 	char	**rgb;
-	
-// 	return (rgb);
-// }
-
-void	ft_convert_colors(t_cub *cub)
-{
-	cub->mdata->c_color = ft_rgb_to_hex(cub->mdata->C);
-	cub->mdata->f_color = ft_rgb_to_hex(cub->mdata->F);
 }

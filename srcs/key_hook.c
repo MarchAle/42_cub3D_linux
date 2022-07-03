@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 13:09:17 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:16:40 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,6 @@ void	ft_position_update(t_cub *cub)
 		cub->player->x -= 0.000001;
 	if (cub->player->y - floor(cub->player->y) == 0)
 		cub->player->y -= 0.000001;
-}
-
-void	ft_fps(t_cub *cub)
-{
-	if (ft_get_time() - cub->fps_time > 1000)
-	{
-		if (cub->fps)
-			free(cub->fps);
-		cub->fps = ft_strjoin("FPS : ", ft_itoa(cub->frames));
-		cub->frames = 0;
-		cub->fps_time = ft_get_time();
-	}
-	if (cub->fps)
-		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
-			50, 30, 0x934d1d, cub->fps);
 }
 
 void	ft_move(t_cub *cub)

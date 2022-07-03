@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/07/03 12:45:57 by amarchal         ###   ########.fr        #
+#    Updated: 2022/07/03 17:16:18 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ LST_SRCS := main.c					\
 			get_params.c 			\
 			game.c					\
 			init_struct.c			\
+			init_texture.c			\
 			moves.c					\
+			acceleration.c			\
 			collision.c				\
 			raycasting.c 			\
 			key_hook.c				\
@@ -33,7 +35,9 @@ LST_SRCS := main.c					\
 			render_sky.c 			\
 			render_floor.c 			\
 			minimap.c 				\
+			color.c 				\
 			error.c 				\
+			utils.c 				\
 			
 			
 DIR_OBJS := ./.OBJS

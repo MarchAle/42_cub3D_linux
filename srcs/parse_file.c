@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:34:16 by dvallien          #+#    #+#             */
-/*   Updated: 2022/07/03 12:59:58 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:26:29 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,27 @@ void	ft_parse_file(char *file, t_cub *cub)
 	}	
 }
 
+void	ft_get_param_from_line(t_cub *cub, char *line)
+{
+	char	**tmp_line;
+	char	*trimed_line;
+
+	if (line[0] != '\n')
+	{
+		trimed_line = ft_strtrim(line, "\n");
+		if (!trimed_line)
+			ft_error(MALLOC);
+		tmp_line = ft_split(trimed_line, ' ');
+		if (!tmp_line)
+			ft_error(MALLOC);
+		free(trimed_line);
+		if (ft_strlen2d(tmp_line) != 2 && ft_strlen(line))
+			ft_error(INPUT_ERR);
+		ft_get_param(cub, tmp_line);
+		ft_split_clear(tmp_line);
+	}
+}
+
 void	ft_get_lines(t_cub *cub, int fd)
 {
 	char	*line;
@@ -40,13 +61,7 @@ void	ft_get_lines(t_cub *cub, int fd)
 	while (line)
 	{
 		if (ft_all_params(cub) == 1)
-		{
-			tmp_line = ft_split(line, ' ');
-			if (tmp_line && ft_strlen2d(tmp_line) != 2 && ft_strlen(line))
-				ft_error(INPUT_ERR);
-			ft_get_param(cub, tmp_line);
-			ft_split_clear(tmp_line);
-		}
+			ft_get_param_from_line(cub, line);
 		else
 		{
 			tmp_line = ft_split(line, ' ');
@@ -61,9 +76,17 @@ void	ft_get_lines(t_cub *cub, int fd)
 
 void	ft_build_map(t_cub *cub, char *line)
 {
-	int		i;
-	char	**tmp_map;
+	int			i;
+	char		**tmp_map;
+	static int	start_build = 0;
+	static int	empty_line = 0;
 
+	if (empty_line != 0 && line[0] != '\n')
+		ft_error(EMPTY_LINE);
+	if (line[0] != '\n' && start_build == 0)
+		start_build = 1;
+	if (start_build == 1 && line[0] == '\n')
+		empty_line = 1;
 	i = 0;
 	tmp_map = malloc(sizeof(char *) * (ft_strlen2d(cub->map) + 2));
 	while (cub->map && cub->map[i])
@@ -78,9 +101,9 @@ void	ft_build_map(t_cub *cub, char *line)
 
 int	ft_all_params(t_cub *cub)
 {
-	if (cub->mdata->NO == NULL || cub->mdata->SO == NULL
-		|| cub->mdata->EA == NULL || cub->mdata->WE == NULL
-		|| cub->mdata->F == NULL || cub->mdata->C == NULL)
+	if (cub->mdata->no == NULL || cub->mdata->so == NULL
+		|| cub->mdata->ea == NULL || cub->mdata->we == NULL
+		|| cub->mdata->f == NULL || cub->mdata->c == NULL)
 	{
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:02:29 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 13:17:26 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:12:32 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	ft_print_view(t_cub *cub)
 {
-	int  	i;
-	float   dist;
-	t_img   *img;
+	int		i;
+	float	dist;
+	t_img	*img;
 
 	img = malloc(sizeof(t_img));
 	if (!img)
 		ft_error(MALLOC);
 	cub->img = img;
 	cub->img->img = mlx_new_image(cub->mlx,
-		cub->mdata->screen[0], cub->mdata->screen[1]);
-	cub->img->addr = mlx_get_data_addr(cub->img->img,
-		&cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
+			cub->mdata->screen[0], cub->mdata->screen[1]);
+	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
+			&cub->img->line_length, &cub->img->endian);
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
@@ -50,26 +50,15 @@ void	ft_offset_init(t_cub *cub)
 		cub->player->offset_y = 1 - cub->player->offset_y;
 }
 
-int	ft_fade_color(int pix_color, float dist)
+float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	r = ((pix_color & 0x00ff0000) >> 16) * (dist * 10.77 / 8);
-	g = ((pix_color & 0x0000ff00) >> 8) * (dist * 22.5 / 8);
-	b = (pix_color & 0x000000ff) * (dist * 3.19 / 8);
-	return((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-}
-
-float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
-{
-	float   dist;
-	float 	tmp_dist;
+	float	dist;
+	float	tmp_dist;
 	int		ray_color;
-		
+
 	tmp_dist = 0;
-	cub->ray->angle = (cub->player->orient + (-(30 * M_PI / 180) + ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
+	cub->ray->angle = (cub->player->orient + (-(30 * M_PI / 180)
+				+ ((60 * M_PI / 180) / cub->mdata->screen[0]) * i));
 	ft_get_direction(cub);
 	ft_offset_init(cub);
 	dist = ft_dist_to_wall(cub);
@@ -81,7 +70,8 @@ float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 			cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->angle);
 			cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->angle);
 			ray_color = ft_fade_color(ray_color, tmp_dist);
-			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50, cub->ray->y * minimap_size + 30, ray_color);
+			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50,
+				cub->ray->y * minimap_size + 30, ray_color);
 			tmp_dist += 0.08;
 		}
 	}
@@ -90,18 +80,18 @@ float   ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 
 void	ft_get_direction(t_cub *cub)
 {
-	if (cub->ray->angle <= - M_PI * 0.5 && cub->ray->angle >= - M_PI)
+	if (cub->ray->angle <= -M_PI * 0.5 && cub->ray->angle >= -M_PI)
 		cub->ray->direction = SW;
 	else if (cub->ray->angle >= M_PI * 0.5 && cub->ray->angle <= M_PI)
 		cub->ray->direction = NW;
 	else if (cub->ray->angle >= 0 && cub->ray->angle <= M_PI * 0.5)
 		cub->ray->direction = NE;
-	else if (cub->ray->angle > - M_PI * 0.5 && cub->ray->angle <= 0)
+	else if (cub->ray->angle > -M_PI * 0.5 && cub->ray->angle <= 0)
 		cub->ray->direction = SE;
-	else if (cub->ray->angle > - M_PI && cub->ray->angle <= - M_PI * 0.5)
+	else if (cub->ray->angle > -M_PI && cub->ray->angle <= -M_PI * 0.5)
 		cub->ray->direction = SW;
 	else if (cub->ray->angle > M_PI)
 		cub->ray->direction = SW;
-	else if (cub->ray->angle < - M_PI)
+	else if (cub->ray->angle < -M_PI)
 		cub->ray->direction = NW;
 }

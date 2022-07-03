@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:45:41 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 11:20:32 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:28:02 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void	ft_init_struct(t_cub *cub)
 		ft_error(MALLOC);
 	cub->mdata = mdata;
 	cub->mlx = mlx;
-	cub->mdata->NO = NULL;
-	cub->mdata->SO = NULL;
-	cub->mdata->EA = NULL;
-	cub->mdata->WE = NULL;
+	cub->mdata->no = NULL;
+	cub->mdata->so = NULL;
+	cub->mdata->ea = NULL;
+	cub->mdata->we = NULL;
 	cub->mdata->sky = NULL;
 	cub->mdata->floor = NULL;
-	cub->mdata->F = NULL;
-	cub->mdata->C = NULL;
+	cub->mdata->f = NULL;
+	cub->mdata->c = NULL;
 	cub->map = NULL;
 	cub->fps = NULL;
 	ft_init_struct_move(cub);

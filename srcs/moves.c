@@ -6,31 +6,11 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:18:53 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/02 14:43:50 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:15:11 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
-void	ft_acceleration(int	*dir, int *accel, int type)
-{
-	int	acc;
-
-	if (type == MOVE)
-		acc = ACCEL;
-	else
-		acc = O_ACC;
-	if (*dir)
-	{
-		if (*accel < acc)
-			*accel += 1;
-	}
-	else
-	{
-		if (*accel > 0)
-			*accel -= 1;
-	}
-}
 
 void	ft_move_front(t_cub *cub)
 {
