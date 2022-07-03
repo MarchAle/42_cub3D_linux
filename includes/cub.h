@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:22:02 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/02 19:39:41 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 13:08:54 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define BORDER_ERR 3
 # define CHAR_ERR 4
 # define PLAYER_ERR 5
-# define INPUT_ERR_TEST 6
+# define MALLOC 6
+# define ORIENT 7
 
 # define NW 1
 # define NE 2
@@ -196,6 +197,8 @@ typedef struct s_cub
     long                frame_time;
 }   t_cub;
 
+void    ft_error(int type);
+
 int     main(int ac, char **av);
 void	ft_init_struct(t_cub *cub);
 void	ft_init_texture(t_cub *cub);
@@ -214,9 +217,8 @@ void	ft_check_extension(char *map_cub);
 void    ft_mlx_init(t_cub *cub);
 void    ft_print_img(t_cub *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    ft_draw_wall(t_cub *cub, float dist, int i);
+void    ft_render_img(t_cub *cub, float dist, int i);
 
-void    ft_parse_error(int type);
 void    ft_check_char(char c, int x, int y, t_cub *cub);
 void    ft_check_border(char **map, int x, int y);
 void    ft_check_line(char *line, int y, char **map, t_cub *cub);
@@ -240,7 +242,8 @@ int		ft_render_floor(t_cub *cub, int i, int j, float dist);
 int	    key_hook_down(int keycode, t_cub *cub);
 int	    key_hook_up(int keycode, t_cub *cub);
 
-int	    ft_move(t_cub *cub);
+int	    ft_loop_move(t_cub *cub);
+void    ft_move(t_cub *cub);
 void	ft_move_front(t_cub *cub);
 void	ft_move_back(t_cub *cub);
 void	ft_move_right(t_cub *cub);

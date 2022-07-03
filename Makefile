@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/07/02 19:40:14 by amarchal         ###   ########.fr        #
+#    Updated: 2022/07/03 12:45:57 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,18 @@ LST_SRCS := main.c					\
 			parse_file.c			\
 			get_params.c 			\
 			game.c					\
+			init_struct.c			\
 			moves.c					\
 			collision.c				\
 			raycasting.c 			\
 			key_hook.c				\
 			dist_to_wall.c			\
 			dist_to_wall_utils.c	\
-			render_texture.c		\
+			render_img.c			\
 			render_wall.c 			\
 			render_sky.c 			\
 			render_floor.c 			\
+			minimap.c 				\
 			error.c 				\
 			
 			

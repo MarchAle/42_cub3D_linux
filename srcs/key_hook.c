@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/02 14:47:52 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 13:09:17 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,25 +73,37 @@ void	ft_fps(t_cub *cub)
 		cub->fps_time = ft_get_time();
 	}
 	if (cub->fps)
-		mlx_string_put(cub->mlx->mlx, cub->mlx->win, 50, 30, 0x934d1d, cub->fps);
+		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
+			50, 30, 0x934d1d, cub->fps);
 }
 
-int	ft_move(t_cub *cub)
+void	ft_move(t_cub *cub)
+{
+	if ((cub->move->front == 1 && cub->move->back == 0)
+		|| cub->move->front_a)
+		ft_move_front(cub);
+	if ((cub->move->front == 0 && cub->move->back == 1)
+		|| cub->move->back_a)
+		ft_move_back(cub);
+	if ((cub->move->right == 1 && cub->move->left == 0)
+		|| cub->move->right_a)
+		ft_move_right(cub);
+	if ((cub->move->right == 0 && cub->move->left == 1)
+		|| cub->move->left_a)
+		ft_move_left(cub);
+	if ((cub->move->angle_l == 1 && cub->move->angle_r == 0)
+		|| cub->move->angle_l_a)
+		ft_move_camera(cub, LEFT);
+	if ((cub->move->angle_l == 0 && cub->move->angle_r == 1)
+		|| cub->move->angle_r_a)
+		ft_move_camera(cub, RIGHT);
+}
+
+int	ft_loop_move(t_cub *cub)
 {
 	if (ft_get_time() - cub->frame_time > 3)
 	{
-		if ((cub->move->front == 1 && cub->move->back == 0) || cub->move->front_a)
-			ft_move_front(cub);
-		if ((cub->move->front == 0 && cub->move->back == 1) || cub->move->back_a)
-			ft_move_back(cub);
-		if ((cub->move->right == 1 && cub->move->left == 0) || cub->move->right_a)
-			ft_move_right(cub);
-		if ((cub->move->right == 0 && cub->move->left == 1) || cub->move->left_a)
-			ft_move_left(cub);
-		if ((cub->move->angle_l == 1 && cub->move->angle_r == 0) || cub->move->angle_l_a)
-			ft_move_camera(cub, LEFT);
-		if ((cub->move->angle_l == 0 && cub->move->angle_r == 1) || cub->move->angle_r_a)
-			ft_move_camera(cub, RIGHT);
+		ft_move(cub);
 		ft_position_update(cub);
 		ft_print_view(cub);
 		cub->frame_time = ft_get_time();

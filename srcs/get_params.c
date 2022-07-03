@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:35:57 by dvallien          #+#    #+#             */
-/*   Updated: 2022/07/01 20:39:37 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/03 10:52:32 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,42 @@ void	ft_get_param(t_cub *cub, char **tmp_line)
 	if (ft_strcmp(tmp_line[0], "NO") == 0)
 	{
 		if (cub->mdata->NO)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->NO = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->NO);
 	}
 	if (ft_strcmp(tmp_line[0], "SO") == 0)
 	{
 		if (cub->mdata->SO)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->SO = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->SO);
 	}
 	if (ft_strcmp(tmp_line[0], "WE") == 0)
 	{
 		if (cub->mdata->WE)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->WE = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->WE);
 	}
 	if (ft_strcmp(tmp_line[0], "EA") == 0)
 	{
 		if (cub->mdata->EA)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->EA = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->EA);
 	}
 	if (ft_strcmp(tmp_line[0], "sky") == 0)
 	{
 		if (cub->mdata->sky)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->sky = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->sky);
 	}
 	if (ft_strcmp(tmp_line[0], "floor") == 0)
 	{
 		if (cub->mdata->floor)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		cub->mdata->floor = ft_strtrim(tmp_line[1], "\n");
 		ft_open_texture(cub->mdata->floor);
 	}
@@ -65,7 +65,7 @@ void	ft_open_texture(char *dir)
 	if (open(dir, O_RDONLY) == -1)
 	{
 		printf("hello %s\n", dir);
-		ft_parse_error(INPUT_ERR);
+		ft_error(INPUT_ERR);
 	}
 }
 
@@ -89,11 +89,11 @@ void	ft_get_colors(char **colors)
 	
 	i = 0;
 	if (ft_strlen2d(colors) != 3)
-		ft_parse_error(INPUT_ERR);
+		ft_error(INPUT_ERR);
 	while (colors[i])
 	{
 		if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-			ft_parse_error(INPUT_ERR);
+			ft_error(INPUT_ERR);
 		i++;
 	}
 }
