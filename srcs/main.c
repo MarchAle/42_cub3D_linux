@@ -6,34 +6,11 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 18:29:02 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:42:56 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
-int	main(int ac, char **av)
-{
-	t_cub	*cub;
-
-	if (ac != 2)
-		ft_error(INPUT_ERR);
-	ft_check_extension(av[1]);
-	cub = malloc(sizeof(t_cub));
-	if (!cub)
-		exit(EXIT_FAILURE);
-	ft_init_struct(cub);
-	ft_parse_file(av[1], cub);
-	ft_convert_colors(cub);
-	ft_parse_map(cub);
-	ft_start_game(cub);
-}
-
-void	ft_empty_file(char *line)
-{
-	if (!line)
-		ft_error(INPUT_ERR);
-}
 
 void	ft_init_orientation(t_cub *cub)
 {
@@ -49,9 +26,32 @@ void	ft_init_orientation(t_cub *cub)
 		ft_error(ORIENT);
 }
 
+int	main(int ac, char **av)
+{
+	t_cub	*cub;
+
+	if (ac != 2)
+		ft_error(INPUT_ERR);
+	ft_check_extension(av[1]);
+	cub = malloc(sizeof(t_cub));
+	if (!cub)
+		exit(EXIT_FAILURE);
+	ft_init_struct(cub);
+	ft_parse_file(av[1], cub);
+	ft_convert_colors(cub);
+	ft_parse_map(cub);
+	ft_init_orientation(cub);
+	ft_start_game(cub);
+}
+
+void	ft_empty_file(char *line)
+{
+	if (!line)
+		ft_error(INPUT_ERR);
+}
+
 void	ft_start_game(t_cub *cub)
 {
-	ft_init_orientation(cub);
 	ft_mlx_init(cub);
 	ft_init_texture(cub);
 	cub->step = 0.05;

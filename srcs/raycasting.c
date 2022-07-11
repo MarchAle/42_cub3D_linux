@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:02:29 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 18:29:42 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:01:09 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 			cub->ray->x = cub->player->x + tmp_dist * cos(cub->ray->angle);
 			cub->ray->y = cub->player->y - tmp_dist * sin(cub->ray->angle);
 			ray_color = ft_fade_color(ray_color, tmp_dist);
-			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 50,
-				cub->ray->y * minimap_size + 30, ray_color);
+			my_mlx_pixel_put(cub->img, cub->ray->x * minimap_size + 30,
+				cub->ray->y * minimap_size + 80, ray_color);
 			tmp_dist += 0.08;
 		}
 	}

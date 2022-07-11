@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:02:09 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 18:31:26 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:01:50 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_fps(t_cub *cub)
 	}
 	if (cub->fps)
 		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
-			50, 30, 0x934d1d, cub->fps);
+			30, 30, 0x934d1d, cub->fps);
 }
 
 void	ft_empty_line_checker(char *line)

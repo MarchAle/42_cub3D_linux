@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:18:22 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:54:20 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:35:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,15 @@ typedef struct s_render_param
 	float	pixel_y;
 }	t_render_param;
 
+typedef struct s_sprite
+{
+	float			dist;
+	float			height;
+	float			x_offset;
+	struct s_sprite	*next;
+	struct s_sprite	*previous;
+}	t_sprite;
+
 typedef struct s_cub
 {
 	struct s_img			*img;
@@ -176,6 +185,7 @@ typedef struct s_cub
 	struct s_texture		*west;
 	struct s_texture		*sky;
 	struct s_texture		*floor;
+	struct s_texture		*sprite;
 	struct s_render_param	*sky_p;
 	struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;
@@ -236,8 +246,9 @@ int		ft_fade_color(int pix_color, float dist);
 
 void	ft_render_img(t_cub *cub, float dist, int i);
 void	ft_render_wall(t_cub *cub, int i, int j, float dist);
-int		ft_render_sky(t_cub *cub, int i, int j, float dist);
+int		ft_render_sky(t_cub *cub, int i, int j);
 int		ft_render_floor(t_cub *cub, int i, int j, float dist);
+void	ft_render_sprites(t_cub *cub, int i, int j);
 void	ft_fps(t_cub *cub);
 
 int		key_hook_down(int keycode, t_cub *cub);

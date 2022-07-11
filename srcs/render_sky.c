@@ -6,55 +6,34 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 19:01:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:42:16 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:45:37 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void static	ft_param_calc(t_cub *cub, int j, float dist)
+void static	ft_param_calc(t_cub *cub, int j)
 {
-	cub->sky_p->y_offset_px = (cub->mdata->screen[1] * 0.5) - j;
-	cub->sky_p->y_offset = cub->sky_p->y_offset_px / cub->ray->wall_height;
-	cub->sky_p->floor_angle = cub->sky_p->y_offset / dist;
-	cub->sky_p->floor_dist = ((cub->ray->wall_height * 13)
-			/ tan(cub->sky_p->floor_angle) / cub->ray->wall_height);
-	cub->sky_p->pixel_x = cub->player->x + (cos(cub->ray->angle)
-			* cub->sky_p->floor_dist);
-	cub->sky_p->pixel_y = cub->player->y - (sin(cub->ray->angle)
-			* cub->sky_p->floor_dist);
+	float	corrected_angle;
+
+	corrected_angle = cub->ray->angle + M_PI;
+	if (corrected_angle > 2 * M_PI)
+		corrected_angle -= (2 * M_PI);
+	if (corrected_angle < 0)
+		corrected_angle += (2 * M_PI);
+	cub->sky_p->pixel_x = ((corrected_angle) / (2 * M_PI)) * cub->sky->width[0];
+	cub->sky_p->pixel_y = cub->sky->height[0] - (((cub->mdata->screen[1]
+					* 0.75 - j) / (cub->mdata->screen[1] * 0.75))
+			* cub->sky->height[0] - 50);
 }
 
-void static	ft_pixel_adjustment(t_cub *cub)
-{
-	if (cub->sky_p->pixel_x < 0)
-		cub->sky_p->pixel_x *= -1;
-	while (cub->sky_p->pixel_x > 100)
-		cub->sky_p->pixel_x -= 100;
-	if (cub->sky_p->pixel_x < 0)
-		cub->sky_p->pixel_x *= -1;
-	cub->sky_p->pixel_x = cub->sky_p->pixel_x / 100 * cub->sky->width[0];
-	if (cub->sky_p->pixel_y < 0)
-		cub->sky_p->pixel_y *= -1;
-	while (cub->sky_p->pixel_y > 100)
-		cub->sky_p->pixel_y -= 100;
-	if (cub->sky_p->pixel_y < 0)
-		cub->sky_p->pixel_y *= -1;
-	cub->sky_p->pixel_y = cub->sky_p->pixel_y / 100 * cub->sky->height[0];
-}
-
-int	ft_render_sky(t_cub *cub, int i, int j, float dist)
+int	ft_render_sky(t_cub *cub, int i, int j)
 {
 	int		pix_color;
 
-	ft_param_calc(cub, j, dist);
-	ft_pixel_adjustment(cub);
+	ft_param_calc(cub, j);
 	pix_color = ft_get_color_from_texture(cub->sky,
 			(int)cub->sky_p->pixel_x, (int)cub->sky_p->pixel_y);
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
-	my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
-	my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
-	my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
-	j++;
 	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 12:38:12 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 13:17:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:01:27 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	ft_mini_map(t_cub *cub)
 			* size)
 		{
 			if (ft_is_wall(cub, x, y, size) == 1)
-				my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x1a1718);
+				my_mlx_pixel_put(cub->img, x + 30, y + 80, 0x1a1718);
 			else if (ft_is_wall(cub, x, y, size) == 0)
-				my_mlx_pixel_put(cub->img, x + 50, y + 30, 0x8c8789);
+				my_mlx_pixel_put(cub->img, x + 30, y + 80, 0x8c8789);
 		}
 	}
 	i = cub->mdata->screen[0] / 3;

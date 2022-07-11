@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:50:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 15:50:54 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:37:47 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_upper_screen(t_cub *cub, int i, int j, float dist)
 	{
 		if (cub->mdata->sky == NULL)
 			my_mlx_pixel_put(cub->img, i, j, cub->mdata->c_color);
-		else if (i % 2 == 0)
-			j = ft_render_sky(cub, i, j, dist);
+		else
+			j = ft_render_sky(cub, i, j);
 	}
 	return (j);
 }

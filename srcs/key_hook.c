@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 17:16:40 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:01:22 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ int	ft_loop_move(t_cub *cub)
 		ft_move(cub);
 		ft_position_update(cub);
 		ft_print_view(cub);
+		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
+			30, 50, 0x934d1d, "press space to run");
+		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
+			30, 70, 0x934d1d, "press M for minimap");
 		cub->frame_time = ft_get_time();
 	}
 	ft_fps(cub);
