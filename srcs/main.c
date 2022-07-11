@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 10:42:56 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:46:45 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int ac, char **av)
 	ft_convert_colors(cub);
 	ft_parse_map(cub);
 	ft_init_orientation(cub);
+	ft_mlx_init(cub);
+	ft_init_texture(cub);
 	ft_start_game(cub);
 }
 
@@ -52,8 +54,6 @@ void	ft_empty_file(char *line)
 
 void	ft_start_game(t_cub *cub)
 {
-	ft_mlx_init(cub);
-	ft_init_texture(cub);
 	cub->step = 0.05;
 	cub->minimap = -1;
 	cub->frames = 0;

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 19:01:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 10:45:37 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:57:22 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void static	ft_param_calc(t_cub *cub, int j)
 {
-	float	corrected_angle;
+	// float	corrected_angle;
 
-	corrected_angle = cub->ray->angle + M_PI;
-	if (corrected_angle > 2 * M_PI)
-		corrected_angle -= (2 * M_PI);
-	if (corrected_angle < 0)
-		corrected_angle += (2 * M_PI);
-	cub->sky_p->pixel_x = ((corrected_angle) / (2 * M_PI)) * cub->sky->width[0];
+	// corrected_angle = cub->ray->angle + M_PI;
+	// if (corrected_angle > 2 * M_PI)
+	// 	corrected_angle -= (2 * M_PI);
+	// if (corrected_angle < 0)
+	// 	corrected_angle += (2 * M_PI);
+	cub->sky_p->pixel_x = ((cub->ray->angle) / (2 * M_PI)) * cub->sky->width[0];
 	cub->sky_p->pixel_y = cub->sky->height[0] - (((cub->mdata->screen[1]
 					* 0.75 - j) / (cub->mdata->screen[1] * 0.75))
 			* cub->sky->height[0] - 50);

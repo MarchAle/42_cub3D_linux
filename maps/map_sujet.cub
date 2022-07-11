@@ -2,7 +2,7 @@ NO ./texture/wall_brick.xpm
 SO ./texture/wall_stone1.xpm
 WE ./texture/wall_stone2.xpm
 EA ./texture/wall_stone3.xpm
-sky ./texture/sky.xpm
+sky ./texture/skybok.xpm
 floor ./texture/floor.xpm
 C 170,237,255
 F 92,72,40
