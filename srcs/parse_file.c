@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:34:16 by dvallien          #+#    #+#             */
-/*   Updated: 2022/07/03 20:31:03 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/12 11:30:22 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ void	ft_get_param_from_line(t_cub *cub, char *line)
 	}
 }
 
+void	ft_extra_param_or_build(t_cub *cub, char *line)
+{
+	char	**tmp_line;
+
+	tmp_line = ft_split(line, ' ');
+	if (ft_strcmp(tmp_line[0], "sky") && ft_strcmp(tmp_line[0], "floor"))
+		ft_build_map(cub, line);
+	else if (cub->mdata->start_build == 0)
+		ft_get_param(cub, tmp_line);
+	else
+		ft_error(INPUT_ERR);
+	ft_split_clear(tmp_line);
+}
+
 void	ft_get_lines(t_cub *cub, int fd)
 {
 	char	*line;
-	char	**tmp_line;
 
 	line = get_next_line(fd);
 	ft_empty_file(line);
@@ -57,42 +70,13 @@ void	ft_get_lines(t_cub *cub, int fd)
 		if (ft_all_params(cub) == 1)
 			ft_get_param_from_line(cub, line);
 		else
-		{
-			tmp_line = ft_split(line, ' ');
-			ft_get_param(cub, tmp_line);
-			ft_split_clear(tmp_line);
-			ft_build_map(cub, line);
-		}
+			ft_extra_param_or_build(cub, line);
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
 	if (ft_all_params(cub) == 1 || !cub->map)
 		ft_error(INPUT_ERR);
-}
-
-void	ft_build_map(t_cub *cub, char *line)
-{
-	int			i;
-	char		**tmp_map;
-
-	ft_empty_line_checker(line);
-	i = 0;
-	if (line[0] != '\n')
-	{
-		tmp_map = malloc(sizeof(char *) * (ft_strlen2d(cub->map) + 2));
-		if (!tmp_map)
-			ft_error(MALLOC);
-		while (cub->map && cub->map[i])
-		{
-			tmp_map[i] = cub->map[i];
-			i++;
-		}
-		tmp_map[i] = ft_strdup(line);
-		tmp_map[i + 1] = 0;
-		free(cub->map);
-		cub->map = tmp_map;
-	}
 }
 
 int	ft_all_params(t_cub *cub)

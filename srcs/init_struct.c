@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:45:41 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 10:44:57 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/12 11:10:25 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->floor = NULL;
 	cub->mdata->f = NULL;
 	cub->mdata->c = NULL;
+	cub->mdata->start_build = 0;
 	cub->map = NULL;
 	cub->fps = NULL;
 	ft_init_struct_move(cub);

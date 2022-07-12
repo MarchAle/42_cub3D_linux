@@ -6,32 +6,33 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:02:09 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 11:01:50 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/12 11:19:32 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	ft_check_extension(char *map_cub)
+void	ft_check_extension(char *file, char *ext)
 {
 	int	i;
 
 	i = 0;
-	while (map_cub[i])
+	while (file[i])
 		i++;
 	i--;
-	if (map_cub[i--] != 'b')
+	if (file[i--] != ext[2])
 		ft_error(EXT_ERR);
-	if (map_cub[i--] != 'u')
+	if (file[i--] != ext[1])
 		ft_error(EXT_ERR);
-	if (map_cub[i--] != 'c')
+	if (file[i--] != ext[0])
 		ft_error(EXT_ERR);
-	if (map_cub[i--] != '.')
+	if (file[i--] != '.')
 		ft_error(EXT_ERR);
 }
 
 void	ft_open_texture(char *dir)
 {
+	ft_check_extension(dir, "xpm");
 	if (open(dir, O_RDONLY) == -1)
 		ft_error(OPEN);
 }
@@ -57,16 +58,15 @@ void	ft_fps(t_cub *cub)
 			30, 30, 0x934d1d, cub->fps);
 }
 
-void	ft_empty_line_checker(char *line)
+void	ft_empty_line_checker(t_cub *cub, char *line)
 {
-	static int	start_build = 0;
 	static int	empty_line = 0;
 
 	if (empty_line != 0 && line[0] != '\n')
 		ft_error(EMPTY_LINE);
-	if (line[0] != '\n' && start_build == 0)
-		start_build = 1;
-	if (start_build == 1 && line[0] == '\n')
+	if (line[0] != '\n' && cub->mdata->start_build == 0)
+		cub->mdata->start_build = 1;
+	if (cub->mdata->start_build == 1 && line[0] == '\n')
 		empty_line = 1;
 }
 

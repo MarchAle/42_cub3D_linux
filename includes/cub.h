@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:18:22 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 10:35:36 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/12 11:11:03 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_mdata
 	int		c_color;
 	int		f_color;
 	int		max_size;
+	int		start_build;
 }	t_mdata;
 
 typedef struct s_ray
@@ -213,13 +214,13 @@ void	ft_get_lines(t_cub *cub, int fd);
 void	ft_get_param(t_cub *cub, char **tmp_line);
 void	ft_get_path_texture(char *texture, char **tmp_line);
 void	ft_open_texture(char *dir);
-void	ft_check_colors(t_cub *cub, char **tmp_line);
+int		ft_check_colors(t_cub *cub, char **tmp_line);
 void	ft_get_colors(char **colors);
 int		ft_all_params(t_cub *cub);
 void	ft_build_map(t_cub *cub, char *line);
-void	ft_empty_line_checker(char *line);
+void	ft_empty_line_checker(t_cub *cub, char *line);
 void	ft_empty_file(char *line);
-void	ft_check_extension(char *map_cub);
+void	ft_check_extension(char *file, char *ext);
 
 void	ft_mlx_init(t_cub *cub);
 void	ft_print_img(t_cub *cub);

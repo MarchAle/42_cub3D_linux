@@ -1,13 +1,13 @@
 NO ./texture/wall_brick.xpm
-SO ./texture/wall_stone1.xpm
+EA ./texture/wall_stone3.xpm 
 WE ./texture/wall_stone2.xpm
-EA ./texture/wall_stone3.xpm
-sky ./texture/skybox.xpm
-floor ./texture/floor.xpm
+SO ./texture/wall_stone1.xpm
 C 170,237,250
 F 92,72,40
+sky ./texture/skybox.xpm
+floor ./texture/floor.xpm
 
-        111
+        111      11
 11111111000111111111
 10000000010000000001111111
 111100100100000000110000001
@@ -15,7 +15,7 @@ F 92,72,40
   110011110001100011011111
   1000100001001111110111
 111010100000101000000111
-10101011110W101011111
+1010101111N0101011111
 1000100000001000010001
  10011101001011011011
 10010100100001000001

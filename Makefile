@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/07/11 10:24:17 by amarchal         ###   ########.fr        #
+#    Updated: 2022/07/12 11:25:43 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ DIR_SRCS := ./SRCS
 LST_SRCS := main.c					\
 			parse_map.c 			\
 			parse_file.c			\
+			build_map.c				\
 			get_params.c 			\
 			game.c					\
 			init_struct.c			\

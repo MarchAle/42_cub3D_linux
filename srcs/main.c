@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 13:46:45 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:20:11 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		ft_error(INPUT_ERR);
-	ft_check_extension(av[1]);
+	ft_check_extension(av[1], "cub");
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
 		exit(EXIT_FAILURE);
