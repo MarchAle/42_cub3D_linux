@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:13 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 16:20:11 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:20:16 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	ft_empty_file(char *line)
 
 void	ft_start_game(t_cub *cub)
 {
-	cub->step = 0.05;
+	cub->step = STEP;
 	cub->minimap = -1;
+	cub->light = -1;
 	cub->frames = 0;
 	cub->fps_time = ft_get_time();
 	cub->frame_time = ft_get_time();

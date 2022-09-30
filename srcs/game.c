@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:13:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/09 14:09:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:50:29 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_exit(t_cub *cub)
 void	ft_mlx_init(t_cub *cub)
 {
 	cub->mlx->mlx = mlx_init();
-	cub->mdata->screen[1] = 900;
+	cub->mdata->screen[1] = 1080;
 	cub->mdata->screen[0] = cub->mdata->screen[1] * 5 / 4;
 	cub->mlx->win = mlx_new_window(cub->mlx->mlx, cub->mdata->screen[0],
 			cub->mdata->screen[1], "Dark3D");

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 19:38:57 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 10:30:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:54:44 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_render_wall(t_cub *cub, int i, int j, float dist)
 		pix_color = ft_pix_color_calc(cub, j, cub->east);
 	else
 		pix_color = ft_pix_color_calc(cub, j, cub->west);
-	pix_color = ft_shade_color(pix_color, dist);
+	if (cub->light == -1)
+		pix_color = ft_shade_color(pix_color, dist);
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
 }

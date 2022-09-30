@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:41:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 13:45:22 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:31:59 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_shade_color(int pix_color, float dist)
 	int	g;
 	int	b;
 
-	if (dist > 3)
+	if (dist > 2.5)
 	{
-		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist - 3)));
-		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist - 3)));
-		b = (pix_color & 0x000000ff) * (1 / (1 + (dist - 3)));
+		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist - 2.5)));
+		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist - 2.5)));
+		b = (pix_color & 0x000000ff) * (1 / (1 + (dist - 2.5)));
 		return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 	}
 	return (pix_color);

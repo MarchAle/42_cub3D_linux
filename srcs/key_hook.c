@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 16:44:30 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/11 15:14:51 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:21:15 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	key_hook_down(int keycode, t_cub *cub)
 		ft_exit(cub);
 	if (keycode == 46)
 		cub->minimap *= -1;
+	if (keycode == 37)
+		cub->light *= -1;
 	if (keycode == 13)
 		cub->move->front = 1;
 	if (keycode == 1)
@@ -31,7 +33,7 @@ int	key_hook_down(int keycode, t_cub *cub)
 	if (keycode == 124)
 		cub->move->angle_r = 1;
 	if (keycode == 49)
-		cub->step = 0.08;
+		cub->step = STEP * 1.3;
 	return (0);
 }
 
@@ -50,7 +52,7 @@ int	key_hook_up(int keycode, t_cub *cub)
 	if (keycode == 124)
 		cub->move->angle_r = 0;
 	if (keycode == 49)
-		cub->step = 0.05;
+		cub->step = STEP;
 	return (0);
 }
 

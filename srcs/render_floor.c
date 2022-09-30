@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 19:21:56 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/03 15:38:56 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:55:25 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 	if (cub->ray->direction == NW)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)cub->floor_p->pixel_x, (int)cub->floor_p->pixel_y);
-	pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
+	if (cub->light == -1)
+		pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
 	my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
 	my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);

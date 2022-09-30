@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:18:22 by amarchal          #+#    #+#             */
-/*   Updated: 2022/07/12 11:11:03 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:52:04 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include "../mlx_2/mlx2.h"
 # include "../libft/libft.h"
 
-# define ACCEL 10
-# define O_ACC 7
+# define STEP 0.08
+# define ACCEL 12
+# define O_ACC 8
 # define MINIMAP_SIZE 300
 
 # define FALSE 0
@@ -197,6 +198,7 @@ typedef struct s_cub
 	struct s_move			*move;
 	char					**map;
 	int						minimap;
+	int						light;
 	float					step;
 	int						frames;
 	char					*fps;
