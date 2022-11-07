@@ -26,6 +26,11 @@ void	ft_convert_colors(t_cub *cub)
 	ft_split_clear(cub->mdata->f);
 }
 
+int	ft_get_color_from_img(t_img *img, int x, int y)
+{
+	return (*(int *)(img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8))));
+}
+
 int	ft_get_color_from_texture(t_texture *tex, int x, int y)
 {
 	return (*(int *)(tex->addr + (y * tex->line_length + x * (tex->bpp / 8))));

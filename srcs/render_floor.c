@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-void static	ft_pixel_calc_north(t_cub *cub)
+static	void ft_pixel_calc_north(t_cub *cub)
 {
 	if (cub->ray->direction == NE)
 	{
@@ -30,7 +30,7 @@ void static	ft_pixel_calc_north(t_cub *cub)
 	}
 }
 
-void static	ft_pixel_calc_south(t_cub *cub)
+static	void ft_pixel_calc_south(t_cub *cub)
 {
 	if (cub->ray->direction == SW)
 	{
@@ -48,7 +48,7 @@ void static	ft_pixel_calc_south(t_cub *cub)
 	}
 }
 
-void static	ft_param_calc(t_cub *cub, int j, float dist)
+static	void ft_param_calc(t_cub *cub, int j, float dist)
 {
 	cub->floor_p->y_offset_px = j - cub->mdata->screen[1] * 0.5;
 	cub->floor_p->y_offset = cub->floor_p->y_offset_px / cub->ray->wall_height;
@@ -65,7 +65,7 @@ void static	ft_param_calc(t_cub *cub, int j, float dist)
 
 int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 {
-	int		pix_color;
+	int		pix_color = 0;
 
 	ft_param_calc(cub, j, dist);
 	if (cub->ray->direction == SW)
@@ -86,9 +86,12 @@ int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 	if (cub->light == -1)
 		pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
-	my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
-	my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
-	my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
+	if (cub->blur != TRUE)
+	{
+		my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
+		my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
+		my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
 	j++;
+	}
 	return (j);
 }

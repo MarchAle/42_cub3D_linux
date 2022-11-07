@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-void static	ft_param_calc(t_cub *cub, int j)
+static	void ft_param_calc(t_cub *cub, int j)
 {
 	cub->sky_p->pixel_x = ((cub->ray->angle) / (2 * M_PI)) * cub->sky->width[0];
 	cub->sky_p->pixel_y = cub->sky->height[0] - (((cub->mdata->screen[1]

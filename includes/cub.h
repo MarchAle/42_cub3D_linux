@@ -19,9 +19,14 @@
 # include <stdio.h>
 # include <math.h>
 # include <sys/time.h>
-# include "../mlx/mlx.h"
-# include "../mlx_2/mlx2.h"
+# include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
+
+# define FOV 60
+
+# define WIN_HEIGHT 700
+# define WIN_RATIO 1.7777778	// 16/9
+//# define WIN_RATIO 1.25			// 5/4
 
 # define STEP 0.08
 # define ACCEL 12
@@ -178,8 +183,23 @@ typedef struct s_sprite
 	struct s_sprite	*previous;
 }	t_sprite;
 
+typedef struct s_calc
+{
+	float	alpha;			// ft_angleClaculation()
+	float	cosalpha;		// ft_angleClaculation()
+	float	sinalpha;		// ft_angleClaculation()
+	float	d;				// ft_angleClaculation()
+	float	powd;			// ft_angleClaculation()
+	float	fovHalf;		// ft_raycast()
+	float	piHalf;
+	float	cosAngle;
+	float	sinAngle;
+	float	tanAngle;
+}	t_calc;
+
 typedef struct s_cub
 {
+	struct s_calc			*calc;
 	struct s_img			*img;
 	struct s_texture		*north;
 	struct s_texture		*east;
@@ -198,6 +218,7 @@ typedef struct s_cub
 	struct s_move			*move;
 	char					**map;
 	int						minimap;
+	int						blur;
 	int						light;
 	float					step;
 	int						frames;
@@ -210,6 +231,7 @@ void	ft_error(int type);
 
 int		main(int ac, char **av);
 void	ft_init_struct(t_cub *cub);
+void    ft_init_calculs(t_cub *cub);
 void	ft_init_texture(t_cub *cub);
 void	ft_parse_file(char *file, t_cub *cub);
 void	ft_get_lines(t_cub *cub, int fd);
@@ -238,12 +260,14 @@ void	ft_parse_map(t_cub *cub);
 void	ft_start_game(t_cub *cub);
 void	ft_print_view(t_cub *cub);
 float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size);
+void    ft_trigo_angle(t_cub *cub);
 void	ft_get_direction(t_cub *cub);
 void	ft_mini_map(t_cub *cub);
 
 int		ft_rgb_to_hex(char **rgb);
 void	ft_convert_colors(t_cub *cub);
 int		ft_get_color_from_texture(t_texture *tex, int x, int y);
+int		ft_get_color_from_img(t_img *img, int x, int y);
 int		ft_shade_color(int pix_color, float dist);
 int		ft_fade_color(int pix_color, float dist);
 

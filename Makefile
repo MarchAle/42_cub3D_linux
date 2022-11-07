@@ -1,22 +1,4 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/30 13:51:16 by dvallien          #+#    #+#              #
-#    Updated: 2022/07/12 11:25:43 by amarchal         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME := cub3D
-LIB := ./libft/libft.a
-
-LIBMLX = ./mlx/libmlx.a ./mlx_2/libmlx.dylib
-
-DIR_SRCS := ./SRCS
-LST_SRCS := main.c					\
+SRC =	main.c					\
 			parse_map.c 			\
 			parse_file.c			\
 			build_map.c				\
@@ -39,62 +21,66 @@ LST_SRCS := main.c					\
 			color.c 				\
 			error.c 				\
 			utils.c 				\
-			
-			
-DIR_OBJS := ./.OBJS
-LST_OBJS := $(LST_SRCS:.c=.o)
+			calcul.c				\
 
-SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
-OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
-INCLUDE := ./INCLUDES/cub.h
+NAME = Cub3D
 
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror -O3
+LIB := ./libft/libft.a
+LIBMLX = ./mlx_linux/libmlx.a
+MLX_DIR = mlx_linux
+MLX = libmlx.a 
+CC = clang
 
+# diff entre .a et .dylib
+# .a = lib static, les fonctions utilisees sont directement ecrite dans le binaire
+# .dylib = lib dynamique, les fonctions doivent etre chargees au momnent ou on lance le binaire
 
-$(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE) Makefile
-		@mkdir -p $(DIR_OBJS)
-		$(CC) $(CFLAGS) -Imlx -I $(INCLUDE) -c $< -o $@
+CFLAGS = -Wall -Wextra -Werror -O3 -g #-fsanitize=address
+CFRAM := -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
-all : libft minilibx $(NAME)
-		@printf "\033[0;32mProject is ready to run !\033[0m\n"
+OBJ_DIR = objs
+SRC_DIR = srcs
+INC_DIR = includes
 
-libft :
-		@make -C ./libft
+OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+DPD = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.d))
 
-minilibx:
-		@make -C ./mlx
-		@make -C ./mlx_2
+.c.o:
+	${CC} ${CFLAGS} -c$< -o ${<:.c=.o}
 
-$(NAME) : $(OBJS) $(LIBMLX) $(LIB) Makefile
-		@cp mlx_2/libmlx.dylib .
-		$(CC) $(OBJS) $(LIB) $(LIBMLX) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
+# -C faire make comme si on etait dana le dossier
+# -j multisreder / ameliore la vitesse de compliation
+# Pas de regle opti car makefile mlx pas compatible
+all:
+	@$(MAKE) -j $(NAME)
+	@echo "\033[0;32mProject is ready !\033[0m"
 
-DIR_OBJS :
-		mkdir -p $(DIR_OBJS)
+# permet de pouvoir comparer la derniere modification de la dep par rapport a la regle
+# -L donner le nom du dossier / -l donner le nom le la lib
+# loader path = ecrit le chemin de la mlx dans le binaire pour pouvoir la retrouver au moment ou on lance le binaire
+$(NAME): $(LIBMLX) $(LIB) $(OBJ)
+		${CC} $(CFLAGS) -o $(NAME) $(OBJ) $(LIBMLX) $(LIB) -L $(MLX_DIR) $(CFRAM)
+		@echo "\033[0;32mCompilation succeed !\033[0m"
+
+# si le .c est plus recent que le .o on rentre dans la regle
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | .gitignore
+		@mkdir -p $(OBJ_DIR)
+		${CC} $(CFLAGS) -I $(INC_DIR) -I $(MLX_DIR) -c $< -o $@
+
+.gitignore:
+	@echo $(NAME) > .gitignore
 
 clean:
-		@rm -rf $(DIR_OBJS)
-		@make clean -C ./libft
-		@make clean -C ./mlx
-		@make clean -C ./mlx_2
-		@printf "\033[0;33mCube3D's objects deleted\033[0m\n"
+	@rm -rf $(OBJ_DIR)
+	@echo "obj deleted"
 
 fclean:	clean
-		@rm -rf $(NAME)
-		@rm -rf $(LIB)
-		@rm -rf $(LIBMLX)
-		@rm -rf $(LIBMLX2)
-		@printf "\033[0;33m$(LIB) deleted\033[0m\n"
-		@printf "\033[0;33m$(LIBMLX) deleted\033[0m\n"
-		@printf "\033[0;33m$(LIBMLX2) deleted\033[0m\n"
-		@printf "\033[0;33m./$(NAME) deleted\033[0m\n"
+	@rm -rf $(NAME)
+	@echo "[$(NAME)]: deleted"
 
-re:		fclean all
+re: fclean all
 
-norme :
-		@printf "\033[36mNorminette :\033[0m\n"
-		norminette $(SRCS) $(INCLUDE) ./libft
+.PHONY: all, clean, fclean, re
 
-.PHONY:	all clean fclean re minilibx libft
+# Utilise les .d (et ignore s'ils n'existe pas)
+-include $(DPD)

@@ -45,9 +45,9 @@ void	ft_move_right(t_cub *cub)
 
 	ft_acceleration(&cub->move->right, &cub->move->right_a, MOVE);
 	target_x = cub->player->x + (cub->move->right_a * cub->step / ACCEL)
-		* cos(cub->player->orient - M_PI * 0.5);
+		* cos(cub->player->orient - cub->calc->piHalf);
 	target_y = cub->player->y - (cub->move->right_a * cub->step / ACCEL)
-		* sin(cub->player->orient - M_PI * 0.5);
+		* sin(cub->player->orient - cub->calc->piHalf);
 	ft_check_collision(cub, target_x, target_y);
 }
 
@@ -58,9 +58,9 @@ void	ft_move_left(t_cub *cub)
 
 	ft_acceleration(&cub->move->left, &cub->move->left_a, MOVE);
 	target_x = cub->player->x + (cub->move->left_a * cub->step / ACCEL)
-		* cos(cub->player->orient + M_PI * 0.5);
+		* cos(cub->player->orient + cub->calc->piHalf);
 	target_y = cub->player->y - (cub->move->left_a * cub->step / ACCEL)
-		* sin(cub->player->orient + M_PI * 0.5);
+		* sin(cub->player->orient + cub->calc->piHalf);
 	ft_check_collision(cub, target_x, target_y);
 }
 

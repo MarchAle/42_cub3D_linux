@@ -14,44 +14,47 @@
 
 int	key_hook_down(int keycode, t_cub *cub)
 {
-	if (keycode == 53)
+	// printf("%d\n", keycode);
+	if (keycode == 65307)
 		ft_exit(cub);
-	if (keycode == 46)
+	if (keycode == 109)
 		cub->minimap *= -1;
-	if (keycode == 37)
+	if (keycode == 98)
+		cub->blur *= -1;
+	if (keycode == 108)
 		cub->light *= -1;
-	if (keycode == 13)
+	if (keycode == 122)
 		cub->move->front = 1;
-	if (keycode == 1)
+	if (keycode == 115)
 		cub->move->back = 1;
-	if (keycode == 0)
+	if (keycode == 113)
 		cub->move->left = 1;
-	if (keycode == 2)
+	if (keycode == 100)
 		cub->move->right = 1;
-	if (keycode == 123)
+	if (keycode == 65361)
 		cub->move->angle_l = 1;
-	if (keycode == 124)
+	if (keycode == 65363)
 		cub->move->angle_r = 1;
-	if (keycode == 49)
+	if (keycode == 32)
 		cub->step = STEP * 1.3;
 	return (0);
 }
 
 int	key_hook_up(int keycode, t_cub *cub)
 {
-	if (keycode == 13)
+	if (keycode == 122)
 		cub->move->front = 0;
-	if (keycode == 1)
+	if (keycode == 115)
 		cub->move->back = 0;
-	if (keycode == 0)
+	if (keycode == 113)
 		cub->move->left = 0;
-	if (keycode == 2)
+	if (keycode == 100)
 		cub->move->right = 0;
-	if (keycode == 123)
+	if (keycode == 65361)
 		cub->move->angle_l = 0;
-	if (keycode == 124)
+	if (keycode == 65363)
 		cub->move->angle_r = 0;
-	if (keycode == 49)
+	if (keycode == 32)
 		cub->step = STEP;
 	return (0);
 }

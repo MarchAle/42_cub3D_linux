@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-int static	ft_get_param_split_1(t_cub *cub, char **tmp_line)
+static int 	ft_get_param_split_1(t_cub *cub, char **tmp_line)
 {
 	if (ft_strcmp(tmp_line[0], "NO") == 0)
 	{
@@ -41,7 +41,7 @@ int static	ft_get_param_split_1(t_cub *cub, char **tmp_line)
 	return (0);
 }
 
-int static	ft_get_param_split_2(t_cub *cub, char **tmp_line)
+static int	ft_get_param_split_2(t_cub *cub, char **tmp_line)
 {
 	if (ft_strcmp(tmp_line[0], "EA") == 0)
 	{

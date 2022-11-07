@@ -42,6 +42,7 @@ int	main(int ac, char **av)
 	ft_parse_map(cub);
 	ft_init_orientation(cub);
 	ft_mlx_init(cub);
+	ft_init_calculs(cub);
 	ft_init_texture(cub);
 	ft_start_game(cub);
 }
@@ -56,14 +57,15 @@ void	ft_start_game(t_cub *cub)
 {
 	cub->step = STEP;
 	cub->minimap = -1;
+	cub->blur = 1;
 	cub->light = -1;
 	cub->frames = 0;
 	cub->fps_time = ft_get_time();
 	cub->frame_time = ft_get_time();
 	ft_print_view(cub);
-	mlx_hook(cub->mlx->win, 17, 0, ft_exit, cub);
-	mlx_hook(cub->mlx->win, 2, 0, key_hook_down, cub);
-	mlx_hook(cub->mlx->win, 3, 0, key_hook_up, cub);
+	mlx_hook(cub->mlx->win, 33, 1L << 17, ft_exit, cub);
+	mlx_hook(cub->mlx->win, 2, 1L << 0, key_hook_down, cub);
+	mlx_hook(cub->mlx->win, 3, 1L << 1, key_hook_up, cub);
 	mlx_loop_hook(cub->mlx->mlx, ft_loop_move, cub);
 	mlx_loop(cub->mlx->mlx);
 }

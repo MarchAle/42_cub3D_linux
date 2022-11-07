@@ -53,14 +53,14 @@ SRCS =	ft_bzero.c			\
 OBJS = $(SRCS:.c=.o)
 HDRS = libft.h
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 NAME = libft.a
 
 %.o : %.c $(HDRS)
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 all:	$(NAME)
-		@printf "\033[0;32mLibft is set !\033[0m\n"
+		@echo "\033[0;32mLibft is set !\033[0m\n"
 
 bonus:	all
 
@@ -69,7 +69,7 @@ $(NAME): $(OBJS)
 		
 clean:
 		@rm -rf $(OBJS)
-		@printf "\033[0;33mLibft's objects deleted\033[0m\n"
+		@echo "\033[0;33mLibft's objects deleted\033[0m\n"
 
 fclean:	clean
 		@rm -rf $(NAME)

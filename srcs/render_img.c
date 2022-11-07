@@ -44,8 +44,8 @@ void	ft_render_img(t_cub *cub, float dist, int i)
 {
 	int	j;
 
-	cub->ray->wall_height = (1 / (dist * cos(cub->ray->angle
-					- cub->player->orient))) * cub->mdata->screen[1];
+	///// fisheye correction
+	cub->ray->wall_height = (1 / (dist * cos(cub->player->orient - cub->ray->angle))) * cub->mdata->screen[1];
 	j = 0;
 	while (j < cub->mdata->screen[1] - 1)
 	{
@@ -53,6 +53,9 @@ void	ft_render_img(t_cub *cub, float dist, int i)
 			j = ft_upper_screen(cub, i, j, dist);
 		else
 			j = ft_lower_screen(cub, i, j, dist);
-		j++;
+		if (cub->blur == TRUE)
+			j += 2;
+		else
+			j++;
 	}
 }

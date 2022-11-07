@@ -87,13 +87,16 @@ void	ft_init_struct(t_cub *cub)
 {
 	t_mdata		*mdata;
 	t_mlx		*mlx;
+	t_calc		*calc;
 
 	mdata = malloc(sizeof(t_mdata));
 	mlx = malloc(sizeof(t_mlx));
-	if (!mdata || !mlx)
+	calc = malloc(sizeof(t_calc));
+	if (!mdata || !mlx || !calc)
 		ft_error(MALLOC);
 	cub->mdata = mdata;
 	cub->mlx = mlx;
+	cub->calc = calc;
 	cub->mdata->no = NULL;
 	cub->mdata->so = NULL;
 	cub->mdata->ea = NULL;
