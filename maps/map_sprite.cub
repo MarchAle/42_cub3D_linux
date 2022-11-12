@@ -1,0 +1,22 @@
+NO ./texture/wall_brick.xpm
+EA ./texture/wall_stone3.xpm 
+WE ./texture/wall_stone2.xpm
+SO ./texture/wall_stone1.xpm
+F 92,72,40
+C 170,237,250
+sky ./texture/skybox.xpm
+floor ./texture/floor.xpm
+sprite ./texture/monster.xpm
+
+
+111111111111
+100000000001
+10000X000001
+100000000001
+10001X100001
+100000000001
+100000000001
+10000N000001
+100000000001
+100000000001
+111111111111

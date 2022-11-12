@@ -57,7 +57,7 @@ void	ft_start_game(t_cub *cub)
 {
 	cub->step = STEP;
 	cub->minimap = -1;
-	cub->blur = 1;
+	cub->blur = -1;
 	cub->light = -1;
 	cub->frames = 0;
 	cub->fps_time = ft_get_time();

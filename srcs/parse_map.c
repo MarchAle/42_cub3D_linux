@@ -16,6 +16,8 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 {
 	static int	nb_player = 0;
 
+	if (c == 'X')
+		return ;
 	if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
 		ft_error(CHAR_ERR);
 	else

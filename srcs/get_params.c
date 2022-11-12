@@ -67,6 +67,14 @@ static int	ft_get_param_split_2(t_cub *cub, char **tmp_line)
 		ft_open_texture(cub->mdata->floor);
 		return (1);
 	}
+	if (ft_strcmp(tmp_line[0], "sprite") == 0)
+	{
+		if (cub->mdata->sprite)
+			ft_error(INPUT_ERR);
+		cub->mdata->sprite = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->sprite);
+		return (1);
+	}
 	return (0);
 }
 

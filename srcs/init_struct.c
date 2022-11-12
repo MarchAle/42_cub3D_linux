@@ -74,13 +74,16 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 {
 	t_texture	*sky;
 	t_texture	*floor;
+	t_texture	*sprite;
 
 	sky = malloc(sizeof(t_texture));
 	floor = malloc(sizeof(t_texture));
-	if (!sky || !floor)
+	sprite = malloc(sizeof(t_texture));
+	if (!sky || !floor || !sprite)
 		ft_error(MALLOC);
 	cub->sky = sky;
 	cub->floor = floor;
+	cub->sprite = sprite;
 }
 
 void	ft_init_struct(t_cub *cub)
@@ -103,6 +106,7 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->we = NULL;
 	cub->mdata->sky = NULL;
 	cub->mdata->floor = NULL;
+	cub->mdata->sprite = NULL;
 	cub->mdata->f = NULL;
 	cub->mdata->c = NULL;
 	cub->mdata->start_build = 0;

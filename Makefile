@@ -21,6 +21,8 @@ SRC =	main.c					\
 			color.c 				\
 			error.c 				\
 			utils.c 				\
+			list_utils.c			\
+			render_sprites.c		\
 			calcul.c				\
 
 NAME = Cub3D
@@ -35,7 +37,7 @@ CC = clang
 # .a = lib static, les fonctions utilisees sont directement ecrite dans le binaire
 # .dylib = lib dynamique, les fonctions doivent etre chargees au momnent ou on lance le binaire
 
-CFLAGS = -Wall -Wextra -Werror -O3 -g #-fsanitize=address
+CFLAGS = -pthread -Wall -Wextra -Werror -O3 -g #-fsanitize=address
 CFRAM := -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 OBJ_DIR = objs

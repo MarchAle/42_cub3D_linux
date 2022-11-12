@@ -17,18 +17,19 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <pthread.h>
 # include <math.h>
 # include <sys/time.h>
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
-# define FOV 60
+# define FOV 75
 
 # define WIN_HEIGHT 700
 # define WIN_RATIO 1.7777778	// 16/9
 //# define WIN_RATIO 1.25			// 5/4
 
-# define STEP 0.08
+# define STEP 0.06
 # define ACCEL 12
 # define O_ACC 8
 # define MINIMAP_SIZE 300
@@ -94,6 +95,7 @@ typedef struct s_mdata
 	char	*we;
 	char	*sky;
 	char	*floor;
+	char	*sprite;
 	char	**c;
 	char	**f;
 	int		c_color;
@@ -104,17 +106,19 @@ typedef struct s_mdata
 
 typedef struct s_ray
 {
-	float	x;
-	float	y;
-	int		direction;
-	float	wall_height;
-	float	angle;
-	float	dist_to_x;
-	float	dist_to_y;
-	int		hit_wall;
-	int		wall_orientation;
-	float	texture_offset_x;
-	float	texture_offset_y;
+	float			x;
+	float			y;
+	int				direction;
+	float			wall_height;
+	float			angle;
+	float			angle_player;
+	float			dist_to_x;
+	float			dist_to_y;
+	int				hit_wall;
+	int				wall_orientation;
+	float			texture_offset_x;
+	float			texture_offset_y;
+	struct s_sprite	*sprites;
 }	t_ray;
 
 typedef struct s_player
@@ -176,9 +180,12 @@ typedef struct s_render_param
 
 typedef struct s_sprite
 {
+	float 			x;
+	float 			y;
 	float			dist;
 	float			height;
 	float			x_offset;
+	float			adjacent;
 	struct s_sprite	*next;
 	struct s_sprite	*previous;
 }	t_sprite;
@@ -268,6 +275,7 @@ int		ft_rgb_to_hex(char **rgb);
 void	ft_convert_colors(t_cub *cub);
 int		ft_get_color_from_texture(t_texture *tex, int x, int y);
 int		ft_get_color_from_img(t_img *img, int x, int y);
+int 	ft_pix_color_calc(t_cub *cub, int j, t_texture *tex);
 int		ft_shade_color(int pix_color, float dist);
 int		ft_fade_color(int pix_color, float dist);
 
@@ -275,6 +283,7 @@ void	ft_render_img(t_cub *cub, float dist, int i);
 void	ft_render_wall(t_cub *cub, int i, int j, float dist);
 int		ft_render_sky(t_cub *cub, int i, int j);
 int		ft_render_floor(t_cub *cub, int i, int j, float dist);
+void    ft_sprites_calc(t_cub *cub);
 void	ft_render_sprites(t_cub *cub, int i, int j);
 void	ft_fps(t_cub *cub);
 
@@ -304,5 +313,10 @@ void	ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
 
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
+
+t_sprite	*ft_lstnew(float x, float y);
+void		ft_lstadd_back(t_sprite **alst, t_sprite *new);
+t_sprite	*ft_lstlast(t_sprite *lst);
+void		ft_lstfree(t_sprite **lst);
 
 #endif

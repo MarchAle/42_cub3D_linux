@@ -54,7 +54,7 @@ void	ft_multi_pixel_put(t_img *blur_img, int x, int y, int downscaling, int colo
 	}
 }
 
-void	ft_blur(t_cub *cub, int blurIntensity)
+void	ft_blur(t_cub *cub, int blurIntensity) //
 {
 	t_img	*blur_img;
 	int i = 1;
@@ -101,6 +101,7 @@ void	ft_print_view(t_cub *cub)
 	{
 		dist = ft_raycast(i, cub, FALSE, 0);
 		ft_render_img(cub, dist, cub->mdata->screen[0] - i);
+		ft_lstfree(&cub->ray->sprites);
 		if (cub->blur == TRUE)
 			i -= 2;
 		else
@@ -109,7 +110,12 @@ void	ft_print_view(t_cub *cub)
 	if (cub->minimap == TRUE)
 		ft_mini_map(cub);
 	if (cub->blur == TRUE)
+	{
+		// pthread_t 	thread = 0;
+		// pthread_create(&thread, NULL, ft_blur, &cub);
+		// pthread_join(thread, NULL);
 		ft_blur(cub, 7);
+	}
 	else
 		mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
 	mlx_destroy_image(cub->mlx->mlx, cub->img->img);
@@ -131,6 +137,7 @@ float	ft_angleCalculation(int i, t_cub *cub)
 {
 	float a = sqrtf(pow(i, 2) + cub->calc->powd - (2 * i * cub->calc->d * cub->calc->cosalpha));
 	float angle = asin(cub->calc->sinalpha * i / a);
+	cub->ray->angle_player = cub->calc->fovHalf - angle;
 	return (angle);
 }
 

@@ -20,7 +20,8 @@ int	ft_is_wall(t_cub *cub, int x, int y, int size)
 		|| cub->map[y / size][x / size] == 'N'
 		|| cub->map[y / size][x / size] == 'S'
 		|| cub->map[y / size][x / size] == 'E'
-		|| cub->map[y / size][x / size] == 'W')
+		|| cub->map[y / size][x / size] == 'W'
+		|| cub->map[y / size][x / size] == 'X')
 		return (0);
 	else
 		return (-1);

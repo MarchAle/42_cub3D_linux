@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-static	int ft_pix_color_calc(t_cub *cub, int j, t_texture *tex)
+int ft_pix_color_calc(t_cub *cub, int j, t_texture *tex)
 {
 	int	color;
 

@@ -33,6 +33,7 @@ int	ft_get_color_from_img(t_img *img, int x, int y)
 
 int	ft_get_color_from_texture(t_texture *tex, int x, int y)
 {
+	// printf("color from tex x : %d y : %d\n", x, y);
 	return (*(int *)(tex->addr + (y * tex->line_length + x * (tex->bpp / 8))));
 }
 

@@ -49,4 +49,11 @@ void	ft_init_texture(t_cub *cub)
 		cub->floor->addr = mlx_get_data_addr(cub->floor->img, &cub->floor->bpp,
 				&cub->floor->line_length, &cub->floor->endian);
 	}
+	if (cub->mdata->sprite)
+	{
+		cub->sprite->img = mlx_xpm_file_to_image(cub->mlx->mlx,
+				cub->mdata->sprite, cub->sprite->width, cub->sprite->height);
+		cub->sprite->addr = mlx_get_data_addr(cub->sprite->img, &cub->sprite->bpp,
+				&cub->sprite->line_length, &cub->sprite->endian);
+	}
 }

@@ -23,11 +23,13 @@ int	ft_upper_screen(t_cub *cub, int i, int j, float dist)
 		else
 			j = ft_render_sky(cub, i, j);
 	}
+	ft_render_sprites(cub, i, j);
 	return (j);
 }
 
 int	ft_lower_screen(t_cub *cub, int i, int j, float dist)
 {
+	int sprite_j = j;
 	if (j < cub->mdata->screen[1] * 0.5 + cub->ray->wall_height * 0.5)
 		ft_render_wall(cub, i, j, dist);
 	else
@@ -37,6 +39,7 @@ int	ft_lower_screen(t_cub *cub, int i, int j, float dist)
 		else if (i % 2 == 0)
 			j = ft_render_floor(cub, i, j, dist);
 	}
+	ft_render_sprites(cub, i, sprite_j);
 	return (j);
 }
 
@@ -47,12 +50,14 @@ void	ft_render_img(t_cub *cub, float dist, int i)
 	///// fisheye correction
 	cub->ray->wall_height = (1 / (dist * cos(cub->player->orient - cub->ray->angle))) * cub->mdata->screen[1];
 	j = 0;
+	ft_sprites_calc(cub);
 	while (j < cub->mdata->screen[1] - 1)
 	{
 		if (j < cub->mdata->screen[1] * 0.5)
 			j = ft_upper_screen(cub, i, j, dist);
 		else
 			j = ft_lower_screen(cub, i, j, dist);
+		//ft_render_sprites(cub, i, j);
 		if (cub->blur == TRUE)
 			j += 2;
 		else
