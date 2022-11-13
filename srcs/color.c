@@ -37,20 +37,36 @@ int	ft_get_color_from_texture(t_texture *tex, int x, int y)
 	return (*(int *)(tex->addr + (y * tex->line_length + x * (tex->bpp / 8))));
 }
 
+// int	ft_shade_color(int pix_color, float dist)
+// {
+// 	int	r;
+// 	int	g;
+// 	int	b;
+
+// 	if (dist > 2.5)
+// 	{
+// 		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist - 2.5)));
+// 		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist - 2.5)));
+// 		b = (pix_color & 0x000000ff) * (1 / (1 + (dist - 2.5)));
+// 		return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+// 	}
+// 	return (pix_color);
+// }
+
 int	ft_shade_color(int pix_color, float dist)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	if (dist > 2.5)
-	{
-		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist - 2.5)));
-		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist - 2.5)));
-		b = (pix_color & 0x000000ff) * (1 / (1 + (dist - 2.5)));
+	// if (dist > 2.5)
+	// {
+		r = ((pix_color & 0x00ff0000) >> 16) * (1 / (1 + (dist)));
+		g = ((pix_color & 0x0000ff00) >> 8) * (1 / (1 + (dist)));
+		b = (pix_color & 0x000000ff) * (1 / (1 + (dist)));
 		return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
-	}
-	return (pix_color);
+// 	}
+// 	return (pix_color);
 }
 
 int	ft_fade_color(int pix_color, float dist)

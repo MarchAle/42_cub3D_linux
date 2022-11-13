@@ -85,10 +85,14 @@ int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 				(int)cub->floor_p->pixel_x, (int)cub->floor_p->pixel_y);
 	if (cub->light == -1)
 	{
-		pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
+		// pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
 		float dist_vignet = sqrtf(powf(cub->calc->half_height - j, 2) + powf(cub->calc->half_width - i, 2));
 		dist_vignet = dist_vignet / cub->calc->max_vignet;
-		pix_color = ft_shade_color(pix_color, dist_vignet * 7);
+		// if (cub->floor_p->floor_dist < 3)
+		// 	dist_vignet = dist_vignet - ((cub->floor_p->floor_dist) / 3 * cub->floor_p->floor_dist) * 0.2;
+		// if (dist_vignet < 0)
+		// 	dist_vignet = 0;
+		pix_color = ft_shade_color(pix_color, (cub->floor_p->floor_dist < 1.5 ? 0 : (cub->floor_p->floor_dist - 1.5) * 0.7) + (dist_vignet < 0.3 ? 0 : (dist_vignet - 0.3) * 13));
 	}
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
 	if (cub->blur != TRUE)
