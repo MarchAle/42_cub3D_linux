@@ -75,6 +75,14 @@ static int	ft_get_param_split_2(t_cub *cub, char **tmp_line)
 		ft_open_texture(cub->mdata->sprite);
 		return (1);
 	}
+	if (ft_strcmp(tmp_line[0], "flashlight") == 0)
+	{
+		if (cub->mdata->flashlight)
+			ft_error(INPUT_ERR);
+		cub->mdata->flashlight = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->flashlight);
+		return (1);
+	}
 	return (0);
 }
 

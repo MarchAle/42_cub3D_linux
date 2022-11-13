@@ -118,6 +118,7 @@ void	ft_print_view(t_cub *cub)
 	}
 	else
 		mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->img->img, 0, 0);
+	// mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->flashlight->img, cub->mdata->screen[0] - cub->flashlight->width[0], cub->mdata->screen[1] - cub->flashlight->height[0]);
 	mlx_destroy_image(cub->mlx->mlx, cub->img->img);
 	free(img);
 	cub->frames++;

@@ -37,6 +37,11 @@ void	ft_render_wall(t_cub *cub, int i, int j, float dist)
 	else
 		pix_color = ft_pix_color_calc(cub, j, cub->west);
 	if (cub->light == -1)
+	{
 		pix_color = ft_shade_color(pix_color, dist);
+		float dist_vignet = sqrtf(powf(cub->calc->half_height - j, 2) + powf(cub->calc->half_width - i, 2));
+		dist_vignet = dist_vignet / cub->calc->max_vignet;
+		pix_color = ft_shade_color(pix_color, dist_vignet * 7);
+	}
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
 }

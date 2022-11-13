@@ -57,7 +57,6 @@ void	ft_render_img(t_cub *cub, float dist, int i)
 			j = ft_upper_screen(cub, i, j, dist);
 		else
 			j = ft_lower_screen(cub, i, j, dist);
-		//ft_render_sprites(cub, i, j);
 		if (cub->blur == TRUE)
 			j += 2;
 		else

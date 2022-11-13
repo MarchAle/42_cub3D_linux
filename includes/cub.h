@@ -96,6 +96,7 @@ typedef struct s_mdata
 	char	*sky;
 	char	*floor;
 	char	*sprite;
+	char	*flashlight;
 	char	**c;
 	char	**f;
 	int		c_color;
@@ -202,6 +203,9 @@ typedef struct s_calc
 	float	cosAngle;
 	float	sinAngle;
 	float	tanAngle;
+	float	half_width;
+	float	half_height;
+	float	max_vignet;		// 
 }	t_calc;
 
 typedef struct s_cub
@@ -215,6 +219,7 @@ typedef struct s_cub
 	struct s_texture		*sky;
 	struct s_texture		*floor;
 	struct s_texture		*sprite;
+	struct s_texture		*flashlight;
 	struct s_render_param	*sky_p;
 	struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;

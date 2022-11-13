@@ -84,7 +84,12 @@ int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)cub->floor_p->pixel_x, (int)cub->floor_p->pixel_y);
 	if (cub->light == -1)
+	{
 		pix_color = ft_shade_color(pix_color, cub->floor_p->floor_dist);
+		float dist_vignet = sqrtf(powf(cub->calc->half_height - j, 2) + powf(cub->calc->half_width - i, 2));
+		dist_vignet = dist_vignet / cub->calc->max_vignet;
+		pix_color = ft_shade_color(pix_color, dist_vignet * 7);
+	}
 	my_mlx_pixel_put(cub->img, i, j, pix_color);
 	if (cub->blur != TRUE)
 	{

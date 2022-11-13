@@ -7,6 +7,7 @@ C 170,237,250
 sky ./texture/skybox.xpm
 floor ./texture/floor.xpm
 sprite ./texture/monster.xpm
+flashlight ./texture/flashlight.xpm
         
         111        
 11111111000111111111       111111111

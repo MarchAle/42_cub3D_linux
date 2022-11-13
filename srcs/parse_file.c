@@ -50,7 +50,7 @@ void	ft_extra_param_or_build(t_cub *cub, char *line)
 	char	**tmp_line;
 
 	tmp_line = ft_split(line, ' ');
-	if (ft_strcmp(tmp_line[0], "sky") && ft_strcmp(tmp_line[0], "floor") && ft_strcmp(tmp_line[0], "sprite"))
+	if (ft_strcmp(tmp_line[0], "sky") && ft_strcmp(tmp_line[0], "floor") && ft_strcmp(tmp_line[0], "sprite") && ft_strcmp(tmp_line[0], "flashlight"))
 		ft_build_map(cub, line);
 	else if (cub->mdata->start_build == 0)
 		ft_get_param(cub, tmp_line);
