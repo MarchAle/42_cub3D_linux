@@ -281,6 +281,7 @@ void	ft_convert_colors(t_cub *cub);
 int		ft_get_color_from_texture(t_texture *tex, int x, int y);
 int		ft_get_color_from_img(t_img *img, int x, int y);
 int 	ft_pix_color_calc(t_cub *cub, int j, t_texture *tex);
+float	ft_flashlight(t_cub *cub, float dist, int i, int j, int wall);
 int		ft_shade_color(int pix_color, float dist);
 int		ft_fade_color(int pix_color, float dist);
 

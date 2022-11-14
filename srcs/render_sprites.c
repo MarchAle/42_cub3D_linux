@@ -43,16 +43,7 @@ void    ft_render_sprites(t_cub *cub, int i, int j)
             if (pix_color > 0)
             {
                 if (cub->light == -1)
-                {
-                    // pix_color = ft_shade_color(pix_color, sprite->dist * 1.2);
-                    float dist_vignet = sqrtf(powf(cub->calc->half_height - j, 2) + powf(cub->calc->half_width - i, 2));
-		            dist_vignet = dist_vignet / cub->calc->max_vignet;
-                    // if (sprite->dist < 3)
-                    //     dist_vignet = dist_vignet - ((sprite->dist) / 3 * sprite->dist) * 0.2;
-                    // if (dist_vignet < 0)
-			        //     dist_vignet = 0;
-	            	pix_color = ft_shade_color(pix_color, (sprite->dist * 1.1 < 1.5 ? 0 : (sprite->dist * 1.1 - 1.5) * 0.7) + (dist_vignet < 0.3 ? 0 : (dist_vignet - 0.3) * 13));
-                }
+	            	pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, 0));
                 my_mlx_pixel_put(cub->img, i, j, pix_color);
                 my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
                 my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
