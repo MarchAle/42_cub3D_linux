@@ -76,17 +76,20 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	t_texture	*floor;
 	t_texture	*sprite;
 	t_texture	*flashlight;
+	t_texture	*door;
 
 	sky = malloc(sizeof(t_texture));
 	floor = malloc(sizeof(t_texture));
 	sprite = malloc(sizeof(t_texture));
 	flashlight = malloc(sizeof(t_texture));
-	if (!sky || !floor || !sprite || !flashlight)
+	door = malloc(sizeof(t_texture));
+	if (!sky || !floor || !sprite || !flashlight || !door)
 		ft_error(MALLOC);
 	cub->sky = sky;
 	cub->floor = floor;
 	cub->sprite = sprite;
 	cub->flashlight = flashlight;
+	cub->door = door;
 }
 
 void	ft_init_struct(t_cub *cub)
@@ -110,6 +113,7 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->sky = NULL;
 	cub->mdata->floor = NULL;
 	cub->mdata->sprite = NULL;
+	cub->mdata->door = NULL;
 	cub->mdata->f = NULL;
 	cub->mdata->c = NULL;
 	cub->mdata->start_build = 0;

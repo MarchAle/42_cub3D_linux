@@ -25,11 +25,11 @@
 
 # define FOV 75
 
-# define WIN_HEIGHT 700
+# define WIN_HEIGHT 900
 # define WIN_RATIO 1.7777778	// 16/9
 //# define WIN_RATIO 1.25			// 5/4
 
-# define STEP 0.06
+# define STEP 0.1
 # define ACCEL 12
 # define O_ACC 8
 # define MINIMAP_SIZE 300
@@ -97,6 +97,7 @@ typedef struct s_mdata
 	char	*floor;
 	char	*sprite;
 	char	*flashlight;
+	char	*door;
 	char	**c;
 	char	**f;
 	int		c_color;
@@ -220,6 +221,7 @@ typedef struct s_cub
 	struct s_texture		*floor;
 	struct s_texture		*sprite;
 	struct s_texture		*flashlight;
+	struct s_texture		*door;
 	struct s_render_param	*sky_p;
 	struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;
@@ -261,6 +263,8 @@ void	ft_check_extension(char *file, char *ext);
 void	ft_mlx_init(t_cub *cub);
 void	ft_print_img(t_cub *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_multi_pixel_put(t_cub *cub, t_img *img, int x, int y, int downscaling, int color);
+int		ft_downscaling(t_cub *cub, int i, int j);
 
 void	ft_check_char(char c, int x, int y, t_cub *cub);
 void	ft_check_border(char **map, int x, int y);
@@ -287,8 +291,8 @@ int		ft_fade_color(int pix_color, float dist);
 
 void	ft_render_img(t_cub *cub, float dist, int i);
 void	ft_render_wall(t_cub *cub, int i, int j, float dist);
-int		ft_render_sky(t_cub *cub, int i, int j);
-int		ft_render_floor(t_cub *cub, int i, int j, float dist);
+void	ft_render_sky(t_cub *cub, int i, int j);
+void	ft_render_floor(t_cub *cub, int i, int j, float dist);
 void    ft_sprites_calc(t_cub *cub);
 void	ft_render_sprites(t_cub *cub, int i, int j);
 void	ft_fps(t_cub *cub);

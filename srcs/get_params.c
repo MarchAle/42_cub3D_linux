@@ -83,6 +83,14 @@ static int	ft_get_param_split_2(t_cub *cub, char **tmp_line)
 		ft_open_texture(cub->mdata->flashlight);
 		return (1);
 	}
+	if (ft_strcmp(tmp_line[0], "door") == 0)
+	{
+		if (cub->mdata->door)
+			ft_error(INPUT_ERR);
+		cub->mdata->door = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->door);
+		return (1);
+	}
 	return (0);
 }
 

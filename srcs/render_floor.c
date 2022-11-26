@@ -50,7 +50,8 @@ static	void ft_pixel_calc_south(t_cub *cub)
 
 static	void ft_param_calc(t_cub *cub, int j, float dist)
 {
-	cub->floor_p->y_offset_px = j - cub->mdata->screen[1] * 0.5;
+	// cub->floor_p->y_offset_px = j - cub->mdata->screen[1] * 0.5;
+	cub->floor_p->y_offset_px = j - (cub->mdata->screen[1] >> 1);		//// using bitshifting instead of division
 	cub->floor_p->y_offset = cub->floor_p->y_offset_px / cub->ray->wall_height;
 	cub->floor_p->floor_angle = cub->floor_p->y_offset / dist;
 	cub->floor_p->floor_dist = ((cub->ray->wall_height * 0.5)
@@ -63,7 +64,7 @@ static	void ft_param_calc(t_cub *cub, int j, float dist)
 			- cub->floor_p->pixel_y + 1) * cub->floor->height[0];
 }
 
-int	ft_render_floor(t_cub *cub, int i, int j, float dist)
+void	ft_render_floor(t_cub *cub, int i, int j, float dist)
 {
 	int		pix_color = 0;
 
@@ -85,13 +86,5 @@ int	ft_render_floor(t_cub *cub, int i, int j, float dist)
 				(int)cub->floor_p->pixel_x, (int)cub->floor_p->pixel_y);
 	if (cub->light == -1)
 		pix_color = ft_shade_color(pix_color, ft_flashlight(cub, cub->floor_p->floor_dist * 1.1, i, j, 0));
-	my_mlx_pixel_put(cub->img, i, j, pix_color);
-	if (cub->blur != TRUE)
-	{
-		my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
-		my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
-		my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
-	j++;
-	}
-	return (j);
+	ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);
 }

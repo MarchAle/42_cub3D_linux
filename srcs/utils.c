@@ -80,3 +80,44 @@ long	ft_get_time(void)
 	ms += time.tv_usec / 1000;
 	return (ms);
 }
+
+void	ft_multi_pixel_put(t_cub *cub, t_img *img, int x, int y, int downscaling, int color)
+{
+	int i = 0;
+	while (i < downscaling && x + i < cub->mdata->screen[0])
+	{
+		int j = 0;
+		while (j < downscaling)
+		{
+			my_mlx_pixel_put(img, x + i, y + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+int		ft_downscaling(t_cub *cub, int i, int j)
+{
+	int result = 1;
+
+	if (i < cub->mdata->screen[0] * 0.10 || i > cub->mdata->screen[0] * 0.90)
+		result++;
+	if (i < cub->mdata->screen[0] * 0.15 || i > cub->mdata->screen[0] * 0.85)
+		result++;
+	if (i < cub->mdata->screen[0] * 0.25 || i > cub->mdata->screen[0] * 0.75)
+		result++;
+	if (i < cub->mdata->screen[0] * 0.40 || i > cub->mdata->screen[0] * 0.60)
+		result++;
+	if (j < cub->mdata->screen[1] * 0.10 || j > cub->mdata->screen[1] * 0.90)
+		result++;
+	if (j < cub->mdata->screen[1] * 0.15 || j > cub->mdata->screen[1] * 0.85)
+		result++;
+	if (j < cub->mdata->screen[1] * 0.25 || j > cub->mdata->screen[1] * 0.70)
+		result++;
+	if (j < cub->mdata->screen[1] * 0.40 || j > cub->mdata->screen[1] * 0.60)
+		result++;
+	(void)i;
+	(void)j;
+	(void)cub;
+	return (result);
+}

@@ -33,7 +33,7 @@ int ft_pix_color_calc_sprite(t_cub *cub, t_sprite *sprite, int j, t_texture *tex
 void    ft_render_sprites(t_cub *cub, int i, int j)
 {
     t_sprite *sprite = ft_lstlast(cub->ray->sprites);
-    int k = 1;
+    
     while (sprite)
     {
         if (j > cub->mdata->screen[1] * 0.5 - sprite->height * 0.5 && j < cub->mdata->screen[1] * 0.5 + sprite->height * 0.5 && sprite->x_offset > 0 && sprite->x_offset < 1)
@@ -44,13 +44,14 @@ void    ft_render_sprites(t_cub *cub, int i, int j)
             {
                 if (cub->light == -1)
 	            	pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, 0));
-                my_mlx_pixel_put(cub->img, i, j, pix_color);
-                my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
-                my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
-                my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
+                // if (i % 2 == 0 || j % 2 == 0)
+                    ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);
+                // my_mlx_pixel_put(cub->img, i, j, pix_color);
+                // my_mlx_pixel_put(cub->img, i + 1, j, pix_color);
+                // my_mlx_pixel_put(cub->img, i, j + 1, pix_color);
+                // my_mlx_pixel_put(cub->img, i + 1, j + 1, pix_color);
             }
         }
         sprite = sprite->previous;
-        k++;
     }
 }

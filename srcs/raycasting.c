@@ -39,20 +39,6 @@ int		avgColorCalc(t_cub *cub, int x, int y, int blurIntensity)
 	return ((((avgred / div) & 0xff) << 16) + (((avggreen / div) & 0xff) << 8) + ((avgblue / div) & 0xff));
 }
 
-void	ft_multi_pixel_put(t_img *blur_img, int x, int y, int downscaling, int color)
-{
-	int i = 0;
-	while (i < downscaling)
-	{
-		int j = 0;
-		while (j < downscaling)
-		{
-			my_mlx_pixel_put(blur_img, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
 
 void	ft_blur(t_cub *cub, int blurIntensity) //
 {
@@ -74,7 +60,7 @@ void	ft_blur(t_cub *cub, int blurIntensity) //
 		while (j < cub->mdata->screen[1])
 		{
 			avgColor = avgColorCalc(cub, i, j, blurIntensity);
-			ft_multi_pixel_put(blur_img, i, j, downscaling, avgColor);
+			ft_multi_pixel_put(cub, blur_img, i, j, downscaling, avgColor);
 			j += downscaling;
 		}
 		i += downscaling;
@@ -105,7 +91,18 @@ void	ft_print_view(t_cub *cub)
 		if (cub->blur == TRUE)
 			i -= 2;
 		else
-			i--;
+		{
+			if (i < cub->mdata->screen[0] * 0.10 || i > cub->mdata->screen[0] * 0.90)
+				i -= 5;
+			else if (i < cub->mdata->screen[0] * 0.15 || i > cub->mdata->screen[0] * 0.85)
+				i -= 4;
+			else if (i < cub->mdata->screen[0] * 0.25 || i > cub->mdata->screen[0] * 0.75)
+				i -= 3;
+			else if (i < cub->mdata->screen[0] * 0.40 || i > cub->mdata->screen[0] * 0.60)
+				i -= 2;
+			else
+				i--;
+		}
 	}
 	if (cub->minimap == TRUE)
 		ft_mini_map(cub);
