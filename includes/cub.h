@@ -34,7 +34,7 @@
 # define O_ACC 8
 # define MINIMAP_SIZE 300
 # define DOOR_DIST 1.5
-# define OPEN_SPEED 0.08
+# define OPEN_SPEED 0.06
 
 # define FALSE 0
 # define TRUE 1

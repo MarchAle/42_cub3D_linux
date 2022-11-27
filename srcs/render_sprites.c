@@ -5,6 +5,7 @@ void    ft_sprites_calc(t_cub *cub)
     t_sprite *sprite = cub->ray->sprites;
     while (sprite)
     {
+        sprite->to_display = TRUE;
         if (sprite->type == MONSTER)
         {
             float x =  sprite->x - cub->player->x;
@@ -21,7 +22,6 @@ void    ft_sprites_calc(t_cub *cub)
         }
         if (sprite->type == DOOR)
         {
-            sprite->to_display = TRUE;
             sprite->height = (1 / (sprite->dist * cos(cub->player->orient - cub->ray->angle))) * cub->mdata->screen[1];
 
             t_door *door = cub->doors;
