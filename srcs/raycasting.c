@@ -87,7 +87,7 @@ void	ft_print_view(t_cub *cub)
 	{
 		dist = ft_raycast(i, cub, FALSE, 0);
 		ft_render_img(cub, dist, cub->mdata->screen[0] - i);
-		ft_lstfree(&cub->ray->sprites);
+		ft_lstfree_sprite(&cub->ray->sprites);
 		if (cub->blur == TRUE)
 			i -= 2;
 		else

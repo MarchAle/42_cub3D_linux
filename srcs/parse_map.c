@@ -18,6 +18,11 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 
 	if (c == 'X')
 		return ;
+	if (c == 'D')
+	{
+		ft_lstadd_back_door(&cub->doors, ft_lstnew_door(x, y));
+		return ;
+	}
 	if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
 		ft_error(CHAR_ERR);
 	else

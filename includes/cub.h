@@ -33,6 +33,8 @@
 # define ACCEL 12
 # define O_ACC 8
 # define MINIMAP_SIZE 300
+# define DOOR_DIST 1.5
+# define OPEN_SPEED 0.08
 
 # define FALSE 0
 # define TRUE 1
@@ -61,8 +63,15 @@
 # define S 3
 # define W 4 
 
+# define X 0
+# define Y 1
+
 # define RIGHT 0
 # define LEFT 1
+
+# define WALL -1
+# define MONSTER 0
+# define DOOR 1
 
 typedef struct s_img
 {
@@ -182,11 +191,14 @@ typedef struct s_render_param
 
 typedef struct s_sprite
 {
+	int 			type;
 	float 			x;
 	float 			y;
 	float			dist;
 	float			height;
 	float			x_offset;
+	float			y_offset;
+	int				to_display;
 	float			adjacent;
 	struct s_sprite	*next;
 	struct s_sprite	*previous;
@@ -209,6 +221,21 @@ typedef struct s_calc
 	float	max_vignet;		// 
 }	t_calc;
 
+typedef struct s_door
+{
+	int				id;
+	int				x;
+	float			x_min;
+	float			x_max;
+	int				y;
+	float			y_min;
+	float			y_max;
+	int				near_player;
+	float			animation;
+	float			opening;
+	struct s_door	*next;
+}	t_door;
+
 typedef struct s_cub
 {
 	struct s_calc			*calc;
@@ -230,6 +257,7 @@ typedef struct s_cub
 	struct s_ray			*ray;
 	struct s_mlx			*mlx;
 	struct s_move			*move;
+	struct s_door			*doors;
 	char					**map;
 	int						minimap;
 	int						blur;
@@ -320,13 +348,19 @@ void	ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist);
 void	ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist);
 void	ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist);
 void	ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
+float	x_offset_calc(t_cub *cub, float dist, int axe, int type);
 
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
 
-t_sprite	*ft_lstnew(float x, float y);
-void		ft_lstadd_back(t_sprite **alst, t_sprite *new);
-t_sprite	*ft_lstlast(t_sprite *lst);
-void		ft_lstfree(t_sprite **lst);
+t_sprite	*ft_lstnew_sprite(float x, float y, int type, float dist, float x_offset);
+void		ft_lstadd_back_sprite(t_sprite **alst, t_sprite *new);
+t_sprite	*ft_lstlast_sprite(t_sprite *lst);
+void		ft_lstfree_sprite(t_sprite **lst);
+
+t_door		*ft_lstnew_door(int x, int y);
+void		ft_lstadd_back_door(t_door **alst, t_door *new);
+t_door		*ft_lstlast_door(t_door *lst);
+void		ft_lstfree_door(t_door **lst);
 
 #endif
