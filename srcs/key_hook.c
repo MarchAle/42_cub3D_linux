@@ -128,6 +128,7 @@ int	ft_loop_move(t_cub *cub)
 {
 	if (ft_get_time() - cub->frame_time > 3)
 	{
+		ft_move_monster(cub);
 		ft_move(cub);
 		ft_doors_detection(cub);
 		ft_position_update(cub);

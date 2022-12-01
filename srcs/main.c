@@ -40,6 +40,7 @@ int	main(int ac, char **av)
 	ft_parse_file(av[1], cub);
 	ft_convert_colors(cub);
 	ft_parse_map(cub);
+	ft_init_monster_map(cub);
 	ft_init_orientation(cub);
 	ft_mlx_init(cub);
 	ft_init_calculs(cub);

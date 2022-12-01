@@ -24,6 +24,7 @@ SRC =	main.c					\
 			list_utils.c			\
 			render_sprites.c		\
 			calcul.c				\
+			monster.c				\
 
 NAME = Cub3D
 

@@ -28,18 +28,6 @@ void    ft_sprites_calc(t_cub *cub)
 
             while (door)
             {
-                // if (door->id == 0 && sprite->x == door->x && sprite->y == door->y)
-                // {
-                //     static float min_offset = 10;
-                //     static float max_offset = -10;
-
-                //     if (sprite->x_offset < min_offset)
-                //         min_offset = sprite->x_offset;
-                //     if (sprite->x_offset > max_offset)
-                //         max_offset = sprite->x_offset;
-                //     printf("min %f max %f\n", min_offset, max_offset);
-
-                // }
                 if (sprite->x == door->x && sprite->y == door->y)
                     sprite->x_offset += door->opening;
                 if (sprite->x_offset < 0)

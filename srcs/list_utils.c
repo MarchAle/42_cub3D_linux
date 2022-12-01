@@ -12,6 +12,8 @@
 
 #include "cub.h"
 
+///////////// SPRITES
+
 t_sprite	*ft_lstnew_sprite(float x, float y, int type, float dist, float x_offset)
 {
 	t_sprite	*newlist;
@@ -71,6 +73,8 @@ void	ft_lstfree_sprite(t_sprite **lst)
 	}
 }
 
+///////////// DOORS
+
 t_door	*ft_lstnew_door(int x, int y)
 {
 	static int id = 0;
@@ -125,6 +129,65 @@ t_door	*ft_lstlast_door(t_door *lst)
 void	ft_lstfree_door(t_door **lst)
 {
 	t_door	*temp;
+
+	temp = *lst;
+	while (*lst)
+	{
+		*lst = temp->next;
+		free(temp);
+		temp = *lst;
+	}
+}
+
+///////////// MONSTERS
+
+t_monster	*ft_lstnew_monster(float x, float y)
+{
+	static int id = 0;
+	t_monster	*newlist;
+
+	newlist = malloc(sizeof(t_monster));
+	if (!newlist)
+		return (NULL);
+	newlist->id = id;
+	id++;
+	newlist->x = x + 0.5;
+	newlist->y = y + 0.5;
+	newlist->next = NULL;
+	return (newlist);
+}
+
+void	ft_lstadd_back_monster(t_monster **alst, t_monster *new)
+{
+	t_monster	*last;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		last = ft_lstlast_monster(*alst);
+		last->next = new;
+	}
+}
+
+t_monster	*ft_lstlast_monster(t_monster *lst)
+{
+	t_monster	*temp;
+	t_monster	*actual;
+
+	temp = lst;
+	actual = lst;
+	while (temp)
+	{
+		actual = temp;
+		temp = temp->next;
+	}
+	return (actual);
+}
+
+void	ft_lstfree_monster(t_monster **lst)
+{
+	t_monster	*temp;
 
 	temp = *lst;
 	while (*lst)

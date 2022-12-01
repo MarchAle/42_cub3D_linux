@@ -35,3 +35,86 @@ void	ft_build_map(t_cub *cub, char *line)
 		cub->map = tmp_map;
 	}
 }
+
+void	clean_monster_line(char *line)
+{
+	int i = 0;
+
+	while (line[i])
+	{
+		if (line[i] != 'X' && line[i] != '\n' && line[i] != ' ')
+			line[i] = '0';
+		i++;
+	}
+}
+
+void	fill_surrounding(t_cub *cub, int i, int j)
+{
+	int x = -1;
+	int y;
+
+	while (x <= 1)
+	{
+		y = -1;
+		while (y <= 1)
+		{
+			if (cub->monster_map[i + x][j + y] && cub->monster_map[i + x][j + y] != ' ' && cub->monster_map[i + x][j + y] != '\n')
+				cub->monster_map[i + x][j + y] = 'x';
+			y++;
+		}
+		x++;
+	}
+	
+}
+
+void	fill_monster_map(t_cub *cub)
+{
+	int i = 0;
+	int j;
+
+	while (cub->monster_map[i])
+	{
+		j = 0;
+	printf("%s", cub->monster_map[i]);
+		while (cub->monster_map[i][j])
+		{
+			if (cub->monster_map[i][j] == 'X')
+				fill_surrounding(cub, i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	print_monster_map(t_cub *cub)
+{
+	int i = 0;
+	// int j;
+	while (cub->monster_map[i])
+	{
+			printf("%s", cub->monster_map[i]);
+		// j = 0;
+		// while (cub->monster_map[i][j])
+		// {
+		// 	write(2, &cub->monster_map[i][j], 1);
+		// 	j++;
+		// }
+		i++;
+	}
+}
+
+void	ft_init_monster_map(t_cub *cub)
+{
+	int i = 0;
+
+	cub->monster_map = malloc(sizeof(cub->map[0]) * (ft_strlen2d(cub->map)));
+	
+	while (i < (int)ft_strlen2d(cub->map))
+	{
+		cub->monster_map[i] = ft_strdup(cub->map[i]);
+		clean_monster_line(cub->monster_map[i]);
+		i++;
+	}
+	fill_monster_map(cub);
+	// print_monster_map(cub);
+}

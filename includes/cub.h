@@ -35,6 +35,7 @@
 # define MINIMAP_SIZE 300
 # define DOOR_DIST 1.5
 # define OPEN_SPEED 0.06
+# define MONSTER_STEP 0.03
 
 # define FALSE 0
 # define TRUE 1
@@ -236,6 +237,14 @@ typedef struct s_door
 	struct s_door	*next;
 }	t_door;
 
+typedef struct s_monster
+{
+	int					id;
+	float				x;
+	float				y;
+	struct s_monster	*next;
+}	t_monster;
+
 typedef struct s_cub
 {
 	struct s_calc			*calc;
@@ -258,7 +267,9 @@ typedef struct s_cub
 	struct s_mlx			*mlx;
 	struct s_move			*move;
 	struct s_door			*doors;
+	struct s_monster		*monsters;
 	char					**map;
+	char					**monster_map;
 	int						minimap;
 	int						blur;
 	int						light;
@@ -284,6 +295,7 @@ int		ft_check_colors(t_cub *cub, char **tmp_line);
 void	ft_get_colors(char **colors);
 int		ft_all_params(t_cub *cub);
 void	ft_build_map(t_cub *cub, char *line);
+void	ft_init_monster_map(t_cub *cub);
 void	ft_empty_line_checker(t_cub *cub, char *line);
 void	ft_empty_file(char *line);
 void	ft_check_extension(char *file, char *ext);
@@ -350,6 +362,10 @@ void	ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist);
 void	ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
 float	x_offset_calc(t_cub *cub, float dist, int axe, int type);
 
+void	print_monster_map(t_cub *cub);
+void    monster_detected(t_cub *cub, int x, int y);
+void    ft_move_monster(t_cub *cub);
+
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
 
@@ -362,5 +378,10 @@ t_door		*ft_lstnew_door(int x, int y);
 void		ft_lstadd_back_door(t_door **alst, t_door *new);
 t_door		*ft_lstlast_door(t_door *lst);
 void		ft_lstfree_door(t_door **lst);
+
+t_monster	*ft_lstnew_monster(float x, float y);
+void		ft_lstadd_back_monster(t_monster **alst, t_monster *new);
+t_monster	*ft_lstlast_monster(t_monster *lst);
+void		ft_lstfree_monster(t_monster **lst);
 
 #endif
