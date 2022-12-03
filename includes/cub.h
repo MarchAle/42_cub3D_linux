@@ -364,7 +364,8 @@ float	x_offset_calc(t_cub *cub, float dist, int axe, int type);
 
 void	print_monster_map(t_cub *cub);
 void    monster_detected(t_cub *cub, int x, int y);
-void    ft_move_monster(t_cub *cub);
+// void    ft_move_monster(t_cub *cub);
+void    *ft_move_monster(void *cub);
 
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);

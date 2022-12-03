@@ -64,7 +64,6 @@ void	fill_surrounding(t_cub *cub, int i, int j)
 		}
 		x++;
 	}
-	
 }
 
 void	fill_monster_map(t_cub *cub)
@@ -75,9 +74,10 @@ void	fill_monster_map(t_cub *cub)
 	while (cub->monster_map[i])
 	{
 		j = 0;
-	printf("%s", cub->monster_map[i]);
 		while (cub->monster_map[i][j])
 		{
+			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' || cub->map[i][j] == 'E' || cub->map[i][j] == 'W')
+				cub->map[i][j] = '0';
 			if (cub->monster_map[i][j] == 'X')
 				fill_surrounding(cub, i, j);
 			j++;
@@ -89,16 +89,9 @@ void	fill_monster_map(t_cub *cub)
 void	print_monster_map(t_cub *cub)
 {
 	int i = 0;
-	// int j;
 	while (cub->monster_map[i])
 	{
-			printf("%s", cub->monster_map[i]);
-		// j = 0;
-		// while (cub->monster_map[i][j])
-		// {
-		// 	write(2, &cub->monster_map[i][j], 1);
-		// 	j++;
-		// }
+		printf("%s", cub->monster_map[i]);
 		i++;
 	}
 }

@@ -126,11 +126,14 @@ void	ft_doors_detection(t_cub *cub)
 
 int	ft_loop_move(t_cub *cub)
 {
+	pthread_t 	thread = 0;
 	if (ft_get_time() - cub->frame_time > 3)
 	{
-		ft_move_monster(cub);
+		pthread_create(&thread, NULL, ft_move_monster, (void *)cub);
+		// ft_move_monster(cub);
 		ft_move(cub);
 		ft_doors_detection(cub);
+		pthread_join(thread, NULL);
 		ft_position_update(cub);
 		ft_print_view(cub);
 		mlx_string_put(cub->mlx->mlx, cub->mlx->win,

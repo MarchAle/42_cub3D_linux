@@ -57,22 +57,34 @@ void	print_map(t_cub *cub)
 	}
 }
 
-void    ft_move_monster(t_cub *cub)
+// void    ft_move_monster(t_cub *cub)
+void    *ft_move_monster(void *data)
 {
-    t_monster *monster = cub->monsters;
+    t_cub       *cub = data;
+    t_monster   *monster = cub->monsters;
     while (monster)
     {
         float   old_x = monster->x;
-        if (cub->map[(int)(monster->y)][(int)(monster->x + MONSTER_STEP)] == '0' || cub->map[(int)(monster->y)][(int)(monster->x + MONSTER_STEP)] == 'X')
+        float   old_y = monster->y;
+
+        float dist_to_player = sqrtf(powf(monster->x - cub->player->x, 2) + powf(monster->y - cub->player->y, 2));
+        float factor = dist_to_player / MONSTER_STEP;
+        float step_x = (monster->x - cub->player->x) / factor;
+        float step_y = (monster->y - cub->player->y) / factor;
+        if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X')
         {
-            // print_monster_map(cub);
-            // print_map(cub);
-            // printf("%c\n", cub->map[(int)(monster->y)][(int)(monster->x + MONSTER_STEP)]);
-            monster->x += MONSTER_STEP;
+            monster->x -= step_x;
+            monster->y -= step_y;
             if ((int)old_x != (int)monster->x)
             {
-                // printf("old_x %f x = %f\n\n", old_x, monster->x);
                 cub->map[(int)monster->y][(int)old_x] = '0';
+                cub->map[(int)monster->y][(int)monster->x] = 'X';
+                ft_free_monster_map(cub);
+                ft_init_monster_map(cub);
+            }
+            if ((int)old_y != (int)monster->y)
+            {
+                cub->map[(int)old_y][(int)monster->x] = '0';
                 cub->map[(int)monster->y][(int)monster->x] = 'X';
                 ft_free_monster_map(cub);
                 ft_init_monster_map(cub);
@@ -80,4 +92,5 @@ void    ft_move_monster(t_cub *cub)
         }
         monster = monster->next;
     }
+    return (0);
 }

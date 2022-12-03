@@ -52,9 +52,43 @@ int ft_pix_color_calc_sprite(t_cub *cub, t_sprite *sprite, int j, t_texture *tex
 	return (color);
 }
 
+void    sort_sprites(t_cub *cub)
+{
+    int         sorted;
+    t_sprite    *sprite = NULL;
+    t_sprite    *tmp = NULL;
+    t_sprite    *current = NULL;
+
+    do
+    {
+        sorted = 0;
+        sprite = cub->ray->sprites;
+        while (sprite)
+        {
+            current = sprite;
+            if (current->next && current->next->dist < current->dist)
+            {
+                // if (current->previous)
+                //     current->previous->next = current->next;
+                // else
+                //     cub->ray->currents = current->next;
+
+                tmp = current->next;
+                current->next = tmp->next;
+				tmp->next = current;
+                // current = tmp;
+                sorted = 1;
+            }
+            sprite = sprite->next;
+        }
+    } while (sorted == 0);
+}
+
 void    ft_render_sprites(t_cub *cub, int i, int j)
 {
-    t_sprite *sprite = ft_lstlast_sprite(cub->ray->sprites);
+    // sort_sprites(cub);
+    t_sprite    *sprite = ft_lstlast_sprite(cub->ray->sprites);
+    float       mem_dist = 9999999;
     
     while (sprite)
     {
@@ -66,11 +100,12 @@ void    ft_render_sprites(t_cub *cub, int i, int j)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->sprite);
             if (sprite->type == DOOR)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->door);
-            if (pix_color > 0)
+            if (pix_color > 0 && sprite->dist <= mem_dist)
             {
                 if (cub->light == -1)
-	            	pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, 0));
+                    pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, 0));
                 ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);
+                mem_dist = sprite->dist;
             }
         }
         sprite = sprite->previous;
