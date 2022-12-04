@@ -103,7 +103,7 @@ void    ft_render_sprites(t_cub *cub, int i, int j)
             if (pix_color > 0 && sprite->dist <= mem_dist)
             {
                 if (cub->light == -1)
-                    pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, 0));
+                    pix_color = ft_shade_color(pix_color, ft_flashlight(cub, sprite->dist * 1.1, i, j, MONSTER));
                 ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);
                 mem_dist = sprite->dist;
             }

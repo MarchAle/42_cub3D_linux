@@ -36,7 +36,7 @@ int	ft_get_color_from_texture(t_texture *tex, int x, int y)
 	return (*(int *)(tex->addr + (y * tex->line_length + x * (tex->bpp / 8))));
 }
 
-float	ft_flashlight(t_cub *cub, float dist, int i, int j, int wall)
+float	ft_flashlight(t_cub *cub, float dist, int i, int j, int object)
 {
 	float corrected_dist;
 	float vignet = sqrtf(powf(cub->calc->half_height - j, 2) + powf(cub->calc->half_width - i, 2));
@@ -44,12 +44,16 @@ float	ft_flashlight(t_cub *cub, float dist, int i, int j, int wall)
 	if (dist < 1.5)
 		corrected_dist = 0;
 	else
-		corrected_dist = (dist - 1.5) * 0.7;
+		corrected_dist = (dist - 1.5) * 2.3;
 	vignet = vignet / cub->calc->max_vignet;
-	if (dist < 1 && wall)
+	if (dist < 1 && (object == WALL || object == MONSTER))
 		vignet = vignet - (vignet - ((dist) / 1 * vignet));
 	if (vignet > 0.3)
-		corrected_dist += (vignet - 0.3) * 13;
+		corrected_dist += (vignet - 0.3) * 8;
+	else if (vignet < 0.1)
+		corrected_dist -= corrected_dist * 0.75;
+	else
+		corrected_dist -= corrected_dist * (1.125 - 3.75 * vignet);
 	return (corrected_dist);
 }
 

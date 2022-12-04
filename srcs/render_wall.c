@@ -37,6 +37,6 @@ void	ft_render_wall(t_cub *cub, int i, int j, float dist)
 	else
 		pix_color = ft_pix_color_calc(cub, j, cub->west);
 	if (cub->light == -1)
-		pix_color = ft_shade_color(pix_color, ft_flashlight(cub, dist, i, j, 1));
+		pix_color = ft_shade_color(pix_color, ft_flashlight(cub, dist, i, j, WALL));
 	ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);
 }

@@ -30,6 +30,8 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 		ft_error(CHAR_ERR);
 	else
 	{
+		cub->player->health = HEALTH;
+		cub->player->last_hit = 0;
 		cub->player->direction = c;
 		cub->player->x = x + 0.5;
 		cub->player->y = y + 0.5;

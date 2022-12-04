@@ -34,8 +34,10 @@
 # define O_ACC 8
 # define MINIMAP_SIZE 300
 # define DOOR_DIST 1.5
-# define OPEN_SPEED 0.06
-# define MONSTER_STEP 0.03
+# define OPEN_SPEED 0.05
+# define MONSTER_STEP 0.05
+# define HEALTH 1000
+# define NO_HIT_TIME 10
 
 # define FALSE 0
 # define TRUE 1
@@ -144,6 +146,9 @@ typedef struct s_player
 	float	map_y;
 	float	offset_x;
 	float	offset_y;
+	int		door_open;
+	int 	health;
+	int		last_hit;
 }	t_player;
 
 typedef struct s_mlx
@@ -242,6 +247,7 @@ typedef struct s_monster
 	int					id;
 	float				x;
 	float				y;
+	int					follow;
 	struct s_monster	*next;
 }	t_monster;
 
@@ -366,6 +372,8 @@ void	print_monster_map(t_cub *cub);
 void    monster_detected(t_cub *cub, int x, int y);
 // void    ft_move_monster(t_cub *cub);
 void    *ft_move_monster(void *cub);
+
+void	ft_doors_detection(t_cub *cub);
 
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);

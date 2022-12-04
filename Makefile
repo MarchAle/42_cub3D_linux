@@ -6,6 +6,7 @@ SRC =	main.c					\
 			game.c					\
 			init_struct.c			\
 			init_texture.c			\
+			print_view.c			\
 			moves.c					\
 			acceleration.c			\
 			collision.c				\
@@ -25,6 +26,7 @@ SRC =	main.c					\
 			render_sprites.c		\
 			calcul.c				\
 			monster.c				\
+			doors.c					\
 
 NAME = Cub3D
 

@@ -68,26 +68,40 @@ void    *ft_move_monster(void *data)
         float   old_y = monster->y;
 
         float dist_to_player = sqrtf(powf(monster->x - cub->player->x, 2) + powf(monster->y - cub->player->y, 2));
-        float factor = dist_to_player / MONSTER_STEP;
-        float step_x = (monster->x - cub->player->x) / factor;
-        float step_y = (monster->y - cub->player->y) / factor;
-        if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X')
+        if (dist_to_player < 0.4)
         {
-            monster->x -= step_x;
-            monster->y -= step_y;
-            if ((int)old_x != (int)monster->x)
+            cub->player->health -= 10;
+            cub->player->last_hit = NO_HIT_TIME;
+        }
+        
+        if (dist_to_player < 3)
+            monster->follow = 1;
+        else if (dist_to_player > 5)
+            monster->follow = 0;
+        
+        if (monster->follow)
+        {
+            float factor = dist_to_player / MONSTER_STEP;
+            float step_x = (monster->x - cub->player->x) / factor;
+            float step_y = (monster->y - cub->player->y) / factor;
+            if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X')
             {
-                cub->map[(int)monster->y][(int)old_x] = '0';
-                cub->map[(int)monster->y][(int)monster->x] = 'X';
-                ft_free_monster_map(cub);
-                ft_init_monster_map(cub);
-            }
-            if ((int)old_y != (int)monster->y)
-            {
-                cub->map[(int)old_y][(int)monster->x] = '0';
-                cub->map[(int)monster->y][(int)monster->x] = 'X';
-                ft_free_monster_map(cub);
-                ft_init_monster_map(cub);
+                monster->x -= step_x;
+                monster->y -= step_y;
+                if ((int)old_x != (int)monster->x)
+                {
+                    cub->map[(int)monster->y][(int)old_x] = '0';
+                    cub->map[(int)monster->y][(int)monster->x] = 'X';
+                    ft_free_monster_map(cub);
+                    ft_init_monster_map(cub);
+                }
+                if ((int)old_y != (int)monster->y)
+                {
+                    cub->map[(int)old_y][(int)monster->x] = '0';
+                    cub->map[(int)monster->y][(int)monster->x] = 'X';
+                    ft_free_monster_map(cub);
+                    ft_init_monster_map(cub);
+                }
             }
         }
         monster = monster->next;
