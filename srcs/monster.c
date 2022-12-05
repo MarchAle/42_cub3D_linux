@@ -68,10 +68,13 @@ void    *ft_move_monster(void *data)
         float   old_y = monster->y;
 
         float dist_to_player = sqrtf(powf(monster->x - cub->player->x, 2) + powf(monster->y - cub->player->y, 2));
-        if (dist_to_player < 0.4)
+        if (dist_to_player < 0.4 && cub->player->last_hit == 0)
         {
             cub->player->health -= 10;
             cub->player->last_hit = NO_HIT_TIME;
+            cub->player->kick_x = (monster->x - cub->player->x) * KICK / (dist_to_player + 0.001);
+            cub->player->kick_y = (monster->y - cub->player->y) * KICK / (dist_to_player + 0.001);
+            // ft_check_collision(cub, cub->player->x - recul_x, cub->player->y - recul_y);
         }
         
         if (dist_to_player < 3)

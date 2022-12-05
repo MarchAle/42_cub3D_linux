@@ -22,13 +22,13 @@ void	ft_offset_init(t_cub *cub)
 		cub->player->offset_y = 1 - cub->player->offset_y;
 }
 
-float	ft_angleCalculation(int i, t_cub *cub)
-{
-	float a = sqrtf(pow(i, 2) + cub->calc->powd - (2 * i * cub->calc->d * cub->calc->cosalpha));
-	float angle = asin(cub->calc->sinalpha * i / a);
-	cub->ray->angle_player = cub->calc->fovHalf - angle;
-	return (angle);
-}
+// float	ft_angleCalculation2(int i, t_cub *cub)
+// {
+// 	float a = sqrtf(pow(i, 2) + cub->calc->powd - (2 * i * cub->calc->d * cub->calc->cosalpha));
+// 	float angle = asin(cub->calc->sinalpha * i / a);
+// 	cub->ray->angle_player = cub->calc->fovHalf - angle;
+// 	return (angle);
+// }
 
 float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 {
@@ -37,7 +37,11 @@ float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size)
 	int		ray_color;
 
 	tmp_dist = 0;
-	cub->ray->angle = cub->player->orient - cub->calc->fovHalf + ft_angleCalculation(i, cub);
+	// cub->ray->angle = cub->player->orient - cub->calc->fovHalf + ft_angleCalculation2(i, cub);
+	// printf("%f\n", cub->ray->angle);
+	cub->ray->angle = cub->player->orient - cub->calc->fovHalf + cub->angles[i];
+	cub->ray->angle_player = cub->calc->fovHalf - cub->angles[i];
+	// printf("%f\n", cub->ray->angle);
 	ft_trigo_angle(cub);
 	ft_get_direction(cub);
 	ft_offset_init(cub);

@@ -36,8 +36,9 @@
 # define DOOR_DIST 1.5
 # define OPEN_SPEED 0.05
 # define MONSTER_STEP 0.05
-# define HEALTH 1000
-# define NO_HIT_TIME 10
+# define HEALTH 150
+# define NO_HIT_TIME 15
+# define KICK 0.35
 
 # define FALSE 0
 # define TRUE 1
@@ -149,6 +150,8 @@ typedef struct s_player
 	int		door_open;
 	int 	health;
 	int		last_hit;
+	float	kick_x;
+	float	kick_y;
 }	t_player;
 
 typedef struct s_mlx
@@ -253,6 +256,7 @@ typedef struct s_monster
 
 typedef struct s_cub
 {
+	float					*angles;
 	struct s_calc			*calc;
 	struct s_img			*img;
 	struct s_texture		*north;

@@ -70,7 +70,7 @@ void    ft_health_bar(t_cub *cub)
         {
             if (x < 3 || x >= 117 || y < 3 || y >= 17)
                 my_mlx_pixel_put(cub->img, x + offset_x, y + offset_y, 0x4F4444);
-            else if (x < 118 * cub->player->health / HEALTH)
+            else if (x < 118 * cub->player->health / HEALTH && cub->player->last_hit % 3 == 0)
                 my_mlx_pixel_put(cub->img, x + offset_x, y + offset_y, 0x88E1212);
             y++;
         }
