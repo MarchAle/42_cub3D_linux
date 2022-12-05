@@ -104,8 +104,8 @@ int	ft_loop_move(t_cub *cub)
 		pthread_create(&thread, NULL, ft_move_monster, (void *)cub);
 		// ft_move_monster(cub);
 
-		if (cub->player->last_hit > 3)
-			ft_check_collision(cub, cub->player->x - cub->player->kick_x / 3, cub->player->y - cub->player->kick_y / 5);
+		if (cub->player->last_hit > 7)
+			ft_check_collision(cub, cub->player->x - cub->player->kick_x / 3, cub->player->y - cub->player->kick_y / 3);
 		// else
 		ft_move(cub);
 		ft_doors_detection(cub);
