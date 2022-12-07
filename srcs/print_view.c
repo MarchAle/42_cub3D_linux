@@ -81,9 +81,7 @@ void    ft_health_bar(t_cub *cub)
 void	ft_print_view(t_cub *cub)
 {
 	int		i;
-	float	dist;
 	t_img	*img;
-
 
 	img = malloc(sizeof(t_img));
 	if (!img)
@@ -94,8 +92,8 @@ void	ft_print_view(t_cub *cub)
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
-		dist = ft_raycast(i, cub, FALSE, 0);
-		ft_render_img(cub, dist, cub->mdata->screen[0] - i);
+		cub->ray->wall_dist = ft_raycast(i, cub, FALSE, 0);
+		ft_render_img(cub, cub->ray->wall_dist, cub->mdata->screen[0] - i);
 		ft_lstfree_sprite(&cub->ray->sprites);
 		if (cub->blur == TRUE)
 			i -= 2;

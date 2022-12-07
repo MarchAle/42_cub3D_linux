@@ -124,6 +124,7 @@ typedef struct s_ray
 	float			x;
 	float			y;
 	int				direction;
+	float			wall_dist;
 	float			wall_height;
 	float			angle;
 	float			angle_player;

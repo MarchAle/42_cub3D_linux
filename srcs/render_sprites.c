@@ -92,7 +92,7 @@ void    ft_render_sprites(t_cub *cub, int i, int j)
     
     while (sprite)
     {
-        if (j > cub->mdata->screen[1] * 0.5 - sprite->height * 0.5 && j < cub->mdata->screen[1] * 0.5 + sprite->height * 0.5 && sprite->x_offset > 0 && sprite->x_offset < 1)
+        if (sprite->dist < cub->ray->wall_dist && j > cub->mdata->screen[1] * 0.5 - sprite->height * 0.5 && j < cub->mdata->screen[1] * 0.5 + sprite->height * 0.5 && sprite->x_offset > 0 && sprite->x_offset < 1)
         {
             int pix_color;
 
