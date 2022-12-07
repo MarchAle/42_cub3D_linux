@@ -362,6 +362,7 @@ void	ft_move_camera(t_cub *cub, int dir);
 void	ft_acceleration(int	*dir, int *accel, int type);
 
 void	ft_check_collision(t_cub *cub, float x, float y);
+void	ft_check_collision_monster(t_cub *cub, t_monster *monster, float x, float y);
 
 void	ft_offset_init(t_cub *cub);
 float	ft_dist_to_wall(t_cub *cub);

@@ -74,7 +74,6 @@ void    *ft_move_monster(void *data)
             cub->player->last_hit = NO_HIT_TIME;
             cub->player->kick_x = (monster->x - cub->player->x) * KICK / (dist_to_player + 0.001);
             cub->player->kick_y = (monster->y - cub->player->y) * KICK / (dist_to_player + 0.001);
-            // ft_check_collision(cub, cub->player->x - recul_x, cub->player->y - recul_y);
         }
         
         if (dist_to_player < 3)
@@ -87,10 +86,11 @@ void    *ft_move_monster(void *data)
             float factor = dist_to_player / MONSTER_STEP;
             float step_x = (monster->x - cub->player->x) / factor;
             float step_y = (monster->y - cub->player->y) / factor;
-            if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X')
+            if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X' || (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'D' && cub->player->door_open == 1)) 
             {
-                monster->x -= step_x;
-                monster->y -= step_y;
+                ft_check_collision_monster(cub, monster, monster->x - step_x, monster->y - step_y);
+                // monster->x -= step_x;
+                // monster->y -= step_y;
                 if ((int)old_x != (int)monster->x)
                 {
                     cub->map[(int)monster->y][(int)old_x] = '0';

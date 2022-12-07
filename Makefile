@@ -10,6 +10,7 @@ SRC =	main.c					\
 			moves.c					\
 			acceleration.c			\
 			collision.c				\
+			collision_monster.c		\
 			raycasting.c 			\
 			key_hook.c				\
 			dist_to_wall.c			\

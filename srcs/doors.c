@@ -16,6 +16,12 @@ void	ft_doors_detection(t_cub *cub)
 
 	while (door)
 	{
+		// reset doors on map after monster passage
+		if (cub->map[door->y][door->x] == '0')
+		{
+			cub->map[door->y][door->x] = 'D';
+			door->animation = 1;
+		}
 		if (cub->player->x > door->x_min && cub->player->x < door->x_max && cub->player->y > door->y_min && cub->player->y < door->y_max)
 		{
 			if (door->animation < 1)
