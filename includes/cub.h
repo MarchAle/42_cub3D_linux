@@ -37,7 +37,7 @@
 # define OPEN_SPEED 0.05
 # define MONSTER_STEP 0.05
 # define HEALTH 150
-# define NO_HIT_TIME 15
+# define NO_HIT_TIME 20
 # define KICK 0.38
 
 # define FALSE 0
