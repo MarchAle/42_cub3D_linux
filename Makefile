@@ -41,7 +41,7 @@ CC = clang
 # .a = lib static, les fonctions utilisees sont directement ecrite dans le binaire
 # .dylib = lib dynamique, les fonctions doivent etre chargees au momnent ou on lance le binaire
 
-CFLAGS = -pthread -Wall -Wextra -Werror -O3 -g #-fsanitize=address
+CFLAGS = -pthread -Wall -Wextra -Werror -O3 -g #-pg #-fsanitize=address
 CFRAM := -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 OBJ_DIR = objs

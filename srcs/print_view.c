@@ -89,6 +89,7 @@ void	ft_print_view(t_cub *cub)
 	cub->img = img;
 	cub->img->img = mlx_new_image(cub->mlx->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
+	cub->img->bpp_divided = cub->img->bits_per_pixel / 8;
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
