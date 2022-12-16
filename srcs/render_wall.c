@@ -12,30 +12,30 @@
 
 #include "../includes/cub.h"
 
-int ft_pix_color_calc(t_cub *cub, int j, t_texture *tex)
+int ft_pix_color_calc(t_cub *cub, t_ray *ray, int j, t_texture *tex)
 {
 	int	color;
 
-	cub->ray->texture_offset_y = (float)((j
-				- ((cub->mdata->screen[1] - cub->ray->wall_height) / 2))
-			/ (cub->ray->wall_height) * tex->height[0]);
-	color = ft_get_color_from_texture(tex, (int)cub->ray->texture_offset_x,
-			(int)cub->ray->texture_offset_y);
+	ray->texture_offset_y = (float)((j
+				- ((cub->mdata->screen[1] - ray->wall_height) / 2))
+			/ (ray->wall_height) * tex->height[0]);
+	color = ft_get_color_from_texture(tex, (int)ray->texture_offset_x,
+			(int)ray->texture_offset_y);
 	return (color);
 }
 
-void	ft_render_wall(t_cub *cub, int i, int j, float dist)
+void	ft_render_wall(t_cub *cub, t_ray *ray, int i, int j, float dist)
 {
 	int	pix_color;
 
-	if (cub->ray->wall_orientation == N)
-		pix_color = ft_pix_color_calc(cub, j, cub->north);
-	else if (cub->ray->wall_orientation == S)
-		pix_color = ft_pix_color_calc(cub, j, cub->south);
-	else if (cub->ray->wall_orientation == E)
-		pix_color = ft_pix_color_calc(cub, j, cub->east);
+	if (ray->wall_orientation == N)
+		pix_color = ft_pix_color_calc(cub, ray, j, cub->north);
+	else if (ray->wall_orientation == S)
+		pix_color = ft_pix_color_calc(cub, ray, j, cub->south);
+	else if (ray->wall_orientation == E)
+		pix_color = ft_pix_color_calc(cub, ray, j, cub->east);
 	else
-		pix_color = ft_pix_color_calc(cub, j, cub->west);
+		pix_color = ft_pix_color_calc(cub, ray, j, cub->west);
 	if (cub->light == -1)
 		pix_color = ft_shade_color(pix_color, ft_flashlight(cub, dist, i, j, WALL));
 	ft_multi_pixel_put(cub, cub->img, i, j, ft_downscaling(cub, i, j), pix_color);

@@ -49,6 +49,6 @@ void	ft_mini_map(t_cub *cub)
 		}
 	}
 	i = cub->mdata->screen[0] / 3;
-	while (i-- > 0)
-		ft_raycast(i * 3, cub, TRUE, size);
+	// while (i-- > 0)
+	// 	ft_raycast(i * 3, cub, cub->ray, TRUE, size);
 }

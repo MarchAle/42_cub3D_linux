@@ -12,10 +12,10 @@
 
 #include "../includes/cub.h"
 
-void	ft_upper_screen(t_cub *cub, int i, int j, float dist)
+void	ft_upper_screen(t_cub *cub, t_ray *ray, int i, int j, float dist)
 {
-	if (j > cub->calc->half_height - cub->ray->wall_height * 0.5)
-		ft_render_wall(cub, i, j, dist);
+	if (j > cub->calc->half_height - ray->wall_height * 0.5)
+		ft_render_wall(cub, ray, i, j, dist);
 	else
 	{
 		if (cub->mdata->sky == NULL)
@@ -25,34 +25,35 @@ void	ft_upper_screen(t_cub *cub, int i, int j, float dist)
 	}
 }
 
-void	ft_lower_screen(t_cub *cub, int i, int j, float dist)
+void	ft_lower_screen(t_cub *cub, t_ray *ray, int i, int j, float dist)
 {
-	if (j < cub->calc->half_height + cub->ray->wall_height * 0.5)
-		ft_render_wall(cub, i, j, dist);
+	if (j < cub->calc->half_height + ray->wall_height * 0.5)
+		ft_render_wall(cub, ray, i, j, dist);
 	else
 	{
 		if (cub->mdata->floor == NULL)
 			my_mlx_pixel_put(cub->img, i, j, cub->mdata->f_color);
 		else
-			ft_render_floor(cub, i, j, dist);
+			ft_render_floor(cub, ray, i, j, dist);
 	}
 }
 
-void	ft_render_img(t_cub *cub, float dist, int i)		//// print one column of pixel
+void	ft_render_img(t_cub *cub, t_ray *ray, int i)		//// print one column of pixel
 {
 	int	j = 0;
+	float dist = ray->wall_dist;
 
 	///// fisheye correction
-	cub->ray->wall_height = (1 / (dist * cos(cub->player->orient - cub->ray->angle))) * cub->mdata->screen[1];
-	cub->sky_p->pixel_x = ((cub->ray->angle) / cub->calc->piHalf) * cub->sky->width[0];
-	ft_sprites_calc(cub);
+	ray->wall_height = (1 / (dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
+	cub->sky_p->pixel_x = ((ray->angle) / cub->calc->piHalf) * cub->sky->width[0];
+	ft_sprites_calc(cub, ray);
 	while (j < cub->mdata->screen[1] - 1)
 	{
 		if (j < cub->calc->half_height)
-			ft_upper_screen(cub, i, j, dist);
+			ft_upper_screen(cub, ray, i, j, dist);
 		else
-			ft_lower_screen(cub, i, j, dist);
-		ft_render_sprites(cub, i, j);
+			ft_lower_screen(cub, ray, i, j, dist);
+		ft_render_sprites(cub, ray, i, j);
 		if (cub->blur == TRUE)
 			j += 2;
 		else

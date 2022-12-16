@@ -78,11 +78,25 @@ void    ft_health_bar(t_cub *cub)
     }
 }
 
+void	*routine(void *data)
+{
+	t_thread *thread = data;
+
+	thread->ray->wall_dist = ft_raycast(thread->i, thread->cub, thread->ray, FALSE, 0);
+	ft_render_img(thread->cub, thread->ray, thread->cub->mdata->screen[0] - thread->i);
+	ft_lstfree_sprite(&thread->ray->sprites);
+
+	return NULL;
+}
+
+
 void	ft_print_view(t_cub *cub)
 {
 	int		i;
 	t_img	*img;
 
+
+	
 	img = malloc(sizeof(t_img));
 	if (!img)
 		ft_error(MALLOC);
@@ -93,9 +107,13 @@ void	ft_print_view(t_cub *cub)
 	i = cub->mdata->screen[0];
 	while (i > 0)
 	{
-		cub->ray->wall_dist = ft_raycast(i, cub, FALSE, 0);
-		ft_render_img(cub, cub->ray->wall_dist, cub->mdata->screen[0] - i);
-		ft_lstfree_sprite(&cub->ray->sprites);
+		cub->thread_one->i = i;
+		pthread_create(&cub->thread_one->thread, NULL, routine, cub->thread_one);
+		
+		// routine(cub, cub->ray1, i);
+		// cub->ray->wall_dist = ft_raycast(i, cub, cub->ray, FALSE, 0);
+		// ft_render_img(cub, cub->ray->wall_dist, cub->mdata->screen[0] - i);
+		// ft_lstfree_sprite(&cub->ray->sprites);
 		if (cub->blur == TRUE)
 			i -= 2;
 		else
@@ -111,6 +129,29 @@ void	ft_print_view(t_cub *cub)
 			else
 				i--;
 		}
+		// if (i > 0)
+		// {
+		// 	cub->thread_two->i = i;
+		// 	pthread_create(&cub->thread_two->thread, NULL, routine, cub->thread_two);
+
+		// }
+		// if (cub->blur == TRUE)
+		// 	i -= 2;
+		// else
+		// {
+		// 	if (i < cub->mdata->screen[0] * 0.10 || i > cub->mdata->screen[0] * 0.90)
+		// 		i -= 5;
+		// 	else if (i < cub->mdata->screen[0] * 0.15 || i > cub->mdata->screen[0] * 0.85)
+		// 		i -= 4;
+		// 	else if (i < cub->mdata->screen[0] * 0.25 || i > cub->mdata->screen[0] * 0.75)
+		// 		i -= 3;
+		// 	else if (i < cub->mdata->screen[0] * 0.40 || i > cub->mdata->screen[0] * 0.60)
+		// 		i -= 2;
+		// 	else
+		// 		i--;
+		// }
+		// pthread_join(cub->thread_two->thread, NULL);
+		pthread_join(cub->thread_one->thread, NULL);
 	}
     ft_health_bar(cub);
 	if (cub->minimap == TRUE)

@@ -34,9 +34,9 @@ void    ft_init_calculs(t_cub *cub)
     init_angles(cub);
 }
 
-void    ft_trigo_angle(t_cub *cub)
+void    ft_trigo_angle(t_ray *ray)
 {
-    cub->calc->cosAngle = cos(cub->ray->angle);
-    cub->calc->sinAngle = sin(cub->ray->angle);
-    cub->calc->tanAngle = tan(cub->ray->angle);
+    ray->cosAngle = cos(ray->angle);
+    ray->sinAngle = sin(ray->angle);
+    ray->tanAngle = tan(ray->angle);
 }

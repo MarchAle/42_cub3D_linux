@@ -128,6 +128,9 @@ typedef struct s_ray
 	float			wall_dist;
 	float			wall_height;
 	float			angle;
+	float			cosAngle;
+	float			sinAngle;
+	float			tanAngle;
 	float			angle_player;
 	float			dist_to_x;
 	float			dist_to_y;
@@ -224,9 +227,9 @@ typedef struct s_calc
 	float	powd;			// ft_angleClaculation()
 	float	fovHalf;		// ft_raycast()
 	float	piHalf;
-	float	cosAngle;
-	float	sinAngle;
-	float	tanAngle;
+	// float	cosAngle;
+	// float	sinAngle;
+	// float	tanAngle;
 	float	half_width;
 	float	half_height;
 	float	max_vignet;		// 
@@ -275,7 +278,10 @@ typedef struct s_cub
 	struct s_tex_color		*tex_color;
 	struct s_mdata			*mdata;
 	struct s_player			*player;
-	struct s_ray			*ray;
+	struct s_thread			*thread_one;
+	struct s_thread			*thread_two;
+	struct s_ray			*ray1;
+	struct s_ray			*ray2;
 	struct s_mlx			*mlx;
 	struct s_move			*move;
 	struct s_door			*doors;
@@ -291,6 +297,14 @@ typedef struct s_cub
 	long					fps_time;
 	long					frame_time;
 }	t_cub;
+
+typedef struct s_thread
+{
+	pthread_t	thread;
+	t_cub 		*cub;
+	t_ray 		*ray;
+	int			i;
+}	t_thread;
 
 void	ft_error(int type);
 
@@ -327,26 +341,26 @@ void	ft_parse_map(t_cub *cub);
 
 void	ft_start_game(t_cub *cub);
 void	ft_print_view(t_cub *cub);
-float	ft_raycast(int i, t_cub *cub, int print_ray, int minimap_size);
-void    ft_trigo_angle(t_cub *cub);
-void	ft_get_direction(t_cub *cub);
+float	ft_raycast(int i, t_cub *cub, t_ray *ray, int print_ray, int minimap_size);
+void    ft_trigo_angle(t_ray *ray);
+void	ft_get_direction(t_cub *cub, t_ray *ray);
 void	ft_mini_map(t_cub *cub);
 
 int		ft_rgb_to_hex(char **rgb);
 void	ft_convert_colors(t_cub *cub);
 int		ft_get_color_from_texture(t_texture *tex, int x, int y);
 int		ft_get_color_from_img(t_img *img, int x, int y);
-int 	ft_pix_color_calc(t_cub *cub, int j, t_texture *tex);
+int 	ft_pix_color_calc(t_cub *cub, t_ray *ray, int j, t_texture *tex);
 float	ft_flashlight(t_cub *cub, float dist, int i, int j, int wall);
 int		ft_shade_color(int pix_color, float dist);
 int		ft_fade_color(int pix_color, float dist);
 
-void	ft_render_img(t_cub *cub, float dist, int i);
-void	ft_render_wall(t_cub *cub, int i, int j, float dist);
+void	ft_render_img(t_cub *cub, t_ray *ray, int i);
+void	ft_render_wall(t_cub *cub, t_ray *ray, int i, int j, float dist);
 void	ft_render_sky(t_cub *cub, int i, int j);
-void	ft_render_floor(t_cub *cub, int i, int j, float dist);
-void    ft_sprites_calc(t_cub *cub);
-void	ft_render_sprites(t_cub *cub, int i, int j);
+void	ft_render_floor(t_cub *cub, t_ray *ray, int i, int j, float dist);
+void    ft_sprites_calc(t_cub *cub, t_ray *ray);
+void	ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j);
 void	ft_fps(t_cub *cub);
 
 int		key_hook_down(int keycode, t_cub *cub);
@@ -365,18 +379,18 @@ void	ft_acceleration(int	*dir, int *accel, int type);
 void	ft_check_collision(t_cub *cub, float x, float y);
 void	ft_check_collision_monster(t_cub *cub, t_monster *monster, float x, float y);
 
-void	ft_offset_init(t_cub *cub);
-float	ft_dist_to_wall(t_cub *cub);
-void	ft_nearest_wall_x(t_cub *cub, float *shortest_dist);
-void	ft_nearest_wall_y(t_cub *cub, float *shortest_dist);
-void	ft_nearest_north_wall_x(t_cub *cub, float *shortest_dist);
-void	ft_nearest_south_wall_x(t_cub *cub, float *shortest_dist);
-void	ft_nearest_north_wall_y(t_cub *cub, float *shortest_dist);
-void	ft_nearest_south_wall_y(t_cub *cub, float *shortest_dist);
-float	x_offset_calc(t_cub *cub, float dist, int axe, int type);
+void	ft_offset_init(t_cub *cub, t_ray *ray);
+float	ft_dist_to_wall(t_cub *cub, t_ray *ray);
+void	ft_nearest_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist);
+void	ft_nearest_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist);
+void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist);
+void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist);
+void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist);
+void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist);
+float	x_offset_calc(t_cub *cub, t_ray *ray, float dist, int axe, int type);
 
 void	print_monster_map(t_cub *cub);
-void    monster_detected(t_cub *cub, int x, int y);
+void    monster_detected(t_cub *cub, t_ray *ray, int x, int y);
 // void    ft_move_monster(t_cub *cub);
 void    *ft_move_monster(void *cub);
 

@@ -35,20 +35,35 @@ void	ft_init_struct_move(t_cub *cub)
 void	ft_init_struct_param(t_cub *cub)
 {
 	t_player		*player;
-	t_ray			*ray;
+	t_thread		*thread_one;
+	t_thread		*thread_two;
+	t_ray			*ray1;
+	t_ray			*ray2;
 	t_render_param	*sky_p;
 	t_render_param	*floor_p;
 
 	player = malloc(sizeof(t_player));
-	ray = malloc(sizeof(t_ray));
+	thread_one = malloc(sizeof(t_thread));
+	thread_two = malloc(sizeof(t_thread));
+	ray1 = malloc(sizeof(t_ray));
+	ray2 = malloc(sizeof(t_ray));
 	sky_p = malloc(sizeof(t_render_param));
 	floor_p = malloc(sizeof(t_render_param));
-	if (!player || !ray || !sky_p || !floor_p)
+	if (!player || !thread_one || !thread_two|| !ray1 || !ray2 || !sky_p || !floor_p)
 		ft_error(MALLOC);
 	cub->player = player;
-	cub->ray = ray;
+	cub->ray1 = ray1;
+	cub->ray2 = ray2;
 	cub->sky_p = sky_p;
 	cub->floor_p = floor_p;
+	thread_one->thread = 0;
+	thread_two->thread = 0;
+	thread_one->cub = cub;
+	thread_two->cub = cub;
+	thread_one->ray = cub->ray1;
+	thread_two->ray = cub->ray2;
+	cub->thread_one = thread_one;
+	cub->thread_two = thread_two;
 }
 
 void	ft_init_struct_wall(t_cub *cub)

@@ -1,18 +1,18 @@
 #include "../includes/cub.h"
 
-void    monster_position(t_cub *cub, int x, int y)
+void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
 {
     t_monster *monster = cub->monsters;
 
     while (monster)
     {
         if ((int)monster->x == x && (int)monster->y == y)
-            ft_lstadd_back_sprite(&cub->ray->sprites, ft_lstnew_sprite(monster->x, monster->y, MONSTER, 0, 0));
+            ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(monster->x, monster->y, MONSTER, 0, 0));
         monster = monster->next;
     }
 }
 
-void    monster_detected(t_cub *cub, int x, int y)
+void    monster_detected(t_cub *cub, t_ray *ray, int x, int y)
 {
     int i = -1;
     int j;
@@ -21,7 +21,7 @@ void    monster_detected(t_cub *cub, int x, int y)
         j = -1;
         while (j <= 1)
         {
-            monster_position(cub, x + i, y + j);
+            monster_position(cub, ray, x + i, y + j);
             j++;
         }
         i++;

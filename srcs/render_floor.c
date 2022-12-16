@@ -12,76 +12,76 @@
 
 #include "../includes/cub.h"
 
-static	void ft_pixel_calc_north(t_cub *cub)
+static	void ft_pixel_calc_north(t_cub *cub, t_ray *ray)
 {
-	if (cub->ray->direction == NE)
+	if (ray->direction == NE)
 	{
 		cub->floor_p->pixel_x = cub->player->offset_x
-			- (cos(cub->ray->angle) * cub->floor_p->floor_dist);
+			- (cos(ray->angle) * cub->floor_p->floor_dist);
 		cub->floor_p->pixel_y = cub->player->offset_y
-			- (sin(cub->ray->angle) * cub->floor_p->floor_dist);
+			- (sin(ray->angle) * cub->floor_p->floor_dist);
 	}
-	if (cub->ray->direction == NW)
+	if (ray->direction == NW)
 	{
 		cub->floor_p->pixel_x = cub->player->offset_x
-			+ (cos(cub->ray->angle) * cub->floor_p->floor_dist);
+			+ (cos(ray->angle) * cub->floor_p->floor_dist);
 		cub->floor_p->pixel_y = cub->player->offset_y
-			- (sin(cub->ray->angle) * cub->floor_p->floor_dist);
+			- (sin(ray->angle) * cub->floor_p->floor_dist);
 	}
 }
 
-static	void ft_pixel_calc_south(t_cub *cub)
+static	void ft_pixel_calc_south(t_cub *cub, t_ray *ray)
 {
-	if (cub->ray->direction == SW)
+	if (ray->direction == SW)
 	{
 		cub->floor_p->pixel_x = cub->player->offset_x
-			+ (cos(cub->ray->angle) * cub->floor_p->floor_dist);
+			+ (cos(ray->angle) * cub->floor_p->floor_dist);
 		cub->floor_p->pixel_y = cub->player->offset_y
-			+ (sin(cub->ray->angle) * cub->floor_p->floor_dist);
+			+ (sin(ray->angle) * cub->floor_p->floor_dist);
 	}
-	if (cub->ray->direction == SE)
+	if (ray->direction == SE)
 	{
 		cub->floor_p->pixel_x = cub->player->offset_x
-			- (cos(cub->ray->angle) * cub->floor_p->floor_dist);
+			- (cos(ray->angle) * cub->floor_p->floor_dist);
 		cub->floor_p->pixel_y = cub->player->offset_y
-			+ (sin(cub->ray->angle) * cub->floor_p->floor_dist);
+			+ (sin(ray->angle) * cub->floor_p->floor_dist);
 	}
 }
 
-static	void ft_param_calc(t_cub *cub, int j, float dist)
+static	void ft_param_calc(t_cub *cub, t_ray *ray, int j, float dist)
 {
 	// cub->floor_p->y_offset_px = j - cub->mdata->screen[1] * 0.5;
 	cub->floor_p->y_offset_px = j - (cub->mdata->screen[1] >> 1);		//// using bitshifting instead of division
-	cub->floor_p->y_offset = cub->floor_p->y_offset_px / cub->ray->wall_height;
+	cub->floor_p->y_offset = cub->floor_p->y_offset_px / ray->wall_height;
 	cub->floor_p->floor_angle = cub->floor_p->y_offset / dist;
-	cub->floor_p->floor_dist = ((cub->ray->wall_height * 0.5)
-			/ tan(cub->floor_p->floor_angle) / cub->ray->wall_height);
-	ft_pixel_calc_north(cub);
-	ft_pixel_calc_south(cub);
+	cub->floor_p->floor_dist = ((ray->wall_height * 0.5)
+			/ tan(cub->floor_p->floor_angle) / ray->wall_height);
+	ft_pixel_calc_north(cub, ray);
+	ft_pixel_calc_south(cub, ray);
 	cub->floor_p->pixel_x = (floor(cub->floor_p->pixel_x)
 			- cub->floor_p->pixel_x + 1) * cub->floor->width[0];
 	cub->floor_p->pixel_y = (floor(cub->floor_p->pixel_y)
 			- cub->floor_p->pixel_y + 1) * cub->floor->height[0];
 }
 
-void	ft_render_floor(t_cub *cub, int i, int j, float dist)
+void	ft_render_floor(t_cub *cub, t_ray *ray, int i, int j, float dist)
 {
 	int		pix_color = 0;
 
-	ft_param_calc(cub, j, dist);
-	if (cub->ray->direction == SW)
+	ft_param_calc(cub, ray, j, dist);
+	if (ray->direction == SW)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)cub->floor_p->pixel_x, (int)(cub->floor->height[0]
 					- cub->floor_p->pixel_y));
-	if (cub->ray->direction == NE)
+	if (ray->direction == NE)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)(cub->floor->width[0] - cub->floor_p->pixel_x),
 				(int)cub->floor_p->pixel_y);
-	if (cub->ray->direction == SE)
+	if (ray->direction == SE)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)(cub->floor->width[0] - cub->floor_p->pixel_x),
 				(int)(cub->floor->height[0] - cub->floor_p->pixel_y));
-	if (cub->ray->direction == NW)
+	if (ray->direction == NW)
 		pix_color = ft_get_color_from_texture(cub->floor,
 				(int)cub->floor_p->pixel_x, (int)cub->floor_p->pixel_y);
 	if (cub->light == -1)
