@@ -27,10 +27,10 @@ void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 	int	x;
 	int	y;
 
-	y = (int)floor(cub->player->y) - ((int)floor(cub->player->offset_y) + 1);
+	y = (int)floor(cub->player->y) - ((int)floor(ray->offset_y) + 1);
 	if (ray->direction == NE)
 	{
-		x = (int)floor(cub->player->x) + ((int)floor(cub->player->offset_x));
+		x = (int)floor(cub->player->x) + ((int)floor(ray->offset_x));
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -44,11 +44,11 @@ void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, N);
 		else
-			cub->player->offset_y++;
+			ray->offset_y++;
 	}
 	else
 	{
-		x = (int)floor(cub->player->x) - ((int)floor(cub->player->offset_x));
+		x = (int)floor(cub->player->x) - ((int)floor(ray->offset_x));
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -62,7 +62,7 @@ void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, N);
 		else
-			cub->player->offset_y++;
+			ray->offset_y++;
 	}
 }
 
@@ -71,10 +71,10 @@ void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 	int	x;
 	int	y;
 
-	y = (int)floor(cub->player->y) + ((int)floor(cub->player->offset_y) + 1);
+	y = (int)floor(cub->player->y) + ((int)floor(ray->offset_y) + 1);
 	if (ray->direction == SE)
 	{
-		x = (int)floor(cub->player->x) + ((int)floor(cub->player->offset_x));
+		x = (int)floor(cub->player->x) + ((int)floor(ray->offset_x));
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -88,11 +88,11 @@ void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, S);
 		else
-			cub->player->offset_y++;
+			ray->offset_y++;
 	}
 	else
 	{
-		x = (int)floor(cub->player->x) - ((int)floor(cub->player->offset_x));
+		x = (int)floor(cub->player->x) - ((int)floor(ray->offset_x));
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -106,7 +106,7 @@ void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, S);
 		else
-			cub->player->offset_y++;
+			ray->offset_y++;
 	}
 }
 
@@ -115,11 +115,11 @@ void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 	int	x;
 	int	y;
 
-	y = (int)floor(cub->player->y) - ((int)floor(cub->player->offset_y));
+	y = (int)floor(cub->player->y) - ((int)floor(ray->offset_y));
 	if (ray->direction == NE)
 	{
 		x = (int)floor(cub->player->x)
-			+ ((int)floor(cub->player->offset_x) + 1);
+			+ ((int)floor(ray->offset_x) + 1);
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -133,12 +133,12 @@ void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, E);
 		else
-			cub->player->offset_x++;
+			ray->offset_x++;
 	}
 	else
 	{
 		x = (int)floor(cub->player->x)
-			- ((int)floor(cub->player->offset_x) + 1);
+			- ((int)floor(ray->offset_x) + 1);
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -152,7 +152,7 @@ void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, W);
 		else
-			cub->player->offset_x++;
+			ray->offset_x++;
 	}
 }
 
@@ -162,11 +162,11 @@ void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 	int	y;
 
 	y = (int)floor(cub->player->y)
-		+ ((int)floor(cub->player->offset_y));
+		+ ((int)floor(ray->offset_y));
 	if (ray->direction == SE)
 	{
 		x = (int)floor(cub->player->x)
-			+ ((int)floor(cub->player->offset_x) + 1);
+			+ ((int)floor(ray->offset_x) + 1);
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -180,12 +180,12 @@ void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, E);
 		else
-			cub->player->offset_x++;
+			ray->offset_x++;
 	}
 	else
 	{
 		x = (int)floor(cub->player->x)
-			- ((int)floor(cub->player->offset_x) + 1);
+			- ((int)floor(ray->offset_x) + 1);
 		if (cub->monster_map[y][x] == 'x' && (cub->map[y][x] == '0' || cub->map[y][x] == 'X')) // monster hit
 		{
 			monster_detected(cub, ray, x, y);
@@ -199,6 +199,6 @@ void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, W);
 		else
-			cub->player->offset_x++;
+			ray->offset_x++;
 	}
 }

@@ -19,48 +19,48 @@ float	x_offset_calc(t_cub *cub, t_ray *ray, float dist, int axe, int type)
 		if (axe == Y)
 		{
 			if (ray->direction == NE)
-				return (((ray->cosAngle * dist) - (cub->player->offset_x - 1)));
+				return (((ray->cosAngle * dist) - (ray->offset_x - 1)));
 			else if (ray->direction == SE)
-				return (((ray->cosAngle * dist) - (cub->player->offset_x - 1)));
+				return (((ray->cosAngle * dist) - (ray->offset_x - 1)));
 			else if (ray->direction == NW)
-				return (-(-ray->cosAngle * dist - (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))));
+				return (-(-ray->cosAngle * dist - (floor(ray->offset_x) + (ray->offset_x - floor(ray->offset_x)))));
 			else if (ray->direction == SW)
-				return (-(-ray->cosAngle * dist - (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))));
+				return (-(-ray->cosAngle * dist - (floor(ray->offset_x) + (ray->offset_x - floor(ray->offset_x)))));
 		}
 		else if (axe == X)
 		{
 			if (ray->direction == NE)
-				return (((ray->sinAngle * dist)	- (cub->player->offset_y - 1)));
+				return (((ray->sinAngle * dist)	- (ray->offset_y - 1)));
 			else if (ray->direction == NW)
-				return (((ray->sinAngle * dist)	- (cub->player->offset_y - 1)));
+				return (((ray->sinAngle * dist)	- (ray->offset_y - 1)));
 			else if (ray->direction == SE)
-				return (-(-ray->sinAngle * dist	- (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))));
+				return (-(-ray->sinAngle * dist	- (floor(ray->offset_y) + (ray->offset_y - floor(ray->offset_y)))));
 			else if (ray->direction == SW)
-				return (-(-ray->sinAngle * dist	- (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))));
+				return (-(-ray->sinAngle * dist	- (floor(ray->offset_y) + (ray->offset_y - floor(ray->offset_y)))));
 			
 		}
 	}
 	if (axe == Y)
 	{
 		if (ray->direction == NE)
-			ray->texture_offset_x = ((ray->cosAngle * dist)	- (cub->player->offset_x - 1)) * cub->north->width[0];
+			ray->texture_offset_x = ((ray->cosAngle * dist)	- (ray->offset_x - 1)) * cub->north->width[0];
 		else if (ray->direction == SE)
-			ray->texture_offset_x = ((ray->cosAngle * dist)	- (cub->player->offset_x - 1)) * cub->south->width[0];
+			ray->texture_offset_x = ((ray->cosAngle * dist)	- (ray->offset_x - 1)) * cub->south->width[0];
 		else if (ray->direction == NW)
-			ray->texture_offset_x = -(-ray->cosAngle * dist	- (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))) * cub->north->width[0];
+			ray->texture_offset_x = -(-ray->cosAngle * dist	- (floor(ray->offset_x) + (ray->offset_x - floor(ray->offset_x)))) * cub->north->width[0];
 		else if (ray->direction == SW)
-			ray->texture_offset_x = -(-ray->cosAngle * dist	- (floor(cub->player->offset_x) + (cub->player->offset_x - floor(cub->player->offset_x)))) * cub->south->width[0];
+			ray->texture_offset_x = -(-ray->cosAngle * dist	- (floor(ray->offset_x) + (ray->offset_x - floor(ray->offset_x)))) * cub->south->width[0];
 	}
 	else if (axe == X)
 	{
 		if (ray->direction == NE)
-			ray->texture_offset_x = ((ray->sinAngle * dist)	- (cub->player->offset_y - 1)) * cub->east->width[0];
+			ray->texture_offset_x = ((ray->sinAngle * dist)	- (ray->offset_y - 1)) * cub->east->width[0];
 		else if (ray->direction == NW)
-			ray->texture_offset_x = ((ray->sinAngle * dist)	- (cub->player->offset_y - 1)) * cub->west->width[0];
+			ray->texture_offset_x = ((ray->sinAngle * dist)	- (ray->offset_y - 1)) * cub->west->width[0];
 		else if (ray->direction == SE)
-			ray->texture_offset_x = -(-ray->sinAngle * dist	- (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))) * cub->east->width[0];
+			ray->texture_offset_x = -(-ray->sinAngle * dist	- (floor(ray->offset_y) + (ray->offset_y - floor(ray->offset_y)))) * cub->east->width[0];
 		else if (ray->direction == SW)
-			ray->texture_offset_x = -(-ray->sinAngle * dist	- (floor(cub->player->offset_y) + (cub->player->offset_y - floor(cub->player->offset_y)))) * cub->west->width[0];
+			ray->texture_offset_x = -(-ray->sinAngle * dist	- (floor(ray->offset_y) + (ray->offset_y - floor(ray->offset_y)))) * cub->west->width[0];
 	}
 	// printf("wall offset %f\n", ray->texture_offset_x);
 
@@ -98,11 +98,11 @@ float	ft_dist_to_wall(t_cub *cub, t_ray *ray)
 		ray->dist_to_y = 999999;
 		ray->dist_to_x = 999999;
 		if (ray->angle != 0)
-			ray->dist_to_y = sqrtf(pow(cub->player->offset_y, 2)
-					+ pow(cub->player->offset_y / ray->tanAngle, 2));
+			ray->dist_to_y = sqrtf(pow(ray->offset_y, 2)
+					+ pow(ray->offset_y / ray->tanAngle, 2));
 		if (ray->angle != cub->calc->piHalf)
-			ray->dist_to_x = sqrtf(pow(cub->player->offset_x, 2)
-					+ pow(cub->player->offset_x * ray->tanAngle, 2));
+			ray->dist_to_x = sqrtf(pow(ray->offset_x, 2)
+					+ pow(ray->offset_x * ray->tanAngle, 2));
 		if (ray->dist_to_y < ray->dist_to_x)
 			ft_nearest_wall_y(cub, ray, &shortest_dist);
 		else

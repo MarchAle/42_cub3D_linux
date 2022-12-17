@@ -14,12 +14,12 @@
 
 void	ft_offset_init(t_cub *cub, t_ray *ray)
 {
-	cub->player->offset_x = cub->player->x - floor(cub->player->x);
+	ray->offset_x = cub->player->x - floor(cub->player->x);
 	if (ray->direction == NE || ray->direction == SE)
-		cub->player->offset_x = 1 - cub->player->offset_x;
-	cub->player->offset_y = cub->player->y - floor(cub->player->y);
+		ray->offset_x = 1 - ray->offset_x;
+	ray->offset_y = cub->player->y - floor(cub->player->y);
 	if (ray->direction == SW || ray->direction == SE)
-		cub->player->offset_y = 1 - cub->player->offset_y;
+		ray->offset_y = 1 - ray->offset_y;
 }
 
 // float	ft_angleCalculation2(int i, t_cub *cub)
@@ -39,13 +39,16 @@ float	ft_raycast(int i, t_cub *cub, t_ray *ray, int print_ray, int minimap_size)
 	tmp_dist = 0;
 	// ray->angle = cub->player->orient - cub->calc->fovHalf + ft_angleCalculation2(i, cub);
 	// printf("%f\n", ray->angle);
+	// printf("ici\n");
 	ray->angle = cub->player->orient - cub->calc->fovHalf + cub->angles[i];
 	ray->angle_player = cub->calc->fovHalf - cub->angles[i];
 	// printf("%f\n", ray->angle);
 	ft_trigo_angle(ray);
 	ft_get_direction(cub, ray);
 	//////////// MUTEX lock
+	// pthread_mutex_lock(&cub->mutex);
 	ft_offset_init(cub, ray);
+	// pthread_mutex_unlock(&cub->mutex);
 	//////////// MUTEX unlock
 	dist = ft_dist_to_wall(cub, ray);
 	if (print_ray == TRUE)

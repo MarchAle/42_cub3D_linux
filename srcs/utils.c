@@ -84,6 +84,8 @@ long	ft_get_time(void)
 void	ft_multi_pixel_put(t_cub *cub, t_img *img, int x, int y, int downscaling, int color)
 {
 	int i = 0;
+	// pthread_mutex_lock(&cub->mutex);
+
 	while (i < downscaling && x + i < cub->mdata->screen[0])
 	{
 		int j = 0;
@@ -94,6 +96,7 @@ void	ft_multi_pixel_put(t_cub *cub, t_img *img, int x, int y, int downscaling, i
 		}
 		i++;
 	}
+	// pthread_mutex_unlock(&cub->mutex);
 }
 
 int		ft_downscaling(t_cub *cub, int i, int j)
@@ -116,8 +119,5 @@ int		ft_downscaling(t_cub *cub, int i, int j)
 		result++;
 	if (j < cub->mdata->screen[1] * 0.40 || j > cub->mdata->screen[1] * 0.60)
 		result++;
-	(void)i;
-	(void)j;
-	(void)cub;
 	return (result);
 }

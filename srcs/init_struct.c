@@ -37,33 +37,37 @@ void	ft_init_struct_param(t_cub *cub)
 	t_player		*player;
 	t_thread		*thread_one;
 	t_thread		*thread_two;
-	t_ray			*ray1;
-	t_ray			*ray2;
+	t_thread		*thread_three;
+	t_thread		*thread_four;
 	t_render_param	*sky_p;
-	t_render_param	*floor_p;
+	// t_render_param	*floor_p;
 
 	player = malloc(sizeof(t_player));
 	thread_one = malloc(sizeof(t_thread));
 	thread_two = malloc(sizeof(t_thread));
-	ray1 = malloc(sizeof(t_ray));
-	ray2 = malloc(sizeof(t_ray));
+	thread_three = malloc(sizeof(t_thread));
+	thread_four = malloc(sizeof(t_thread));
 	sky_p = malloc(sizeof(t_render_param));
-	floor_p = malloc(sizeof(t_render_param));
-	if (!player || !thread_one || !thread_two|| !ray1 || !ray2 || !sky_p || !floor_p)
+	// floor_p = malloc(sizeof(t_render_param));
+	if (!player || !thread_one || !thread_two|| !thread_three || !thread_four || !sky_p/* || !floor_p*/)
 		ft_error(MALLOC);
 	cub->player = player;
-	cub->ray1 = ray1;
-	cub->ray2 = ray2;
 	cub->sky_p = sky_p;
-	cub->floor_p = floor_p;
+	// cub->floor_p = floor_p;
 	thread_one->thread = 0;
 	thread_two->thread = 0;
+	thread_three->thread = 0;
+	thread_four->thread = 0;
 	thread_one->cub = cub;
 	thread_two->cub = cub;
-	thread_one->ray = cub->ray1;
-	thread_two->ray = cub->ray2;
+	thread_three->cub = cub;
+	thread_four->cub = cub;
 	cub->thread_one = thread_one;
 	cub->thread_two = thread_two;
+	cub->thread_three= thread_three;
+	cub->thread_four = thread_four;
+	if (pthread_mutex_init(&cub->mutex, NULL))
+		ft_error(MALLOC); //// type d'erreur a changer
 }
 
 void	ft_init_struct_wall(t_cub *cub)

@@ -60,17 +60,19 @@ t_sprite	*ft_lstlast_sprite(t_sprite *lst)
 	return (actual);
 }
 
-void	ft_lstfree_sprite(t_sprite **lst)
+void	ft_lstfree_sprite(t_sprite *lst)
 {
 	t_sprite	*temp;
 
-	temp = *lst;
-	while (*lst)
+	while (lst)
 	{
-		*lst = temp->next;
+		temp = lst;
+		lst = lst->next;
+		temp = NULL;
 		free(temp);
-		temp = *lst;
 	}
+	// lst = NULL;
+	// free(lst);
 }
 
 ///////////// DOORS
@@ -137,6 +139,7 @@ void	ft_lstfree_door(t_door **lst)
 		free(temp);
 		temp = *lst;
 	}
+	free(lst);
 }
 
 ///////////// MONSTERS
@@ -197,4 +200,5 @@ void	ft_lstfree_monster(t_monster **lst)
 		free(temp);
 		temp = *lst;
 	}
+	free(lst);
 }

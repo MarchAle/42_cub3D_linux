@@ -3,6 +3,7 @@
 void    ft_sprites_calc(t_cub *cub, t_ray *ray)
 {
     t_sprite *sprite = ray->sprites;
+
     while (sprite)
     {
         sprite->to_display = TRUE;
@@ -20,7 +21,7 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
             sprite->height = 1 / nx * cub->mdata->screen[1];
             sprite->dist = nx;
         }
-        if (sprite->type == DOOR)
+        else if (sprite->type == DOOR)
         {
             sprite->height = (1 / (sprite->dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
 

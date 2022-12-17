@@ -2,6 +2,8 @@
 
 void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
 {
+
+    pthread_mutex_lock(&cub->mutex);
     t_monster *monster = cub->monsters;
 
     while (monster)
@@ -10,6 +12,7 @@ void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
             ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(monster->x, monster->y, MONSTER, 0, 0));
         monster = monster->next;
     }
+    pthread_mutex_unlock(&cub->mutex);
 }
 
 void    monster_detected(t_cub *cub, t_ray *ray, int x, int y)

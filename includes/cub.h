@@ -122,6 +122,7 @@ typedef struct s_mdata
 
 typedef struct s_ray
 {
+	struct s_render_param	*floor_p;
 	float			x;
 	float			y;
 	int				direction;
@@ -132,6 +133,10 @@ typedef struct s_ray
 	float			sinAngle;
 	float			tanAngle;
 	float			angle_player;
+	float			offset_x;
+	float			offset_y;
+	float			sky_pixel_x;
+	float			sky_pixel_y;
 	float			dist_to_x;
 	float			dist_to_y;
 	int				hit_wall;
@@ -150,8 +155,8 @@ typedef struct s_player
 	float	y;
 	float	map_x;
 	float	map_y;
-	float	offset_x;
-	float	offset_y;
+	// float	offset_x;
+	// float	offset_y;
 	int		door_open;
 	int 	health;
 	int		last_hit;
@@ -261,6 +266,7 @@ typedef struct s_monster
 
 typedef struct s_cub
 {
+	pthread_mutex_t			mutex;
 	float					*angles;
 	struct s_calc			*calc;
 	struct s_img			*img;
@@ -274,14 +280,16 @@ typedef struct s_cub
 	struct s_texture		*flashlight;
 	struct s_texture		*door;
 	struct s_render_param	*sky_p;
-	struct s_render_param	*floor_p;
+	// struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;
 	struct s_mdata			*mdata;
 	struct s_player			*player;
 	struct s_thread			*thread_one;
 	struct s_thread			*thread_two;
-	struct s_ray			*ray1;
-	struct s_ray			*ray2;
+	struct s_thread			*thread_three;
+	struct s_thread			*thread_four;
+	// struct s_ray			*ray1;
+	// struct s_ray			*ray2;
 	struct s_mlx			*mlx;
 	struct s_move			*move;
 	struct s_door			*doors;
@@ -303,7 +311,7 @@ typedef struct s_thread
 	pthread_t	thread;
 	t_cub 		*cub;
 	t_ray 		*ray;
-	int			i;
+	// int			i;
 }	t_thread;
 
 void	ft_error(int type);
@@ -356,8 +364,9 @@ int		ft_shade_color(int pix_color, float dist);
 int		ft_fade_color(int pix_color, float dist);
 
 void	ft_render_img(t_cub *cub, t_ray *ray, int i);
+void	ft_render_img2(t_cub *cub, t_ray *ray, int i);
 void	ft_render_wall(t_cub *cub, t_ray *ray, int i, int j, float dist);
-void	ft_render_sky(t_cub *cub, int i, int j);
+void	ft_render_sky(t_cub *cub, t_ray *ray, int i, int j);
 void	ft_render_floor(t_cub *cub, t_ray *ray, int i, int j, float dist);
 void    ft_sprites_calc(t_cub *cub, t_ray *ray);
 void	ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j);
@@ -402,7 +411,7 @@ int		ft_exit(t_cub *cub);
 t_sprite	*ft_lstnew_sprite(float x, float y, int type, float dist, float x_offset);
 void		ft_lstadd_back_sprite(t_sprite **alst, t_sprite *new);
 t_sprite	*ft_lstlast_sprite(t_sprite *lst);
-void		ft_lstfree_sprite(t_sprite **lst);
+void		ft_lstfree_sprite(t_sprite *lst);
 
 t_door		*ft_lstnew_door(int x, int y);
 void		ft_lstadd_back_door(t_door **alst, t_door *new);
