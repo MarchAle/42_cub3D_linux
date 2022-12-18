@@ -91,7 +91,7 @@ void	ft_move(t_cub *cub)
 
 int	ft_loop_move(t_cub *cub)
 {
-	pthread_t 	thread = 0;
+	// pthread_t 	thread = 0;
 	if (ft_get_time() - cub->frame_time > 3)
 	{
 		if (cub->player->health <= 0)
@@ -101,15 +101,15 @@ int	ft_loop_move(t_cub *cub)
 		}
 		if (cub->player->last_hit > 0)
 			cub->player->last_hit--;
-		pthread_create(&thread, NULL, ft_move_monster, (void *)cub);
-		// ft_move_monster(cub);
+		// pthread_create(&thread, NULL, ft_move_monster, (void *)cub);
+		// pthread_join(thread, NULL);
+		ft_move_monster(cub);
 
 		if (cub->player->last_hit > 7)
 			ft_check_collision(cub, cub->player->x - cub->player->kick_x / 3, cub->player->y - cub->player->kick_y / 3);
 		// else
 		ft_move(cub);
 		ft_doors_detection(cub);
-		pthread_join(thread, NULL);
 		ft_position_update(cub);
 		ft_print_view(cub);
 		mlx_string_put(cub->mlx->mlx, cub->mlx->win,

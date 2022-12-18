@@ -60,10 +60,10 @@ void	print_map(t_cub *cub)
 	}
 }
 
-// void    ft_move_monster(t_cub *cub)
-void    *ft_move_monster(void *data)
+void    ft_move_monster(t_cub *cub)
+// void    *ft_move_monster(void *data)
 {
-    t_cub       *cub = data;
+    // t_cub       *cub = data;
     t_monster   *monster = cub->monsters;
     while (monster)
     {
@@ -80,13 +80,13 @@ void    *ft_move_monster(void *data)
         }
         
         if (dist_to_player < 3)
-            monster->follow = 1;
+            monster->follow = TRUE;
         else if (dist_to_player > 5)
-            monster->follow = 0;
+            monster->follow = FALSE;
         
         if (monster->follow)
         {
-            float factor = dist_to_player / MONSTER_STEP;
+            float factor = dist_to_player / MONSTER_STEP + 0.00001;
             float step_x = (monster->x - cub->player->x) / factor;
             float step_y = (monster->y - cub->player->y) / factor;
             if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X' || (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'D' && cub->player->door_open == 1)) 
@@ -112,5 +112,5 @@ void    *ft_move_monster(void *data)
         }
         monster = monster->next;
     }
-    return (0);
+    // return (0);
 }
