@@ -18,12 +18,12 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
             float ray_sprite_offset = (ny - (tan(ray->angle_player) * nx))* -1 + 0.5;
 
             sprite->x_offset = ray_sprite_offset;
-            sprite->height = 1 / nx * cub->mdata->screen[1];
+            sprite->height = HEIGHT_RATIO / nx * cub->mdata->screen[1];
             sprite->dist = nx;
         }
         else if (sprite->type == DOOR)
         {
-            sprite->height = (1 / (sprite->dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
+            sprite->height = (HEIGHT_RATIO / (sprite->dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
 
             t_door *door = cub->doors;
 

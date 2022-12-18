@@ -23,22 +23,24 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
-# define FOV 75
+# define FOV 90
+# define HEIGHT_RATIO 0.75
+# define FPS 35
 
-# define WIN_HEIGHT 900
+# define WIN_HEIGHT 1000
 # define WIN_RATIO 1.7777778	// 16/9
 //# define WIN_RATIO 1.25			// 5/4
 
 # define STEP 0.1
-# define ACCEL 12
+# define ACCEL 10
 # define O_ACC 8
 # define MINIMAP_SIZE 300
-# define DOOR_DIST 1.5
+# define DOOR_DIST 1.8
 # define OPEN_SPEED 0.05
 # define MONSTER_STEP 0.05
 # define HEALTH 150
 # define NO_HIT_TIME 20
-# define KICK 0.38
+# define KICK 0.25
 
 # define FALSE 0
 # define TRUE 1
@@ -288,8 +290,6 @@ typedef struct s_cub
 	struct s_thread			*thread_two;
 	struct s_thread			*thread_three;
 	struct s_thread			*thread_four;
-	// struct s_ray			*ray1;
-	// struct s_ray			*ray2;
 	struct s_mlx			*mlx;
 	struct s_move			*move;
 	struct s_door			*doors;
@@ -311,7 +311,6 @@ typedef struct s_thread
 	pthread_t	thread;
 	t_cub 		*cub;
 	t_ray 		*ray;
-	// int			i;
 }	t_thread;
 
 void	ft_error(int type);
@@ -401,7 +400,6 @@ float	x_offset_calc(t_cub *cub, t_ray *ray, float dist, int axe, int type);
 void	print_monster_map(t_cub *cub);
 void    monster_detected(t_cub *cub, t_ray *ray, int x, int y);
 void    ft_move_monster(t_cub *cub);
-// void    *ft_move_monster(void *cub);
 
 void	ft_doors_detection(t_cub *cub);
 

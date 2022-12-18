@@ -89,35 +89,40 @@ void	ft_move(t_cub *cub)
 		ft_move_camera(cub, RIGHT);
 }
 
+void *wait()		/// Cap the fps
+{
+	long time_in = ft_get_time();
+	while (ft_get_time() - time_in < 1000 / FPS)
+	{
+		usleep(1);
+	}
+	return (NULL);
+}
+
 int	ft_loop_move(t_cub *cub)
 {
-	// pthread_t 	thread = 0;
-	if (ft_get_time() - cub->frame_time > 3)
-	{
-		if (cub->player->health <= 0)
-		{
-			printf("YOU DIED !\n");
-			ft_exit(cub);
-		}
-		if (cub->player->last_hit > 0)
-			cub->player->last_hit--;
-		// pthread_create(&thread, NULL, ft_move_monster, (void *)cub);
-		// pthread_join(thread, NULL);
-		ft_move_monster(cub);
+	pthread_t 	thread = 0;
 
-		if (cub->player->last_hit > 7)
-			ft_check_collision(cub, cub->player->x - cub->player->kick_x / 3, cub->player->y - cub->player->kick_y / 3);
-		// else
-		ft_move(cub);
-		ft_doors_detection(cub);
-		ft_position_update(cub);
-		ft_print_view(cub);
-		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
-			30, 50, 0x934d1d, "press space to run");
-		mlx_string_put(cub->mlx->mlx, cub->mlx->win,
-			30, 70, 0x934d1d, "press M for minimap");
-		cub->frame_time = ft_get_time();
+	pthread_create(&thread, NULL, wait, NULL);
+	if (cub->player->health <= 0)
+	{
+		printf("YOU DIED !\n");
+		ft_exit(cub);
 	}
+	if (cub->player->last_hit > 0)
+		cub->player->last_hit--;
+	ft_move_monster(cub);
+	if (cub->player->last_hit > 7)
+		ft_check_collision(cub, cub->player->x - cub->player->kick_x / 5, cub->player->y - cub->player->kick_y / 3);
+	ft_move(cub);
+	ft_doors_detection(cub);
+	ft_position_update(cub);
+	ft_print_view(cub);
+	mlx_string_put(cub->mlx->mlx, cub->mlx->win,
+		30, 50, 0x934d1d, "press space to run");
+	mlx_string_put(cub->mlx->mlx, cub->mlx->win,
+		30, 70, 0x934d1d, "press M for minimap");
 	ft_fps(cub);
+	pthread_join(thread, NULL);
 	return (0);
 }

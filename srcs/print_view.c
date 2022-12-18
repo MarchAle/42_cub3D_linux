@@ -27,7 +27,6 @@ int		avgColorCalc(t_cub *cub, int x, int y, int blurIntensity)
 	return ((((avgred / div) & 0xff) << 16) + (((avggreen / div) & 0xff) << 8) + ((avgblue / div) & 0xff));
 }
 
-
 void	ft_blur(t_cub *cub, int blurIntensity) //
 {
 	t_img	*blur_img;
@@ -81,8 +80,7 @@ void    ft_health_bar(t_cub *cub)
 void	*routine_one(void *data)
 {
 	t_thread *thread = data;
-	// int i = thread->cub->calc->half_width;
-	int i = thread->cub->mdata->screen[0] * 0.35; //
+	int i = thread->cub->mdata->screen[0] * 0.35;
 
 	t_ray *ray;
 	ray = malloc(sizeof(t_ray));
@@ -94,11 +92,6 @@ void	*routine_one(void *data)
 		thread->ray->wall_dist = ft_raycast(i, thread->cub, thread->ray, FALSE, 0);
 	
 		ft_render_img(thread->cub, thread->ray, thread->cub->mdata->screen[0] - i);
-		// if (thread->ray->sprites)
-		// {
-		// 	ft_lstfree_sprite(thread->ray->sprites);
-		// 	thread->ray->sprites = NULL;
-		// }
 		if (i < thread->cub->mdata->screen[0] * 0.10 || i > thread->cub->mdata->screen[0] * 0.90)
 			i -= 5;
 		else if (i < thread->cub->mdata->screen[0] * 0.15 || i > thread->cub->mdata->screen[0] * 0.85)
@@ -127,11 +120,6 @@ void	*routine_two(void *data)
 	{
 		thread->ray->wall_dist = ft_raycast(i, thread->cub, thread->ray, FALSE, 0);
 		ft_render_img(thread->cub, thread->ray, thread->cub->mdata->screen[0] - i);
-		// if (thread->ray->sprites)
-		// {
-		// 	ft_lstfree_sprite(thread->ray->sprites);
-		// 	thread->ray->sprites = NULL;
-		// }
 		if (i < thread->cub->mdata->screen[0] * 0.10 || i > thread->cub->mdata->screen[0] * 0.90)
 			i -= 5;
 		else if (i < thread->cub->mdata->screen[0] * 0.15 || i > thread->cub->mdata->screen[0] * 0.85)
@@ -160,11 +148,6 @@ void	*routine_three(void *data)
 	{
 		thread->ray->wall_dist = ft_raycast(i, thread->cub, thread->ray, FALSE, 0);
 		ft_render_img(thread->cub, thread->ray, thread->cub->mdata->screen[0] - i);
-		// if (thread->ray->sprites)
-		// {
-		// 	ft_lstfree_sprite(thread->ray->sprites);
-		// 	thread->ray->sprites = NULL;
-		// }
 		if (i < thread->cub->mdata->screen[0] * 0.10 || i > thread->cub->mdata->screen[0] * 0.90)
 			i -= 5;
 		else if (i < thread->cub->mdata->screen[0] * 0.15 || i > thread->cub->mdata->screen[0] * 0.85)
@@ -192,11 +175,6 @@ void	*routine_four(void *data)
 	{
 		thread->ray->wall_dist = ft_raycast(i, thread->cub, thread->ray, FALSE, 0);
 		ft_render_img(thread->cub, thread->ray, thread->cub->mdata->screen[0] - i);
-		// if (thread->ray->sprites)
-		// {
-		// 	ft_lstfree_sprite(thread->ray->sprites);
-		// 	thread->ray->sprites = NULL;
-		// }
 		if (i < thread->cub->mdata->screen[0] * 0.10 || i > thread->cub->mdata->screen[0] * 0.90)
 			i -= 5;
 		else if (i < thread->cub->mdata->screen[0] * 0.15 || i > thread->cub->mdata->screen[0] * 0.85)
@@ -214,11 +192,8 @@ void	*routine_four(void *data)
 
 void	ft_print_view(t_cub *cub)
 {
-	// int		i;
 	t_img	*img;
 
-
-	
 	img = malloc(sizeof(t_img));
 	if (!img)
 		ft_error(MALLOC);
@@ -226,7 +201,6 @@ void	ft_print_view(t_cub *cub)
 	cub->img->img = mlx_new_image(cub->mlx->mlx, cub->mdata->screen[0], cub->mdata->screen[1]);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_length, &cub->img->endian);
 	cub->img->bpp_divided = cub->img->bits_per_pixel / 8;
-	// i = cub->mdata->screen[0];
 	
 	pthread_create(&cub->thread_one->thread, NULL, routine_one, cub->thread_one);
 	pthread_create(&cub->thread_two->thread, NULL, routine_two, cub->thread_two);
@@ -236,54 +210,6 @@ void	ft_print_view(t_cub *cub)
 	pthread_join(cub->thread_three->thread, NULL);
 	pthread_join(cub->thread_two->thread, NULL);
 	pthread_join(cub->thread_one->thread, NULL);
-	// while (i > 0)
-	// {
-	// 	cub->thread_one->i = i;
-	// 	pthread_create(&cub->thread_one->thread, NULL, routine_one, cub->thread_one);
-		
-	// 	// routine(cub->thread_one);
-	// 	// cub->ray->wall_dist = ft_raycast(i, cub, cub->ray, FALSE, 0);
-	// 	// ft_render_img(cub, cub->ray->wall_dist, cub->mdata->screen[0] - i);
-	// 	// ft_lstfree_sprite(&cub->ray->sprites);
-	// 	if (cub->blur == TRUE)
-	// 		i -= 2;
-	// 	else
-	// 	{
-	// 		if (i < cub->mdata->screen[0] * 0.10 || i > cub->mdata->screen[0] * 0.90)
-	// 			i -= 5;
-	// 		else if (i < cub->mdata->screen[0] * 0.15 || i > cub->mdata->screen[0] * 0.85)
-	// 			i -= 4;
-	// 		else if (i < cub->mdata->screen[0] * 0.25 || i > cub->mdata->screen[0] * 0.75)
-	// 			i -= 3;
-	// 		else if (i < cub->mdata->screen[0] * 0.40 || i > cub->mdata->screen[0] * 0.60)
-	// 			i -= 2;
-	// 		else
-	// 			i--;
-	// 	}
-	// 	// if (i > 0)
-	// 	// {
-	// 	// 	cub->thread_two->i = i;
-	// 	// 	pthread_create(&cub->thread_two->thread, NULL, routine, cub->thread_two);
-
-	// 	// }
-	// 	// if (cub->blur == TRUE)
-	// 	// 	i -= 2;
-	// 	// else
-	// 	// {
-	// 	// 	if (i < cub->mdata->screen[0] * 0.10 || i > cub->mdata->screen[0] * 0.90)
-	// 	// 		i -= 5;
-	// 	// 	else if (i < cub->mdata->screen[0] * 0.15 || i > cub->mdata->screen[0] * 0.85)
-	// 	// 		i -= 4;
-	// 	// 	else if (i < cub->mdata->screen[0] * 0.25 || i > cub->mdata->screen[0] * 0.75)
-	// 	// 		i -= 3;
-	// 	// 	else if (i < cub->mdata->screen[0] * 0.40 || i > cub->mdata->screen[0] * 0.60)
-	// 	// 		i -= 2;
-		// 	else
-	// 	// 		i--;
-	// 	// }
-	// 	// pthread_join(cub->thread_two->thread, NULL);
-	// 	pthread_join(cub->thread_one->thread, NULL);
-	// }
     ft_health_bar(cub);
 	if (cub->minimap == TRUE)
 		ft_mini_map(cub);

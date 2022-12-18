@@ -61,7 +61,7 @@ void	ft_render_img(t_cub *cub, t_ray *ray, int i)		//// print one column of pixe
 	float dist = ray->wall_dist;
 
 	///// fisheye correction
-	ray->wall_height = (1 / (dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
+	ray->wall_height = (HEIGHT_RATIO / (dist * cos(cub->player->orient - ray->angle))) * cub->mdata->screen[1];
 	// pthread_mutex_lock(&cub->mutex);
 	ray->sky_pixel_x = ((ray->angle) / cub->calc->piHalf) * cub->sky->width[0];
 	// pthread_mutex_unlock(&cub->mutex);

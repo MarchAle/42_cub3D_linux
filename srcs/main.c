@@ -62,7 +62,8 @@ void	ft_start_game(t_cub *cub)
 	cub->light = -1;
 	cub->frames = 0;
 	cub->fps_time = ft_get_time();
-	cub->frame_time = ft_get_time();
+	// cub->frame_time = ft_get_time();
+	cub->frame_time = clock();
 	ft_print_view(cub);
 	mlx_hook(cub->mlx->win, 33, 1L << 17, ft_exit, cub);
 	mlx_hook(cub->mlx->win, 2, 1L << 0, key_hook_down, cub);

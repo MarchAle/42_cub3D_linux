@@ -34,6 +34,7 @@ void    monster_detected(t_cub *cub, t_ray *ray, int x, int y)
 void    ft_free_monster_map(t_cub *cub)
 {
     int i = 0;
+    
     while (cub->monster_map[i])
     {
         free(cub->monster_map[i]);
@@ -46,24 +47,16 @@ void    ft_free_monster_map(t_cub *cub)
 void	print_map(t_cub *cub)
 {
 	int i = 0;
-	// int j;
+    
 	while (cub->map[i])
 	{
-			printf("%s", cub->map[i]);
-		// j = 0;
-		// while (cub->map[i][j])
-		// {
-		// 	write(2, &cub->map[i][j], 1);
-		// 	j++;
-		// }
+		printf("%s", cub->map[i]);
 		i++;
 	}
 }
 
 void    ft_move_monster(t_cub *cub)
-// void    *ft_move_monster(void *data)
 {
-    // t_cub       *cub = data;
     t_monster   *monster = cub->monsters;
     while (monster)
     {
@@ -92,8 +85,6 @@ void    ft_move_monster(t_cub *cub)
             if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X' || (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'D' && cub->player->door_open == 1)) 
             {
                 ft_check_collision_monster(cub, monster, monster->x - step_x, monster->y - step_y);
-                // monster->x -= step_x;
-                // monster->y -= step_y;
                 if ((int)old_x != (int)monster->x)
                 {
                     cub->map[(int)monster->y][(int)old_x] = '0';
@@ -112,5 +103,4 @@ void    ft_move_monster(t_cub *cub)
         }
         monster = monster->next;
     }
-    // return (0);
 }
