@@ -7,7 +7,7 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
     while (sprite)
     {
         sprite->to_display = TRUE;
-        if (sprite->type == MONSTER || sprite->type == KEY)
+        if (sprite->type == MONSTER || sprite->type == KEY || sprite->type == POTION)
         {
             float x =  sprite->x - cub->player->x;
             float y =  sprite->y - cub->player->y;
@@ -44,10 +44,14 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
 int ft_pix_color_calc_sprite(t_cub *cub, t_sprite *sprite, int j, t_texture *tex)
 {
 	int	color = 0;
+    // printf("%d\n", tex->height[0]);
+    // j %= tex->height[0];
 
     if (sprite->to_display == TRUE)
     {
         float sprite_offset_y = (float)((j - ((cub->mdata->screen[1] - sprite->height) / 2)) / (sprite->height) * tex->height[0]);
+        if (sprite_offset_y > tex->height[0] || sprite_offset_y < 0)
+            return (color);
         color = ft_get_color_from_texture(tex, (int)(sprite->x_offset * tex->width[0]),	(int)sprite_offset_y);
     }
 	return (color);
@@ -66,8 +70,10 @@ void    ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j)
 
             if (sprite->type == MONSTER)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->sprite);
+            if (sprite->type == POTION)
+                pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->potion);
             if (sprite->type == KEY)
-                pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->key);
+                pix_color = ft_pix_color_calc_sprite(cub, sprite, j - (cub->key_vertical * sprite->height * 0.2), cub->key);
             if (sprite->type == DOOR)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->door);
             if (pix_color > 0 && sprite->dist <= mem_dist)

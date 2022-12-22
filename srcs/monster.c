@@ -103,4 +103,5 @@ void    ft_move_monster(t_cub *cub)
         }
         monster = monster->next;
     }
+    // print_map(cub);
 }

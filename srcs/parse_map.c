@@ -16,8 +16,13 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 {
 	static int	nb_player = 0;
 
-	if (c == 'K')
+	if (c == 'P')
 		return ;
+	if (c == 'K')
+	{
+		ft_lstadd_back_key(&cub->keys, ft_lstnew_key(x, y));
+		return ;
+	}
 	if (c == 'X')
 	{
 		ft_lstadd_back_monster(&cub->monsters, ft_lstnew_monster(x, y));
@@ -32,6 +37,7 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 		ft_error(CHAR_ERR);
 	else
 	{
+		cub->player->keys = 0;
 		cub->player->health = HEALTH;
 		cub->player->last_hit = 0;
 		cub->player->direction = c;

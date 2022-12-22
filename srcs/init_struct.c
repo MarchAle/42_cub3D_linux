@@ -97,6 +97,7 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	t_texture	*flashlight;
 	t_texture	*door;
 	t_texture	*key;
+	t_texture	*potion;
 
 	sky = malloc(sizeof(t_texture));
 	floor = malloc(sizeof(t_texture));
@@ -104,7 +105,8 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	flashlight = malloc(sizeof(t_texture));
 	door = malloc(sizeof(t_texture));
 	key = malloc(sizeof(t_texture));
-	if (!sky || !floor || !sprite || !flashlight || !door || !key)
+	potion = malloc(sizeof(t_texture));
+	if (!sky || !floor || !sprite || !flashlight || !door || !key || !potion)
 		ft_error(MALLOC);
 	cub->sky = sky;
 	cub->floor = floor;
@@ -112,6 +114,7 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	cub->flashlight = flashlight;
 	cub->door = door;
 	cub->key = key;
+	cub->potion = potion;
 }
 
 void	ft_init_struct(t_cub *cub)
@@ -137,11 +140,15 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->sprite = NULL;
 	cub->mdata->door = NULL;
 	cub->mdata->key = NULL;
+	cub->mdata->potion = NULL;
 	cub->mdata->f = NULL;
 	cub->mdata->c = NULL;
 	cub->mdata->start_build = 0;
 	cub->map = NULL;
 	cub->fps = NULL;
+	cub->key_anim = 1;
+	cub->key_anim_status = 0;
+	cub->key_vertical = 0;
 	ft_init_struct_move(cub);
 	ft_init_struct_param(cub);
 	ft_init_struct_wall(cub);

@@ -154,6 +154,7 @@ t_monster	*ft_lstnew_monster(float x, float y)
 		return (NULL);
 	newlist->id = id;
 	id++;
+	newlist->health = 100;
 	newlist->follow = 0;
 	newlist->x = x + 0.5;
 	newlist->y = y + 0.5;
@@ -192,6 +193,67 @@ t_monster	*ft_lstlast_monster(t_monster *lst)
 void	ft_lstfree_monster(t_monster **lst)
 {
 	t_monster	*temp;
+
+	temp = *lst;
+	while (*lst)
+	{
+		*lst = temp->next;
+		free(temp);
+		temp = *lst;
+	}
+	free(lst);
+}
+
+///////////// KEYS
+
+t_key	*ft_lstnew_key(float x, float y)
+{
+	static int id = 0;
+	t_key	*newlist;
+
+	newlist = malloc(sizeof(t_key));
+	if (!newlist)
+		return (NULL);
+	newlist->id = id;
+	id++;
+	newlist->taken = 0;
+	newlist->x = x + 0.5;
+	newlist->y = y + 0.5;
+	newlist->next = NULL;
+	return (newlist);
+}
+
+void	ft_lstadd_back_key(t_key **alst, t_key *new)
+{
+	t_key	*last;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		last = ft_lstlast_key(*alst);
+		last->next = new;
+	}
+}
+
+t_key	*ft_lstlast_key(t_key *lst)
+{
+	t_key	*temp;
+	t_key	*actual;
+
+	temp = lst;
+	actual = lst;
+	while (temp)
+	{
+		actual = temp;
+		temp = temp->next;
+	}
+	return (actual);
+}
+
+void	ft_lstfree_key(t_key **lst)
+{
+	t_key	*temp;
 
 	temp = *lst;
 	while (*lst)

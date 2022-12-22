@@ -28,6 +28,7 @@ SRC =	main.c					\
 			calcul.c				\
 			monster.c				\
 			doors.c					\
+			keys.c					\
 
 NAME = Cub3D
 

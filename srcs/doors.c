@@ -22,7 +22,7 @@ void	ft_doors_detection(t_cub *cub)
 			cub->map[door->y][door->x] = 'D';
 			door->animation = 1;
 		}
-		if (cub->player->x > door->x_min && cub->player->x < door->x_max && cub->player->y > door->y_min && cub->player->y < door->y_max)
+		if (cub->player->x > door->x_min && cub->player->x < door->x_max && cub->player->y > door->y_min && cub->player->y < door->y_max && cub->player->keys)
 		{
 			if (door->animation < 1)
 				door->opening = ease_in_out_cubic(door->animation);

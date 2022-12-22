@@ -41,6 +41,7 @@
 # define HEALTH 150
 # define NO_HIT_TIME 20
 # define KICK 0.25
+# define BOUNCE_SPEED 0.05
 
 # define FALSE 0
 # define TRUE 1
@@ -79,6 +80,7 @@
 # define MONSTER 0
 # define DOOR 1
 # define KEY 2
+# define POTION 3
 
 typedef struct s_img
 {
@@ -116,6 +118,7 @@ typedef struct s_mdata
 	char	*flashlight;
 	char	*door;
 	char	*key;
+	char	*potion;
 	char	**c;
 	char	**f;
 	int		c_color;
@@ -152,6 +155,7 @@ typedef struct s_ray
 
 typedef struct s_player
 {
+	int		keys;
 	float	dist;
 	char	direction;
 	float	orient;
@@ -264,9 +268,19 @@ typedef struct s_monster
 	int					id;
 	float				x;
 	float				y;
+	int					health;
 	int					follow;
 	struct s_monster	*next;
 }	t_monster;
+
+typedef struct s_key
+{
+	int					id;
+	int					x;
+	int					y;
+	int					taken;
+	struct s_key		*next;
+}	t_key;
 
 typedef struct s_cub
 {
@@ -284,6 +298,7 @@ typedef struct s_cub
 	struct s_texture		*flashlight;
 	struct s_texture		*door;
 	struct s_texture		*key;
+	struct s_texture		*potion;
 	struct s_render_param	*sky_p;
 	// struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;
@@ -297,6 +312,7 @@ typedef struct s_cub
 	struct s_move			*move;
 	struct s_door			*doors;
 	struct s_monster		*monsters;
+	struct s_key			*keys;
 	char					**map;
 	char					**monster_map;
 	int						minimap;
@@ -307,6 +323,9 @@ typedef struct s_cub
 	char					*fps;
 	long					fps_time;
 	long					frame_time;
+	float					key_vertical;
+	float					key_anim;
+	int						key_anim_status;
 }	t_cub;
 
 typedef struct s_thread
@@ -404,7 +423,10 @@ void	print_monster_map(t_cub *cub);
 void    monster_detected(t_cub *cub, t_ray *ray, int x, int y);
 void    ft_move_monster(t_cub *cub);
 
+float	ease_in_out_cubic(float t);
 void	ft_doors_detection(t_cub *cub);
+
+void	ft_keys_detection(t_cub *cub);
 
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
@@ -423,5 +445,10 @@ t_monster	*ft_lstnew_monster(float x, float y);
 void		ft_lstadd_back_monster(t_monster **alst, t_monster *new);
 t_monster	*ft_lstlast_monster(t_monster *lst);
 void		ft_lstfree_monster(t_monster **lst);
+
+t_key		*ft_lstnew_key(float x, float y);
+void		ft_lstadd_back_key(t_key **alst, t_key *new);
+t_key		*ft_lstlast_key(t_key *lst);
+void		ft_lstfree_key(t_key **lst);
 
 #endif
