@@ -70,4 +70,11 @@ void	ft_init_texture(t_cub *cub)
 		cub->door->addr = mlx_get_data_addr(cub->door->img, &cub->door->bpp,
 				&cub->door->line_length, &cub->door->endian);
 	}
+	if (cub->mdata->key)
+	{
+		cub->key->img = mlx_xpm_file_to_image(cub->mlx->mlx,
+				cub->mdata->key, cub->key->width, cub->key->height);
+		cub->key->addr = mlx_get_data_addr(cub->key->img, &cub->key->bpp,
+				&cub->key->line_length, &cub->key->endian);
+	}
 }

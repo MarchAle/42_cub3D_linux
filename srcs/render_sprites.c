@@ -7,7 +7,7 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
     while (sprite)
     {
         sprite->to_display = TRUE;
-        if (sprite->type == MONSTER)
+        if (sprite->type == MONSTER || sprite->type == KEY)
         {
             float x =  sprite->x - cub->player->x;
             float y =  sprite->y - cub->player->y;
@@ -66,6 +66,8 @@ void    ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j)
 
             if (sprite->type == MONSTER)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->sprite);
+            if (sprite->type == KEY)
+                pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->key);
             if (sprite->type == DOOR)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->door);
             if (pix_color > 0 && sprite->dist <= mem_dist)

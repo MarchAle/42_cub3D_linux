@@ -16,6 +16,8 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 {
 	static int	nb_player = 0;
 
+	if (c == 'K')
+		return ;
 	if (c == 'X')
 	{
 		ft_lstadd_back_monster(&cub->monsters, ft_lstnew_monster(x, y));

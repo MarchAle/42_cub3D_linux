@@ -41,6 +41,8 @@ void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_y + 0.5 / ray->sinAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, Y, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, N);
 		else
@@ -59,6 +61,8 @@ void	ft_nearest_north_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_y + 0.5 / ray->sinAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, Y, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, N);
 		else
@@ -85,6 +89,8 @@ void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_y - 0.5 / ray->sinAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, Y, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, S);
 		else
@@ -103,6 +109,8 @@ void	ft_nearest_south_wall_y(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_y - 0.5 / ray->sinAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, Y, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, S);
 		else
@@ -130,6 +138,8 @@ void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_x + 0.5 / ray->cosAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, X, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, E);
 		else
@@ -149,6 +159,8 @@ void	ft_nearest_north_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_x - 0.5 / ray->cosAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, X, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, W);
 		else
@@ -177,6 +189,8 @@ void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_x + 0.5 / ray->cosAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, X, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, E);
 		else
@@ -196,6 +210,8 @@ void	ft_nearest_south_wall_x(t_cub *cub, t_ray *ray, float *shortest_dist)
 			float corrected_dist = ray->dist_to_x - 0.5 / ray->cosAngle;
 			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x, y, DOOR, corrected_dist, x_offset_calc(cub, ray, corrected_dist, X, DOOR)));
 		}
+		if (cub->map[y][x] == 'K')
+			ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(x + 0.5, y + 0.5, KEY, 0, 0));
 		if (cub->map[y][x] == '1')
 			ft_hit_wall(ray, shortest_dist, W);
 		else

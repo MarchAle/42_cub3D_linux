@@ -23,8 +23,8 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/libft.h"
 
-# define FOV 90
-# define HEIGHT_RATIO 0.75
+# define FOV 80
+# define HEIGHT_RATIO 0.85
 # define FPS 35
 
 # define WIN_HEIGHT 1000
@@ -78,6 +78,7 @@
 # define WALL -1
 # define MONSTER 0
 # define DOOR 1
+# define KEY 2
 
 typedef struct s_img
 {
@@ -114,6 +115,7 @@ typedef struct s_mdata
 	char	*sprite;
 	char	*flashlight;
 	char	*door;
+	char	*key;
 	char	**c;
 	char	**f;
 	int		c_color;
@@ -281,6 +283,7 @@ typedef struct s_cub
 	struct s_texture		*sprite;
 	struct s_texture		*flashlight;
 	struct s_texture		*door;
+	struct s_texture		*key;
 	struct s_render_param	*sky_p;
 	// struct s_render_param	*floor_p;
 	struct s_tex_color		*tex_color;

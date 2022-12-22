@@ -82,7 +82,7 @@ void    ft_move_monster(t_cub *cub)
             float factor = dist_to_player / MONSTER_STEP + 0.00001;
             float step_x = (monster->x - cub->player->x) / factor;
             float step_y = (monster->y - cub->player->y) / factor;
-            if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X' || (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'D' && cub->player->door_open == 1)) 
+            if (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == '0' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'X' || cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'K' || (cub->map[(int)(monster->y - step_y)][(int)(monster->x - step_x)] == 'D' && cub->player->door_open == 1)) 
             {
                 ft_check_collision_monster(cub, monster, monster->x - step_x, monster->y - step_y);
                 if ((int)old_x != (int)monster->x)
