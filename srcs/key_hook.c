@@ -116,6 +116,7 @@ int	ft_loop_move(t_cub *cub)
 		ft_check_collision(cub, cub->player->x - cub->player->kick_x / 5, cub->player->y - cub->player->kick_y / 3);
 	ft_move(cub);
 	ft_keys_detection(cub);
+	ft_potions_detection(cub);
 	ft_doors_detection(cub);
 	ft_position_update(cub);
 	ft_print_view(cub);

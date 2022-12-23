@@ -29,6 +29,7 @@ SRC =	main.c					\
 			monster.c				\
 			doors.c					\
 			keys.c					\
+			potions.c				\
 
 NAME = Cub3D
 

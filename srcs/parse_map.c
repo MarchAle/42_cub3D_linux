@@ -17,7 +17,10 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 	static int	nb_player = 0;
 
 	if (c == 'P')
+	{
+		ft_lstadd_back_potion(&cub->potions, ft_lstnew_potion(x, y));
 		return ;
+	}
 	if (c == 'K')
 	{
 		ft_lstadd_back_key(&cub->keys, ft_lstnew_key(x, y));

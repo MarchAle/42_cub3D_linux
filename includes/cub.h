@@ -282,6 +282,15 @@ typedef struct s_key
 	struct s_key		*next;
 }	t_key;
 
+typedef struct s_potion
+{
+	int					id;
+	int					x;
+	int					y;
+	int					taken;
+	struct s_potion		*next;
+}	t_potion;
+
 typedef struct s_cub
 {
 	pthread_mutex_t			mutex;
@@ -313,6 +322,7 @@ typedef struct s_cub
 	struct s_door			*doors;
 	struct s_monster		*monsters;
 	struct s_key			*keys;
+	struct s_potion			*potions;
 	char					**map;
 	char					**monster_map;
 	int						minimap;
@@ -428,6 +438,8 @@ void	ft_doors_detection(t_cub *cub);
 
 void	ft_keys_detection(t_cub *cub);
 
+void	ft_potions_detection(t_cub *cub);
+
 long	ft_get_time(void);
 int		ft_exit(t_cub *cub);
 
@@ -450,5 +462,10 @@ t_key		*ft_lstnew_key(float x, float y);
 void		ft_lstadd_back_key(t_key **alst, t_key *new);
 t_key		*ft_lstlast_key(t_key *lst);
 void		ft_lstfree_key(t_key **lst);
+
+t_potion	*ft_lstnew_potion(float x, float y);
+void		ft_lstadd_back_potion(t_potion **alst, t_potion *new);
+t_potion	*ft_lstlast_potion(t_potion *lst);
+void		ft_lstfree_potion(t_potion **lst);
 
 #endif

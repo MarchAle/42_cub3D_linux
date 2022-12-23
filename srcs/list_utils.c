@@ -264,3 +264,64 @@ void	ft_lstfree_key(t_key **lst)
 	}
 	free(lst);
 }
+
+///////////// POTIONS
+
+t_potion	*ft_lstnew_potion(float x, float y)
+{
+	static int id = 0;
+	t_potion	*newlist;
+
+	newlist = malloc(sizeof(t_potion));
+	if (!newlist)
+		return (NULL);
+	newlist->id = id;
+	id++;
+	newlist->taken = 0;
+	newlist->x = x + 0.5;
+	newlist->y = y + 0.5;
+	newlist->next = NULL;
+	return (newlist);
+}
+
+void	ft_lstadd_back_potion(t_potion **alst, t_potion *new)
+{
+	t_potion	*last;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		last = ft_lstlast_potion(*alst);
+		last->next = new;
+	}
+}
+
+t_potion	*ft_lstlast_potion(t_potion *lst)
+{
+	t_potion	*temp;
+	t_potion	*actual;
+
+	temp = lst;
+	actual = lst;
+	while (temp)
+	{
+		actual = temp;
+		temp = temp->next;
+	}
+	return (actual);
+}
+
+void	ft_lstfree_potion(t_potion **lst)
+{
+	t_potion	*temp;
+
+	temp = *lst;
+	while (*lst)
+	{
+		*lst = temp->next;
+		free(temp);
+		temp = *lst;
+	}
+	free(lst);
+}
