@@ -273,6 +273,7 @@ typedef struct s_monster
 	int					id;
 	float				x;
 	float				y;
+	int					shot;
 	int					health;
 	int					follow;
 	struct s_monster	*next;

@@ -85,7 +85,10 @@ void    ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j)
             int pix_color;
 
             if (sprite->type == MONSTER)
+            {
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->sprite);
+                // is_monster_shot(cub, ray, j, pix_color, sprite);
+            }
             if (sprite->type == POTION)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->potion);
             if (sprite->type == KEY)

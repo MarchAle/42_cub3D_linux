@@ -1,5 +1,17 @@
 #include "../includes/cub.h"
 
+// void    is_monster_shot(t_cub *cub, t_ray *ray, int j, int pix_color, t_sprite *sprite)
+// {
+//     static col_pix = 0;
+//     static sum_color = 0;
+
+// // check pour chaque colonne de pixel, si une couleur a été retournée et que player->shoot et que if (ray->angle_player > -0.0005 && ray->angle_player < 0.0005) alors retrouver le monstre correspondant, celui ci est touché
+//     // if (j > WIN_HEIGHT - 5)
+//     // {
+//     //     if 
+//     // }
+// }
+
 void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
 {
 
@@ -8,8 +20,9 @@ void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
 
     while (monster)
     {
-        // if (ray->angle_player > -0.0005 && ray->angle_player < 0.0005)
         // MANAGE SHOOT HERE
+        if (ray->angle_player > -0.0005 && ray->angle_player < 0.0005)
+            monster->shot = 1;
         if ((int)monster->x == x && (int)monster->y == y)
         {
             ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(monster->x, monster->y, MONSTER, 0, 0));

@@ -155,6 +155,7 @@ t_monster	*ft_lstnew_monster(float x, float y)
 		return (NULL);
 	newlist->id = id;
 	id++;
+	newlist->shot = 0;
 	newlist->health = 100;
 	newlist->follow = 0;
 	newlist->x = x + 0.5;
