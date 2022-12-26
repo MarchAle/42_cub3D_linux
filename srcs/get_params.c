@@ -91,6 +91,14 @@ static int	ft_get_param_split_2(t_cub *cub, char **tmp_line)
 		ft_open_texture(cub->mdata->door);
 		return (1);
 	}
+	if (ft_strcmp(tmp_line[0], "door_locked") == 0)
+	{
+		if (cub->mdata->door_locked)
+			ft_error(INPUT_ERR);
+		cub->mdata->door_locked = ft_strtrim(tmp_line[1], "\n");
+		ft_open_texture(cub->mdata->door_locked);
+		return (1);
+	}
 	if (ft_strcmp(tmp_line[0], "key") == 0)
 	{
 		if (cub->mdata->key)

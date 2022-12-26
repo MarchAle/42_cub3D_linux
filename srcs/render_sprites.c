@@ -44,8 +44,6 @@ void    ft_sprites_calc(t_cub *cub, t_ray *ray)
 int ft_pix_color_calc_sprite(t_cub *cub, t_sprite *sprite, int j, t_texture *tex)
 {
 	int	color = 0;
-    // printf("%d\n", tex->height[0]);
-    // j %= tex->height[0];
 
     if (sprite->to_display == TRUE)
     {
@@ -55,6 +53,24 @@ int ft_pix_color_calc_sprite(t_cub *cub, t_sprite *sprite, int j, t_texture *tex
         color = ft_get_color_from_texture(tex, (int)(sprite->x_offset * tex->width[0]),	(int)sprite_offset_y);
     }
 	return (color);
+}
+
+int     get_door_color(t_cub *cub, t_sprite *sprite, int j)
+{
+	t_door *door = cub->doors;
+
+    while (door)
+    {
+        if (door->x == sprite->x && door->y == sprite->y)
+        {
+            if (door->locked == 1)
+                return (ft_pix_color_calc_sprite(cub, sprite, j, cub->door_locked));
+            else
+                return (ft_pix_color_calc_sprite(cub, sprite, j, cub->door));
+        }
+        door = door->next;
+    }
+    return (0);
 }
 
 void    ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j)
@@ -75,7 +91,7 @@ void    ft_render_sprites(t_cub *cub, t_ray *ray, int i, int j)
             if (sprite->type == KEY)
                 pix_color = ft_pix_color_calc_sprite(cub, sprite, j - (cub->key_vertical * sprite->height * 0.2), cub->key);
             if (sprite->type == DOOR)
-                pix_color = ft_pix_color_calc_sprite(cub, sprite, j, cub->door);
+                pix_color = get_door_color(cub, sprite, j);
             if (pix_color > 0 && sprite->dist <= mem_dist)
             {
                 if (cub->light == -1)

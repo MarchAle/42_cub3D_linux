@@ -96,6 +96,7 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	t_texture	*sprite;
 	t_texture	*flashlight;
 	t_texture	*door;
+	t_texture	*door_locked;
 	t_texture	*key;
 	t_texture	*potion;
 
@@ -104,15 +105,17 @@ void	ft_init_struct_floor_sky(t_cub *cub)
 	sprite = malloc(sizeof(t_texture));
 	flashlight = malloc(sizeof(t_texture));
 	door = malloc(sizeof(t_texture));
+	door_locked = malloc(sizeof(t_texture));
 	key = malloc(sizeof(t_texture));
 	potion = malloc(sizeof(t_texture));
-	if (!sky || !floor || !sprite || !flashlight || !door || !key || !potion)
+	if (!sky || !floor || !sprite || !flashlight || !door || !door_locked || !key || !potion)
 		ft_error(MALLOC);
 	cub->sky = sky;
 	cub->floor = floor;
 	cub->sprite = sprite;
 	cub->flashlight = flashlight;
 	cub->door = door;
+	cub->door_locked = door_locked;
 	cub->key = key;
 	cub->potion = potion;
 }
@@ -139,6 +142,7 @@ void	ft_init_struct(t_cub *cub)
 	cub->mdata->floor = NULL;
 	cub->mdata->sprite = NULL;
 	cub->mdata->door = NULL;
+	cub->mdata->door_locked = NULL;
 	cub->mdata->key = NULL;
 	cub->mdata->potion = NULL;
 	cub->mdata->f = NULL;

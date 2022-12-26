@@ -8,8 +8,12 @@ void    monster_position(t_cub *cub, t_ray *ray, int x, int y)
 
     while (monster)
     {
+        // if (ray->angle_player > -0.0005 && ray->angle_player < 0.0005)
+        // MANAGE SHOOT HERE
         if ((int)monster->x == x && (int)monster->y == y)
+        {
             ft_lstadd_back_sprite(&ray->sprites, ft_lstnew_sprite(monster->x, monster->y, MONSTER, 0, 0));
+        }
         monster = monster->next;
     }
     pthread_mutex_unlock(&cub->mutex);
@@ -58,6 +62,7 @@ void	print_map(t_cub *cub)
 void    ft_move_monster(t_cub *cub)
 {
     t_monster   *monster = cub->monsters;
+
     while (monster)
     {
         float   old_x = monster->x;

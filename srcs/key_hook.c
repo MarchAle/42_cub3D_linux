@@ -37,6 +37,8 @@ int	key_hook_down(int keycode, t_cub *cub)
 		cub->move->angle_r = 1;
 	if (keycode == 32)
 		cub->step = STEP * 1.3;
+	if (keycode == 65513)
+		cub->player->use_key = 1;
 	return (0);
 }
 
@@ -56,6 +58,8 @@ int	key_hook_up(int keycode, t_cub *cub)
 		cub->move->angle_r = 0;
 	if (keycode == 32)
 		cub->step = STEP;
+	if (keycode == 65513)
+		cub->player->use_key = 0;
 	return (0);
 }
 
@@ -109,6 +113,7 @@ int	ft_loop_move(t_cub *cub)
 		printf("YOU DIED !\n");
 		ft_exit(cub);
 	}
+	ft_doors_detection(cub);
 	if (cub->player->last_hit > 0)
 		cub->player->last_hit--;
 	ft_move_monster(cub);
@@ -117,13 +122,18 @@ int	ft_loop_move(t_cub *cub)
 	ft_move(cub);
 	ft_keys_detection(cub);
 	ft_potions_detection(cub);
-	ft_doors_detection(cub);
 	ft_position_update(cub);
 	ft_print_view(cub);
 	mlx_string_put(cub->mlx->mlx, cub->mlx->win,
 		30, 50, 0x934d1d, "press space to run");
 	mlx_string_put(cub->mlx->mlx, cub->mlx->win,
 		30, 70, 0x934d1d, "press M for minimap");
+	if (cub->player->keys > 1)
+	{
+		char *nb_of_key = ft_itoa(cub->player->keys);
+		mlx_string_put(cub->mlx->mlx, cub->mlx->win, 68, WIN_HEIGHT - 0.08 * WIN_HEIGHT - 115, 0x934d1d, nb_of_key);
+		free(nb_of_key);
+	}
 	ft_fps(cub);
 	pthread_join(thread, NULL);
 	return (0);

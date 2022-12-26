@@ -77,6 +77,33 @@ void    ft_health_bar(t_cub *cub)
     }
 }
 
+void	ft_hud(t_cub *cub)
+{
+	if (cub->player->keys > 0)
+	{
+		int offset_x = 60;
+		int offset_y = WIN_HEIGHT - 0.08 * WIN_HEIGHT - 130;
+		int x = 0;
+		int y;
+		while (x < 120)
+		{
+			y = 0;
+			while (y < 120)
+			{
+				if (x < 3 || x >= 117 || y < 3 || y >= 117)
+					my_mlx_pixel_put(cub->img, x + offset_x, y + offset_y, 0x4F4444);
+				else
+				{
+					int pix_color = ft_get_color_from_texture(cub->key, (float)x / 120 * cub->key->width[0] * 0.6 + 85, (float)y / 120 * cub->key->height[0] * 0.6 + 35);
+					my_mlx_pixel_put(cub->img, x + offset_x, y + offset_y, pix_color);
+				}
+				y++;
+			}
+			x++;
+		}
+	}
+}
+
 void	*routine_one(void *data)
 {
 	t_thread *thread = data;
@@ -211,6 +238,7 @@ void	ft_print_view(t_cub *cub)
 	pthread_join(cub->thread_two->thread, NULL);
 	pthread_join(cub->thread_one->thread, NULL);
     ft_health_bar(cub);
+	ft_hud(cub);
 	if (cub->minimap == TRUE)
 		ft_mini_map(cub);
 	if (cub->blur == TRUE)

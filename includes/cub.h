@@ -39,6 +39,7 @@
 # define OPEN_SPEED 0.05
 # define MONSTER_STEP 0.05
 # define HEALTH 150
+# define HEAL 35
 # define NO_HIT_TIME 20
 # define KICK 0.25
 # define BOUNCE_SPEED 0.05
@@ -117,6 +118,7 @@ typedef struct s_mdata
 	char	*sprite;
 	char	*flashlight;
 	char	*door;
+	char	*door_locked;
 	char	*key;
 	char	*potion;
 	char	**c;
@@ -156,6 +158,8 @@ typedef struct s_ray
 typedef struct s_player
 {
 	int		keys;
+	int		use_key;
+	int		shoot;
 	float	dist;
 	char	direction;
 	float	orient;
@@ -251,6 +255,7 @@ typedef struct s_calc
 typedef struct s_door
 {
 	int				id;
+	int				locked;
 	int				x;
 	float			x_min;
 	float			x_max;
@@ -306,6 +311,7 @@ typedef struct s_cub
 	struct s_texture		*sprite;
 	struct s_texture		*flashlight;
 	struct s_texture		*door;
+	struct s_texture		*door_locked;
 	struct s_texture		*key;
 	struct s_texture		*potion;
 	struct s_render_param	*sky_p;

@@ -56,8 +56,22 @@ void	ft_wall_gap_y_monster(t_monster *monster, float y)
 		monster->y = y;
 }
 
+float	dist_monster_to_monster(float monster_x, float monster_y, t_monster *other_monster)
+{
+	float dist = sqrtf(powf(monster_x - other_monster->x, 2) + powf(monster_y - other_monster->y, 2)); 
+	return (dist);
+}
+
 void	ft_check_collision_monster(t_cub *cub, t_monster *monster, float x, float y)
 {
+	t_monster   *other_monster = cub->monsters;
+
+    while (other_monster)
+    {
+		if ((dist_monster_to_monster(x, y, other_monster) < 0.2 && monster->id != other_monster->id) || dist_monster_to_monster(cub->player->x, cub->player->y, monster) < 0.2)
+			return ;
+		other_monster = other_monster->next;
+	}
 	if ((cub->map[(int)floor(monster->y)][(int)floor(x)] != '1' && cub->map[(int)floor(monster->y)][(int)floor(x)] != 'D') || (cub->map[(int)floor(monster->y)][(int)floor(x)] == 'D' && cub->player->door_open == 1))
 		ft_move_x_monster(cub, monster, x);
 	else

@@ -41,6 +41,8 @@ void	ft_check_char(char c, int x, int y, t_cub *cub)
 	else
 	{
 		cub->player->keys = 0;
+		cub->player->use_key = 0;
+		cub->player->shoot = 0;
 		cub->player->health = HEALTH;
 		cub->player->last_hit = 0;
 		cub->player->direction = c;

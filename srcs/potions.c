@@ -11,11 +11,13 @@ void	ft_potions_detection(t_cub *cub)
 		{
 			cub->map[potion->y][potion->x] = 'P';
 		}
-        if (potion->x == (int)cub->player->x && potion->y == (int)cub->player->y && potion->taken == 0)
+        if (potion->x == (int)cub->player->x && potion->y == (int)cub->player->y && potion->taken == 0 && cub->player->health < HEALTH)
         {
             cub->map[potion->y][potion->x] = '0';
             potion->taken = 1;
-            cub->player->health += 20;
+            cub->player->health += HEAL;
+            if (cub->player->health > HEALTH)
+                cub->player->health = HEALTH;
         }
 		potion = potion->next;
 	}

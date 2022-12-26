@@ -87,6 +87,7 @@ t_door	*ft_lstnew_door(int x, int y)
 		return (NULL);
 	newlist->id = id;
 	id++;
+	newlist->locked = 1;
 	newlist->x = x;
 	newlist->x_min = x + 0.5 - DOOR_DIST;
 	newlist->x_max = x + 0.5 + DOOR_DIST;

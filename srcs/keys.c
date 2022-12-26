@@ -11,7 +11,7 @@ void	ft_keys_detection(t_cub *cub)
 		{
 			cub->map[key->y][key->x] = 'K';
 		}
-        if (key->x == (int)cub->player->x && key->y == (int)cub->player->y)
+        if (key->x == (int)cub->player->x && key->y == (int)cub->player->y && key->taken == 0)
         {
             cub->map[key->y][key->x] = '0';
             key->taken = 1;
