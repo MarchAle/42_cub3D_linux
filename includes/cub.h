@@ -335,6 +335,7 @@ typedef struct s_cub
 	int						minimap;
 	int						blur;
 	int						light;
+	float					light_intens;
 	float					step;
 	int						frames;
 	char					*fps;

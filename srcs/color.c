@@ -54,7 +54,8 @@ float	ft_flashlight(t_cub *cub, float dist, int i, int j, int object)
 		corrected_dist -= corrected_dist * 0.75;
 	else
 		corrected_dist -= corrected_dist * (1.125 - 3.75 * vignet);
-	return (corrected_dist);
+	return (corrected_dist * cub->light_intens);
+	(void)object;
 }
 
 int	ft_shade_color(int pix_color, float dist)

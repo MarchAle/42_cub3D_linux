@@ -23,6 +23,10 @@ int	key_hook_down(int keycode, t_cub *cub)
 		cub->blur *= -1;
 	if (keycode == 108)
 		cub->light *= -1;
+	if (keycode == 65451)
+		cub->light_intens += 0.1;
+	if (keycode == 65453)
+		cub->light_intens -= 0.1;
 	if (keycode == 122)
 		cub->move->front = 1;
 	if (keycode == 115)
